@@ -9,5 +9,6 @@ namespace Backend {
 
         String contenido;
         String otraLinea = "de texto";
+        String otraLinea1 = "de texto";
     }
 }
