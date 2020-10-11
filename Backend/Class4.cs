@@ -8,5 +8,6 @@ namespace Backend {
     class Class4 {
 
         String contenido;
+        String otraLinea = "de texto";
     }
 }
