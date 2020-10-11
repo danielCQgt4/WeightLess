@@ -1,48 +1,63 @@
-body{
+body {
     margin: 0px;
     padding: 0px;
-
-    
     /* background-image: url(assets/images/imgExercice.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-     */ 
+     */
 }
 /* NavBar */
 
-.btnWL{
+.btnWL {
     border-color: #E64A19;
     color: #E64A19;
 }
-.btnWL:hover {
-    color: #fff;
-    background-color: #E64A19;
-    text-decoration: none;
-}
+
+    .btnWL:hover {
+        color: #fff;
+        background-color: #E64A19;
+        text-decoration: none;
+    }
+
 .navbar-dark .navbar-toggler {
     color: rgb(246 0 0 / 50%);
     border-color: #E64A19;
 }
-.bg-ColorWL{
-    background-color: #161616!important;
+
+.bg-ColorWL {
+    background-color: #161616 !important;
 }
-.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+
+.navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
     color: #E64A19;
 }
+
 .navbar-dark .navbar-nav .nav-link {
     color: #fff;
 }
-.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
-    color: #E64A19;
-}
+
+    .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+        color: #E64A19;
+    }
 
 /* PrimerTexto */
-.containerText1{
+.containerText1 {
+    background-image: url(../../Public/images/imgExercice.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 10%;
+    /*background-attachment: fixed;*/
     height: 400px;
 }
 
-.text1{
+@media screen and (min-width: 900px) {
+    .containerText1 {
+        height: 500px;
+    }
+}
+
+.text1 {
     color: #fff;
     text-align: center;
     margin-top: 300px;
@@ -50,11 +65,11 @@ body{
 }
 
 /* SegundoTexto */
-.containerText2{
+.containerText2 {
     height: auto;
 }
 
-.text2{
+.text2 {
     color: #fff;
     text-align: center;
     position: absolute;
@@ -64,7 +79,7 @@ body{
     width: 500px;
 }
 
-.bloqueNegro{
+.bloqueNegro {
     background-color: #161616;
     width: 100%;
     height: 350px;
@@ -74,29 +89,29 @@ body{
 
 
 /* Thumbnail  */
-.containerThumbnail{
-    margin-top: 200px; 
+.containerThumbnail {
+    margin-top: 200px;
     height: 400px;
     z-index: 2;
 }
 
-.col-md-4{
+.col-md-4 {
     z-index: 2;
 }
 
-.ThumbnailImg{
+.ThumbnailImg {
     width: 400px;
     height: 300px;
 }
 
 /* Footer */
-.footer{
+.footer {
     background-color: #E64A19;
     width: 100%;
     height: 200px;
 }
 
-.text3{
+.text3 {
     text-align: center;
     color: #fff;
     margin-top: 20px;
@@ -105,7 +120,7 @@ body{
 }
 
 /* Login */
-.containerLogin{
+.containerLogin {
     width: 400px;
     display: none;
     position: absolute;
@@ -116,17 +131,17 @@ body{
     margin: 10px;
 }
 
-.btn-info{
+.btn-info {
     background-color: #E64A19;
-    border-color: #E64A19 ;
+    border-color: #E64A19;
 }
 
-.btn-info:hover{
-    background-color: #cf3000;
-    border-color: #E64A19 ;
-}
+    .btn-info:hover {
+        background-color: #cf3000;
+        border-color: #E64A19;
+    }
 
-.imp{
+.imp {
     border-radius: 0px;
     border: none;
     border-bottom: 2px solid #E64A19;
@@ -134,7 +149,7 @@ body{
 
 
 /* Machines */
-.containerMachines{
+.containerMachines {
     background-image: url(assets/images/machines.jpg);
     background-position: center center;
     background-repeat: no-repeat;
@@ -152,30 +167,28 @@ body{
     display: block;
 }
 
-.card-img, .card-img-bottom, .card-img-top{
+.card-img, .card-img-bottom, .card-img-top {
     margin: auto;
 }
 
 
-.imgQR{
+.imgQR {
     width: 100px;
     height: 100px;
 }
 
 
 /* Users */
-.linkUsers{
+.linkUsers {
     color: #E64A19;
 }
 
-.linkUsers:hover{
-    color: #E64A19;
-}
+    .linkUsers:hover {
+        color: #E64A19;
+    }
 
 /* Asistencia */
 .bg-info {
-    background-color: #E64A19!important;
+    background-color: #E64A19 !important;
     color: #fff;
 }
-
- 

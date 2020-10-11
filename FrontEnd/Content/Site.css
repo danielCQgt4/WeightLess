@@ -22,3 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+    /*Estilo Personalizado*/
+
+    input:focus, input[type=text], button:focus, textarea:focus, .custom-select:focus, a:focus, a:active {
+        outline: 0 none !important;
+        box-shadow: none !important;
+    }
+
+.btn:focus {
+    box-shadow: none !important;
+}
+
+.no-select {
+    user-select: none;
+}

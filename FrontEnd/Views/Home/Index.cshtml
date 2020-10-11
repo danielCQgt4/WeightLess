@@ -1,18 +1,28 @@
-﻿<!-- Login -->
+﻿@model FrontEnd.Models.LogInViewModel
+
+<!-- Login -->
 <div class="container containerLogin" id="login">
-    <form>
+    <form action="/Home/Login" method="post">
         <div class="form-group">
-            <input type="email" class="form-control imp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo Electronico">
+            <!--input type="email" class="form-control imp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo Electronico"-->
+            @Html.TextBoxFor(model => model.Correo, new { @class = "form-control imp", placeholder = "Correo", maxlength = 50, tabindex = 1 })
+            @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            <input type="password" class="form-control imp" id="exampleInputPassword1" placeholder="Contraseña">
+            <!--input type="password" class="form-control imp" id="exampleInputPassword1" placeholder="Contraseña"-->
+            @Html.PasswordFor(model => model.Clave, new { @class = "form-control imp", placeholder = "Contraseña", maxlength = 50, tabindex = 2 })
+            @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.Recordarme, htmlAttributes: new { tabindex = 3 })
+            @Html.LabelFor(model => model.Recordarme)
         </div>
         <button type="submit" class="btn btn-info">Iniciar Sesión</button>
     </form>
 </div>
 
 
-<div class="container containerText1">
+<div class="containerText1">
     <div class="d-flex justify-content-center">
         <h1 class="text1">Ofrecemos una gran cantidad de actividades</h1>
     </div>
@@ -20,8 +30,8 @@
 
 <div class="containerText2">
     <div class="container">
-        <div class="d-flex justify-content-center">
-            <p class="text2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere nisi totam nam eaque repellendus officia enim praesentium rem, error dolorem facilis? Quasi iste assumenda eaque porro soluta exercitationem tenetur non.</p>
+        <div class="d-flex justify-content-center w-100">
+            <p class="text2 mt-4 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere nisi totam nam eaque repellendus officia enim praesentium rem, error dolorem facilis? Quasi iste assumenda eaque porro soluta exercitationem tenetur non.</p>
         </div>
     </div>
 
@@ -72,6 +82,11 @@
 
 <script>
     function myFunction() {
-        document.getElementById("login").style.display = "block";
+        var formDisp = document.getElementById("login").style.display;
+        document.getElementById("login").style.display = (formDisp == "block") ? "none" : "block";
     }
 </script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
