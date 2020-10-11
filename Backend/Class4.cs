@@ -6,5 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend {
     class Class4 {
+
+        String contenido;
     }
 }
