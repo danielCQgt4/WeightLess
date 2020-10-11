@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    class Class6
+    public class Class6
     {
+          string   qwer = "qwer";
     }
 }
