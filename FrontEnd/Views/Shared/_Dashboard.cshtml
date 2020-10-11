@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Public/css/css.css" rel="stylesheet" />
+    <link href="~/Public/css/simple-sidebar.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- NavBar -->
+    <!-- #region -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-ColorWL">
+        <a class="navbar-brand" href="Inicio.html">
+            <img src="~/PUblic/images/icon.png" width="40" height="40" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+            <button class="btn btnWL ml-auto" type="submit">Cerrar Sesión</button>
+        </div>
+    </nav>
+    <!-- #endregion -->
+    <!-- SlideBar -->
+    <!-- #region -->
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+            </div>
+            <div class="p-4 pt-5">
+                <img class="imgUser mb-4" src="~/Public/images/user.jpg">
+                <ul class="list-unstyled components mb-5">
+                    <li><a href="Users.html">Usuarios</a></li>
+                    <li><a href="AddTips.html">Admin Consejos</a></li>
+                    <li><a href="Tips.html">Consejos</a></li>
+                    <li><a href="AssistanceAdmin.html">Admin Asistencia</a></li>
+                    <li><a href="MyAssistance.html">Mi Asistencia</a></li>
+                    <li><a href="Assistance.html">Asistencia QR</a></li>
+                    <li><a href="Machines.html">Actividades</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- #endregion -->
+        <!-- Contenido del SlideBar  -->
+        <div id="content" class="p-4 p-md-5 pt-5">
+            @RenderBody()
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        (function ($) {
+
+            "use strict";
+
+            var fullHeight = function () {
+
+                $('.js-fullheight').css('height', $(window).height());
+                $(window).resize(function () {
+                    $('.js-fullheight').css('height', $(window).height());
+                });
+
+            };
+            fullHeight();
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+        })(jQuery);
+    </script>
+
+</body>
+</html>

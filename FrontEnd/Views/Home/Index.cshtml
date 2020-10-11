@@ -1,31 +1,77 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿<!-- Login -->
+<div class="container containerLogin" id="login">
+    <form>
+        <div class="form-group">
+            <input type="email" class="form-control imp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo Electronico">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control imp" id="exampleInputPassword1" placeholder="Contraseña">
+        </div>
+        <button type="submit" class="btn btn-info">Iniciar Sesión</button>
+    </form>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+<div class="container containerText1">
+    <div class="d-flex justify-content-center">
+        <h1 class="text1">Ofrecemos una gran cantidad de actividades</h1>
     </div>
 </div>
+
+<div class="containerText2">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <p class="text2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere nisi totam nam eaque repellendus officia enim praesentium rem, error dolorem facilis? Quasi iste assumenda eaque porro soluta exercitationem tenetur non.</p>
+        </div>
+    </div>
+
+    <div class="bloqueNegro">
+
+    </div>
+</div>
+
+
+<div class="container containerThumbnail">
+
+    <div class="row text-center text-lg-left">
+
+        <div class="col-lg-4 col-md-4 col-4">
+            <a href="#" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail ThumbnailImg" src="~/Public/images/imgExample1.jpg" alt="">
+                <figcaption class="figure-caption">Lorem ipsum</figcaption>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-4">
+            <a href="#" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail ThumbnailImg" src="~/Public/images/imgExample2.jpg" alt="">
+                <figcaption class="figure-caption">Lorem ipsum</figcaption>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-4">
+            <a href="#" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail ThumbnailImg" src="~/Public/images/imgExample3.jpg" alt="">
+                <figcaption class="figure-caption">Lorem ipsum</figcaption>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="footer">
+    <div class="d-flex justify-content-end">
+        <div class="text3">
+            <h4 class="">Lorem ipsum dolor sit amet consectetur</h4>
+            <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere nisi totam nam eaque repellendus officia enim praesentium rem</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        document.getElementById("login").style.display = "block";
+    }
+</script>
