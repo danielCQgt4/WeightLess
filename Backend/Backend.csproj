@@ -31,8 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,8 +53,74 @@
     <Compile Include="DAL\DALGenericImpl.cs" />
     <Compile Include="DAL\IDALGeneric.cs" />
     <Compile Include="DAL\UnitWork.cs" />
+    <Compile Include="Entity\Activity.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Activity_Assitance.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Assistance.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Publication.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Publication_Activity.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sysdiagrams.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\User.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserDataHistory.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\WeightLessModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeightLessModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\WeightLessModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\WeightLessModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeightLessModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Entity\WeightLessModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WeightLessModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Entity\WeightLessModel.edmx.diagram">
+      <DependentUpon>WeightLessModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entity\WeightLessModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WeightLessModel.Context.cs</LastGenOutput>
+      <DependentUpon>WeightLessModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entity\WeightLessModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WeightLessModel.edmx</DependentUpon>
+      <LastGenOutput>WeightLessModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
