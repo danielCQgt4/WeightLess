@@ -6,6 +6,8 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Public/css/css.css" rel="stylesheet" />
     <link href="~/Public/css/simple-sidebar.css" rel="stylesheet" />
+    <!-- ICONIFY -->
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 </head>
 <body>
 
@@ -41,7 +43,9 @@
             <div class="p-4 pt-5">
                 <img class="imgUser mb-4" src="~/Public/images/user.jpg">
                 <ul class="list-unstyled components mb-5">
-                    <li><a href="Users.html">Usuarios</a></li>
+                    <li>
+                        <a href="~/User">Usuarios</a>
+                    </li>
                     <li><a href="AddTips.html">Admin Consejos</a></li>
                     <li><a href="Tips.html">Consejos</a></li>
                     <li><a href="AssistanceAdmin.html">Admin Asistencia</a></li>
@@ -83,6 +87,10 @@
 
         })(jQuery);
     </script>
-
+    <style>
+        .table td {
+            vertical-align: middle !important;
+        }
+    </style>
 </body>
 </html>

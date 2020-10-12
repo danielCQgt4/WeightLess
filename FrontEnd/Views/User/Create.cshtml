@@ -1,0 +1,127 @@
+﻿@model FrontEnd.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2 class="mb-4">Agregar Usuario</h2>
+
+<!--TEMP-->
+@if(ViewBag.create != null) {
+    if(ViewBag.create) {
+        <div class="alert alert-success" role="alert">
+            Usuario creado con éxito!
+        </div>
+    }
+    if(!ViewBag.create) {
+        <div class="alert alert-danger" role="alert">
+            Error al crear usuario!
+        </div>
+    }
+}
+<!--TEMP-->
+
+@using(Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.dni)
+            @Html.EditorFor(model => model.dni, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cédula" } })
+            @Html.ValidationMessageFor(model => model.dni, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.name)
+            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
+            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.lastName)
+            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Apellidos" } })
+            @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.email)
+            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Correo" } })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.password)
+            @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = "Contraseña" })
+            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.rol)
+            <select id="select-type" name="rol" class="form-control">
+                <option disabled selected>Elegir...</option>
+                <option value="A">Administrador</option>
+                <option value="E">Entrenador</option>
+                <option value="C">Cliente</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.rol, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4" id="weight-lbl">
+            @Html.LabelFor(model => model.weight)
+            @Html.EditorFor(model => model.weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Peso" } })
+            @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4" id="height-lbl">
+            @Html.LabelFor(model => model.height)
+            @Html.EditorFor(model => model.height, new { htmlAttributes = new { @class = "form-control", @placeholder = "Altura" } })
+            @Html.ValidationMessageFor(model => model.height, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="d-flex">
+        <div class="mr-2">
+            <a href="~/User" class="btn btn-info">Ir atrás</a>
+        </div>
+        <div>
+            <input type="submit" value="Añadir" class="btn btn-info" />
+        </div>
+    </div>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    (() => {
+        const selectType = document.getElementById('select-type');
+        const h = document.getElementById('height-lbl');
+        const w = document.getElementById('weight-lbl');
+        const hIn = document.getElementById('height');
+        const wIn = document.getElementById('weight');
+
+        if (selectType) {
+            const calcByType = () => {
+                switch (selectType.value) {
+                    case 'A':
+                    case 'E':
+                        h.style.display = 'none';
+                        w.style.display = 'none';
+                        hIn.value = 10;
+                        wIn.value = 10;
+                        break;
+                    case 'C':
+                        h.style.display = '';
+                        w.style.display = '';
+                        break;
+                }
+            };
+
+            selectType.addEventListener('change', calcByType);
+
+            calcByType();
+        }
+    })();
+</script>
