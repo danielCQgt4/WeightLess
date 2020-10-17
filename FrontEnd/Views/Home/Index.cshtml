@@ -2,7 +2,7 @@
 
 <!-- Login -->
 <div class="container containerLogin" id="login">
-    <form action="/Home/Login" method="post">
+    <form action="/Home/Index" method="post">
         <div class="form-group">
             <!--input type="email" class="form-control imp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo Electronico"-->
             @Html.TextBoxFor(model => model.Correo, new { @class = "form-control imp", placeholder = "Correo", maxlength = 50, tabindex = 1 })

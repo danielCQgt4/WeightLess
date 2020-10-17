@@ -52,7 +52,9 @@
   <ItemGroup>
     <Compile Include="DAL\DALGenericImpl.cs" />
     <Compile Include="DAL\IDALGeneric.cs" />
+    <Compile Include="DAL\IUserDAL.cs" />
     <Compile Include="DAL\UnitWork.cs" />
+    <Compile Include="DAL\UserDALImp.cs" />
     <Compile Include="Entity\Activity.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
@@ -75,6 +77,9 @@
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\UserDataHistory.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\validate_login_Result.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\WeightLessModel.Context.cs">

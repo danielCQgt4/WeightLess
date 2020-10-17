@@ -10,15 +10,18 @@
 namespace Backend.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Publication_Activity
+    public partial class validate_login_Result
     {
-        public int idPublication { get; set; }
-        public int idActivity { get; set; }
-        public string description { get; set; }
-    
-        public virtual Activity Activity { get; set; }
-        public virtual Publication Publication { get; set; }
+        public int idUser { get; set; }
+        public string dni { get; set; }
+        public string name { get; set; }
+        public string lastName { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string rol { get; set; }
+        public decimal height { get; set; }
+        public decimal weight { get; set; }
+        public bool active { get; set; }
     }
 }

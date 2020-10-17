@@ -5,8 +5,8 @@ using System.Web;
 
 namespace FrontEnd.Models {
     public enum Role {
-        Admin = 1,
-        Entrenador = 2,
-        Cliente = 3,
+        A = 1,
+        E = 2,
+        C = 3,
     }
 }
