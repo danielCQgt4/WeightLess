@@ -69,9 +69,8 @@ namespace FrontEnd.Controllers {
 
         public ActionResult Edit(int id) {
             User us;
-            using (var u = new UnitWork<User>()) {
-                us = u.genericDAL.Get(id);
-            }
+            UserDALImp imp = new UserDALImp();
+            us = imp.Get_User(id);
             us.password = "";
             return View(UserViewModel.Converter(us));
         }
@@ -96,9 +95,8 @@ namespace FrontEnd.Controllers {
 
         public ActionResult Details(int id) {
             User us;
-            using (var u = new UnitWork<User>()) {
-                us = u.genericDAL.Get(id);
-            }
+            UserDALImp imp = new UserDALImp();
+            us = imp.Get_User(id);
             return View(UserViewModel.Converter(us));
         }
 

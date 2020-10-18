@@ -2,88 +2,92 @@
 
     @{ Layout = "~/Views/Shared/_Dashboard.cshtml"; }
 
-    <div class="p-4 p-md-5 pt-5">
+    <div class="p-2 p-md-5 pt-5">
         <!--MSG-->
         @if(ViewBag.status != null) {
             if(ViewBag.status) {
-                <div class="alert alert-success" role="alert">
-                    @ViewBag.msg
-                </div>
+        <div class="alert alert-success" role="alert">
+            @ViewBag.msg
+        </div>
             }
             if(!ViewBag.status) {
-                <div class="alert alert-danger" role="alert">
-                    @ViewBag.msg
-                </div>
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.msg
+        </div>
             }
         }
+
+
 
         <h2 class="mb-4">Usuarios</h2>
 
         <a href="~/User/Create" class="btn btn-info mb-3" style="color: #fff;">Nuevo Usuario</a>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dni)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.lastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.email)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.rol)
-                    </th>
-                    <th>
-                        Estado
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+        <div style="overflow-x:auto;">
 
-            <tbody>
-                @foreach (var item in Model)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dni)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.lastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.rol)
+                        </th>
+                        <th>
+                            Estado
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dni)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.lastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.rol)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("CtrUser", new { idUser = item.idUser, active = item.active})" class="btn btnWL">@(item.active?"Desactivar":"Activar")</a>
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", new { id = item.idUser})" class="linkUsers">
-                            Editar
-                        </a>
-                        |
-                        <a href="@Url.Action("Details", new { id = item.idUser})" class="linkUsers">
-                            Detalles
-                        </a>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dni)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.rol)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("CtrUser", new { idUser = item.idUser, active = item.active})" class="btn btnWL">@(item.active?"Desactivar":"Activar")</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.idUser})" class="linkUsers">
+                                Editar
+                            </a>
+                            |
+                            <a href="@Url.Action("Details", new { id = item.idUser})" class="linkUsers">
+                                Detalles
+                            </a>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 }
-            </tbody>
+                </tbody>
 
-        </table>
-
+            </table>
+        </div>
 
     </div>
     @if (ViewBag.done != null)

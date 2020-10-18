@@ -21,12 +21,12 @@ namespace FrontEnd.Models {
 
         [Required]
         [StringLength(75)]
-        [DisplayName("Nombre del Usuario")]
+        [DisplayName("Nombre")]
         public string name { get; set; }
 
         [Required]
         [StringLength(75)]
-        [DisplayName("Apellido del Usuario")]
+        [DisplayName("Apellido")]
         public string lastName { get; set; }
 
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Correo inválido.")]

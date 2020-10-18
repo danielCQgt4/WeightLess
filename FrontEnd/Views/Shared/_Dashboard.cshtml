@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>WeightLess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Public/css/css.css" rel="stylesheet" />
@@ -19,16 +20,12 @@
 
     <!-- NavBar -->
     <!-- #region -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-ColorWL">
-        <a class="navbar-brand" href="Inicio.html">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-ColorWL d-flex">
+        <a class="navbar-brand mr-auto" href="~/Home/Index">
             <img src="~/PUblic/images/icon.png" width="40" height="40" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+        <div class="d-flex ml-auto" id="navbarSupportedContent">
             <a href="@Url.Action("LogOut","Home")" class="btn btnWL ml-auto">
                 Cerrar Sesión
             </a>
