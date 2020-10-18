@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@Page.Title</title>
+    <title>WeightLess</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Public/css/css.css" rel="stylesheet" />
@@ -63,8 +63,8 @@
                         <li><a href="Machines.html">Actividades</a></li>
                     }
                     @if (esCliente) {
-                        <li><a href="MyAssistance.html">Mi Asistencia</a></li>
-                        <li><a href="Assistance.html">Asistencia QR</a></li>
+                        <li><a href="~/Assistance/UserAssistance">Mi Asistencia</a></li>
+                        <li><a href="@Url.Action("CerrarSesion","Inicio")">Asistencia QR</a></li>
                         <li><a href="Tips.html">Consejos</a></li>
                     }
                 </ul>
