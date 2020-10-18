@@ -35,7 +35,7 @@ namespace Backend.DAL {
                 email = Security.Security.EncryptString(key, email);
                 password = Security.Security.EncryptString(key, password);
                 using (context = new DBContext()) {
-                    user = context.validate_login(email, password);
+                    user = context.validate_login(email, password).FirstOrDefault();
                 }
                 if (user != null) {
                     user.password = null;
