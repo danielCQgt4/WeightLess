@@ -10,8 +10,24 @@ using System.Web.Security;
 
 namespace FrontEnd.Controllers {
     public class HomeController : Controller {
+        
         public ActionResult Index() {
-            return View();
+            if (Request.IsAuthenticated) {
+
+                IUserDAL us = new UserDALImp();
+                User user = us.Get_User(Convert.ToInt32(HttpContext.User.Identity.Name));
+
+                if (!user.active) {
+                    //ViewBag.Desactivado = true;
+                    return View();
+                } else {
+                    Session["User"] = UserViewModel.Converter(user);
+                    return RedirectToAction("TestDash");
+                }
+
+            } else {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -24,10 +40,10 @@ namespace FrontEnd.Controllers {
                     User user = us.Validate_LogIn(loginM.Correo, loginM.Clave);
 
                     if (user == null) {
-                        //ViewBag.DatosIncorrectos = true;
+                        ViewBag.WrongCredentials = true;
                         return View(loginM);
                     } else if (!user.active) {
-                        //ViewBag.Desactivado = true;
+                        ViewBag.Inactive = true;
                         return View(loginM);
                     } else {
 
@@ -46,7 +62,7 @@ namespace FrontEnd.Controllers {
                         }
                         Response.Cookies.Add(cookie);
 
-                        //Session["Nombre"] = user.Nombre;
+                        Session["User"] = UserViewModel.Converter(user);
 
                         return RedirectToAction("TestDash");
                     }
@@ -58,7 +74,7 @@ namespace FrontEnd.Controllers {
             }
         }
 
-        //[AuthorizeRole(Role.C, Role.A)]
+        [AuthorizeRole(Role.C, Role.A, Role.E)]
         public ActionResult TestDash() {
             return View();
         }

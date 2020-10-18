@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "UserAssistance";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="p-4 p-md-5 pt-5">
+    <h2 class="mb-4">Mi Asistencia</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Cal Quemadas</th>
+                <th scope="col">Tiempo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">01/01/2020</th>
+                <td>XX.XX</td>
+                <td>40 min</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = item.idUser})" class="linkUsers">
+                        Más Información
+                    </a>
+                </td>
+            </tr>          
+        </tbody>
+    </table>
+</div>
+

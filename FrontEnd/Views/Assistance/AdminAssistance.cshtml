@@ -1,0 +1,83 @@
+﻿@model IEnumerable<FrontEnd.Models.AssistanceViewModel>
+    @{
+    ViewBag.Title = "AdminAssistance";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    }
+
+    <div class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Usuarios</h2>
+
+        <div class="input-group mb-4 col-md-4">
+            <input type="text" class="form-control" placeholder="Cédula" aria-label="Recipient's username"
+                   aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        dni
+                        @*@Html.DisplayNameFor(model => model.dni)*@
+                    </th>
+                    <th>
+                        date
+                        @*@Html.DisplayNameFor(model => model.date)*@
+                    </th>
+                    <th>
+                        time
+                        @*@Html.DisplayNameFor(model => model.time)*@
+                    </th>
+                    <th>
+                        name
+                        @*@Html.DisplayNameFor(model => model.name)*@
+                    </th>
+                    <th>
+                        last
+                        @*@Html.DisplayNameFor(model => model.lastName)*@
+                    </th>
+                    <th>
+                        active
+                        @*@Html.DisplayNameFor(model => model.active)*@
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        12341234
+                        @*@Html.DisplayFor(modelItem => item.dni)*@
+                    </td>
+                    <td>
+                        01/01/1111
+                        @*@Html.DisplayFor(modelItem => item.date)*@
+                    </td>
+                    <td>
+                        30
+                        @*@Html.DisplayFor(modelItem => item.time)*@
+                    </td>
+                    <td>
+                        qwer
+                        @*@Html.DisplayFor(modelItem => item.name)*@
+                    </td>
+                    <td>
+                        qwer
+                        @*@Html.DisplayFor(modelItem => item.lastName)*@
+                    </td>
+                    <td>
+                        1
+                        @*@Html.DisplayFor(modelItem => item.active)*@
+                    </td>
+                </tr>
+}
+            </tbody>
+
+        </table>
+    </div>
+
+

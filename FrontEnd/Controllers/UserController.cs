@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Controllers {
 
+    [Authorize]
     public class UserController : Controller {
 
         // GET: User
@@ -37,17 +38,9 @@ namespace FrontEnd.Controllers {
         public ActionResult Create(UserViewModel userVM) {
             if (ModelState.IsValid) {
                 User user = UserViewModel.Converter(userVM);
-                try {
-                    string key = ConfigurationManager.AppSettings["SecretKey"];
-                    user.email = Security.Security.EncryptString(key, user.email);
-                    user.password = Security.Security.EncryptString(key, user.password);
-                    using (var unit = new UnitWork<User>()) {
-                        unit.genericDAL.Add(user);
-                        ViewBag.create = unit.Complete();
-                    }
-                } catch (Exception e) {
-                    ViewBag.create = false;
-                }
+                UserDALImp imp = new UserDALImp();
+                user = imp.Create(user);
+                ViewBag.create = user != null;
             } else {
                 ViewBag.create = false;
             }

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool esAdmin = User.IsInRole("A") ? true : false;
+    bool esEntrenador = User.IsInRole("E") ? true : false;
+    bool esCliente = User.IsInRole("C") ? true : false;
+    FrontEnd.Models.UserViewModel u = (FrontEnd.Models.UserViewModel)Session["User"];
+}
+<!DOCTYPE html>
 <html>
 <head>
     <title>@Page.Title</title>
@@ -41,17 +47,26 @@
                 </button>
             </div>
             <div class="p-4 pt-5">
-                <img class="imgUser mb-4" src="~/Public/images/user.jpg">
+                <a href="#">
+                    <img style="cursor:pointer;" class="imgUser mb-4" src="~/Public/images/user.jpg">
+                    @if (u != null) {
+                        <label class="my-2 text-center w-100" style="cursor:pointer;color:white !important;">@u.name</label>
+                    }
+                </a>
                 <ul class="list-unstyled components mb-5">
-                    <li>
-                        <a href="~/User">Usuarios</a>
-                    </li>
-                    <li><a href="AddTips.html">Admin Consejos</a></li>
-                    <li><a href="Tips.html">Consejos</a></li>
-                    <li><a href="AssistanceAdmin.html">Admin Asistencia</a></li>
-                    <li><a href="MyAssistance.html">Mi Asistencia</a></li>
-                    <li><a href="Assistance.html">Asistencia QR</a></li>
-                    <li><a href="Machines.html">Actividades</a></li>
+                    @if (esAdmin) {
+                        <li><a href="~/User">Usuarios</a></li>
+                        <li><a href="AddTips.html">Admin Consejos</a></li>
+                        <li><a href="AssistanceAdmin.html">Admin Asistencia</a></li>
+                    }
+                    @if (esEntrenador) {
+                        <li><a href="Machines.html">Actividades</a></li>
+                    }
+                    @if (esCliente) {
+                        <li><a href="MyAssistance.html">Mi Asistencia</a></li>
+                        <li><a href="Assistance.html">Asistencia QR</a></li>
+                        <li><a href="Tips.html">Consejos</a></li>
+                    }
                 </ul>
             </div>
         </nav>
