@@ -232,6 +232,10 @@
         </EntityType>
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="Activity" EntityType="weightlessModel.Activity" />
           <EntitySet Name="Activity_Assitance" EntityType="weightlessModel.Activity_Assitance" />
           <EntitySet Name="Assistance" EntityType="weightlessModel.Assistance" />
@@ -267,11 +271,19 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserDataHistory" EntitySet="UserDataHistory" />
           </AssociationSet>
-          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
           </EntityContainer>
+        <ComplexType Name="validate_login_Result">
+          <Property Type="Int32" Name="idUser" Nullable="false" />
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="70" />
+          <Property Type="String" Name="rol" Nullable="false" MaxLength="1" />
+          <Property Type="Decimal" Name="height" Nullable="false" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="weight" Nullable="false" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="idActivity" />
@@ -445,18 +457,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="validate_login_Result">
-          <Property Type="Int32" Name="idUser" Nullable="false" />
-          <Property Type="String" Name="dni" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="75" />
-          <Property Type="String" Name="lastName" Nullable="false" MaxLength="75" />
-          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="password" Nullable="false" MaxLength="70" />
-          <Property Type="String" Name="rol" Nullable="false" MaxLength="1" />
-          <Property Type="Decimal" Name="height" Nullable="false" Precision="5" Scale="2" />
-          <Property Type="Decimal" Name="weight" Nullable="false" Precision="5" Scale="2" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +474,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login">
+          </FunctionImportMapping>
           <EntitySetMapping Name="Activity">
             <EntityTypeMapping TypeName="weightlessModel.Activity">
               <MappingFragment StoreEntitySet="Activity">
@@ -554,8 +556,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login">
-          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,4 +1,5 @@
 ﻿using Backend.DAL;
+using Backend.IMPL;
 using Backend.Entity;
 using FrontEnd.Models;
 using System;
@@ -10,24 +11,29 @@ using System.Web.Security;
 
 namespace FrontEnd.Controllers {
     public class HomeController : Controller {
-        
+
         public ActionResult Index() {
             if (Request.IsAuthenticated) {
 
                 IUserDAL us = new UserDALImp();
                 User user = us.Get_User(Convert.ToInt32(HttpContext.User.Identity.Name));
-
-                if (!user.active) {
-                    //ViewBag.Desactivado = true;
-                    return View();
-                } else {
-                    Session["User"] = UserViewModel.Converter(user);
-                    return RedirectToAction("TestDash");
+                if (user != null) {
+                    if (!user.active) {
+                        //ViewBag.Desactivado = true;
+                        return View();
+                    } else {
+                        Session["User"] = UserViewModel.Converter(user);
+                        return RedirectToAction("TestDash");
+                    }
                 }
 
-            } else {
-                return View();
             }
+            QRImpl QRimpl = new QRImpl();
+            byte[] QRimage = QRimpl.Get_QR_Asistance();
+            if (QRimage != null) {
+                ViewBag.QRAsistance = QRimage;
+            }
+            return View();
         }
 
         [HttpPost]
@@ -35,17 +41,23 @@ namespace FrontEnd.Controllers {
             try {
                 if (ModelState.IsValid) {
 
+
                     //Obtengo el usuario
                     IUserDAL us = new UserDALImp();
                     User user = us.Validate_LogIn(loginM.Correo, loginM.Clave);
 
-                    if (user == null) {
+                    if (user == null)
+                    {
                         ViewBag.WrongCredentials = true;
                         return View(loginM);
-                    } else if (!user.active) {
+                    }
+                    else if (!user.active)
+                    {
                         ViewBag.Inactive = true;
                         return View(loginM);
-                    } else {
+                    }
+                    else
+                    {
 
                         //Obtengo los roles
                         List<string> ListaRoles = new List<string>();
@@ -57,7 +69,8 @@ namespace FrontEnd.Controllers {
                         string hash = FormsAuthentication.Encrypt(ticket);
                         HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash);
 
-                        if (ticket.IsPersistent) {
+                        if (ticket.IsPersistent)
+                        {
                             cookie.Expires = ticket.Expiration;
                         }
                         Response.Cookies.Add(cookie);
@@ -80,8 +93,7 @@ namespace FrontEnd.Controllers {
         }
 
         public ActionResult LogOut() {
-            Session.RemoveAll(); //Eliminar todos los valores de la sesión
-                                 //Session.Abandon(); // Se pueden seguir usando los datos y la sesión termina al final
+            Session.RemoveAll();
             FormsAuthentication.SignOut();
             Response.Cache.SetCacheability(HttpCacheability.Private);
             Response.Cache.SetNoServerCaching();

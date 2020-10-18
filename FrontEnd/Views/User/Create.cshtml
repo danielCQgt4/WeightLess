@@ -7,20 +7,19 @@
 
 <h2 class="mb-4">Agregar Usuario</h2>
 
-<!--TEMP-->
-@if(ViewBag.create != null) {
-    if(ViewBag.create) {
+<!--MSG-->
+@if(ViewBag.status != null) {
+    if(ViewBag.status) {
         <div class="alert alert-success" role="alert">
-            Usuario creado con éxito!
+            @ViewBag.msg
         </div>
     }
-    if(!ViewBag.create) {
+    if(!ViewBag.status) {
         <div class="alert alert-danger" role="alert">
-            Error al crear usuario!
+            @ViewBag.msg
         </div>
     }
 }
-<!--TEMP-->
 
 @using(Html.BeginForm()) {
     @Html.AntiForgeryToken()

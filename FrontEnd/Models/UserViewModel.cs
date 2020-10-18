@@ -48,7 +48,6 @@ namespace FrontEnd.Models {
         [Required]
         [DisplayName("Altura")]
         [Range(0, 210)]
-        [RegularExpression(@"^(\d\d\d\.)?\d\d$", ErrorMessage = "Altura inválida.")]
         public decimal height { get; set; }
 
         [Required]

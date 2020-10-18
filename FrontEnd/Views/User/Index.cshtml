@@ -3,6 +3,20 @@
     @{ Layout = "~/Views/Shared/_Dashboard.cshtml"; }
 
     <div class="p-4 p-md-5 pt-5">
+        <!--MSG-->
+        @if(ViewBag.status != null) {
+            if(ViewBag.status) {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.msg
+                </div>
+            }
+            if(!ViewBag.status) {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.msg
+                </div>
+            }
+        }
+
         <h2 class="mb-4">Usuarios</h2>
 
         <a href="~/User/Create" class="btn btn-info mb-3" style="color: #fff;">Nuevo Usuario</a>

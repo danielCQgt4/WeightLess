@@ -15,6 +15,12 @@ namespace FrontEnd.Controllers {
 
         // GET: User
         public ActionResult Index() {
+            if (TempData["msg"] != null) {
+                ViewBag.msg = TempData["msg"].ToString();
+                ViewBag.status = Boolean.Parse(TempData["status"].ToString());
+                TempData.Remove("msg");
+                TempData.Remove("status");
+            }
             List<User> users;
             using (var unit = new UnitWork<User>()) {
                 users = unit.genericDAL.GetAll().ToList();
@@ -39,12 +45,26 @@ namespace FrontEnd.Controllers {
             if (ModelState.IsValid) {
                 User user = UserViewModel.Converter(userVM);
                 UserDALImp imp = new UserDALImp();
-                user = imp.Create(user);
-                ViewBag.create = user != null;
+                string msg = imp.ValidationUserCreation(user);
+                if (msg.Equals("")) {
+                    user = imp.Create(user);
+                    if (user != null) {
+                        TempData["msg"] = "El usuario fue creado";
+                        TempData["status"] = true;
+                        return RedirectToAction("Index");
+                    } else {
+                        ViewBag.msg = "El usuario no pudo ser creado";
+                        ViewBag.status = false;
+                    }
+                } else {
+                    ViewBag.msg = msg;
+                    ViewBag.status = false;
+                }
             } else {
-                ViewBag.create = false;
+                ViewBag.msg = "Revisa la informacion del usuario";
+                ViewBag.status = false;
             }
-            return View(userVM);//Temp
+            return View(userVM);
         }
 
         public ActionResult Edit(int id) {
