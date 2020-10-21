@@ -10,10 +10,10 @@
     <!-- ICONIFY -->
     <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 </head>
-<body>
+<body  data-spy="scroll" data-target="#nav-index" data-offset="0">
     <!-- NavBar -->
     <!-- #region -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-ColorWL">
+    <nav id="nav-index" class="navbar navbar-expand-lg navbar-dark bg-ColorWL fixed-top">
         <a class="navbar-brand" href="~/Home/Index">
             <img src="~/Public/images/icon.png" width="40" height="40" alt="">
         </a>
@@ -23,15 +23,15 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="Inicio.html">Inicio <span class="sr-only">(current)</span></a>
+            <ul class="navbar-nav nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#inicio">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca</a>
+                    <a class="nav-link" href="#acerca">Acerca</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                    <a class="nav-link" href="#contacto">Contacto</a>
                 </li>
             </ul>
             <button class="btn btnWL" type="submit" onclick="myFunction()">Iniciar sesion</button>

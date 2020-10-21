@@ -140,12 +140,6 @@ body {
     /*width: 40%;*/
 }
 
-/* Footer */
-.footer {
-    background-color: #E64A19;
-    width: 100%;
-    height: 250px;
-}
 
 /* Login */
 .containerLogin {
@@ -158,12 +152,22 @@ body {
     padding: 20px;
     margin: 10px;
     animation: animatezoom .25s linear;
+    top: 58px;
 }
+
+@media screen and (max-width: 992px) {
+    .containerLogin {
+        top: 212px;
+        left: 0;
+    }
+}
+
 
 @media screen and (max-width: 650px) {
     .containerLogin {
         width: 95% !important;
     }
+
     .containerText1 {
         background-position-x: right;
     }
@@ -236,8 +240,8 @@ body {
 .cont-qr-asistance {
     background-color: #161616;
     width: 100%;
-    height: 480px;
-    min-height 480px;
+    height: 500px;
+    min-height: 500px;
 }
 
 .qr-asistance-title {
@@ -264,6 +268,46 @@ body {
 
 
 
+/*Footer*/
+.footer {
+    background-color: #E64A19;
+    width: 100%;
+    height: auto;
+}
+
+.cont-footer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-footer-title {
+    color: white;
+}
+
+.divisor-footer-contact-title {
+    border-top: 1.5px solid rgba(0,0,0,0.25);
+    width: 100%;
+}
+
+.footer-contact-icon {
+    font-size: 1.5em;
+    margin-top: 4px;
+    margin-right: 0.5em;
+    color: white;
+}
+
+.footer-social-icon {
+    transition: .3s;
+}
+
+    .footer-social-icon:hover {
+        transform: scale(1.2) !important;
+    }
+
+.footer-contact-text {
+    color: white;
+}
+
 /*animation*/
 @keyframes animatezoom {
     0% {
@@ -273,8 +317,8 @@ body {
     50% {
         transform: scale(1.04)
     }
+
     100% {
         transform: scale(1)
     }
 }
-

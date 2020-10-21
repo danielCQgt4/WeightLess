@@ -1,5 +1,4 @@
 ﻿@model FrontEnd.Models.LogInViewModel
-
 <!-- Login -->
 <div class="container containerLogin" id="login">
     <form action="/Home/Index" method="POST">
@@ -23,7 +22,7 @@
 </div>
 
 
-<div class="containerText1">
+<div class="containerText1" id="inicio">
     <div class="cont-tit-msg-index">
         <div class="cont-tit-msg-index-ch">
             <h5 class="title-page-name">Weight Less</h5>
@@ -32,9 +31,9 @@
     </div>
 </div>
 
-<div class="">
+<div>
 
-    <div class="bloqueNegro">
+    <div class="bloqueNegro" id="acerca">
         <div class="d-flex justify-content-center w-100">
             <p class="text2 mt-5 mb-1">Cumplí tu metas junto a nosotros te ofrecemos una gran variedad de actividades donde podras llevar el control de tus actividades y asistencia asi como el proceso en cada una de tus sesiones de entrenamiento dentro del gimnasio</p>
         </div>
@@ -69,17 +68,43 @@
     <h2 class="text-center qr-asistance-title">Registra tu asistencia!</h2>
 
 
-    @if (ViewBag.QRAsistance != null)
-    {
-    <div class="cont-img-qr-asistance pt-4">
-        <img class="qr-asistance" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.QRAsistance))" />
-    </div>
+    @if (ViewBag.QRAsistance != null) {
+        <div class="cont-img-qr-asistance pt-4">
+            <img class="qr-asistance" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.QRAsistance))" />
+        </div>
     }
 
 </div>
 
 
-<div class="footer">
+<div class="footer" id="contacto">
+    <div class="row w-100 pt-4 pb-5">
+        <div class="col-md-6 py-4 px-5 d-flex my-3">
+            <div class="cont-footer-info w-100 mx-auto mx-md-0">
+                <h4 class="contact-footer-title">Contacto</h4>
+                <hr class="divisor-footer-contact-title" />
+                <div class="d-flex align-items-center mt-2">
+                    <span class="iconify footer-contact-icon mr-2" data-icon="feather:phone-call" data-inline="false"></span>
+                    <span class="footer-contact-text">+506 2222-2222</span>
+                </div>
+                <div class="d-flex align-items-center mt-2">
+                    <span class="iconify footer-contact-icon mr-2" data-icon="bytesize:mail" data-inline="false"></span>
+                    <span class="footer-contact-text">weightless@hotmail.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 py-4 px-5 d-flex my-3">
+            <div class="cont-footer-info w-100 mx-auto mx-md-0">
+                <h4 class="contact-footer-title">Redes sociales</h4>
+                <hr class="divisor-footer-contact-title" />
+                <div class="d-flex align-items-center mt-2">
+                    <span class="iconify footer-contact-icon footer-social-icon mr-4" data-icon="icomoon-free:facebook" data-inline="false"></span>
+                    <span class="iconify footer-contact-icon footer-social-icon mr-4" data-icon="topcoat:twitter" data-inline="false"></span>
+                    <span class="iconify footer-contact-icon footer-social-icon mr-4" data-icon="simple-icons:whatsapp" data-inline="false"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
