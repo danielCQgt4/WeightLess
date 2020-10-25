@@ -137,6 +137,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AssistanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,6 +145,7 @@
     <Compile Include="Models\AssistanceViewModel.cs" />
     <Compile Include="Models\AuthorizeRoleAttribute.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
+    <Compile Include="Models\PublicationViewModel.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -311,6 +313,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Publication\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

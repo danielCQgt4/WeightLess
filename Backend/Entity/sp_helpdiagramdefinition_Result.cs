@@ -10,15 +10,10 @@
 namespace Backend.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Publication_Activity
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int idPublication { get; set; }
-        public int idActivity { get; set; }
-        public string description { get; set; }
-    
-        public virtual Activity Activity { get; set; }
-        public virtual Publication Publication { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

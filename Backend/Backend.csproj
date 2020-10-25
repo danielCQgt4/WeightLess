@@ -61,6 +61,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="IMPL\DALGenericImpl.cs" />
     <Compile Include="DAL\IDALGeneric.cs" />
     <Compile Include="DAL\IUserDAL.cs" />

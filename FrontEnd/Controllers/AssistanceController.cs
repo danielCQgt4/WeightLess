@@ -18,7 +18,6 @@ namespace FrontEnd.Controllers {
             return View();
         }
 
-
         public ActionResult CreateAssistance() {
             UserViewModel usu = (UserViewModel)Session["user"];
             return RedirectToAction("TestDash");
