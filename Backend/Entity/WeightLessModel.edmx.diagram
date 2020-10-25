@@ -12,13 +12,13 @@
         <EntityTypeShape EntityType="weightlessModel.Publication" Width="1.5" PointX="3.375" PointY="4.5" />
         <EntityTypeShape EntityType="weightlessModel.Publication_Activity" Width="1.5" PointX="5.625" PointY="5" />
         <EntityTypeShape EntityType="weightlessModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="weightlessModel.UserDataHistory" Width="1.5" PointX="3.375" PointY="10.875" />
         <AssociationConnector Association="weightlessModel.FK_Activity_Assitance_Activity" />
         <AssociationConnector Association="weightlessModel.FK_Publication_Activity_Activity" />
         <AssociationConnector Association="weightlessModel.FK_Activity_Assitance_Assistance" />
         <AssociationConnector Association="weightlessModel.FK_Assistance_User" />
         <AssociationConnector Association="weightlessModel.FK_Publication_Activity_Publication" />
         <AssociationConnector Association="weightlessModel.FK_Publication_User" />
+        <EntityTypeShape EntityType="weightlessModel.UserDataHistory" Width="1.5" PointX="3" PointY="11.625" />
         <AssociationConnector Association="weightlessModel.FK_UserDataHistory_User" />
         </Diagram>
     </edmx:Diagrams>

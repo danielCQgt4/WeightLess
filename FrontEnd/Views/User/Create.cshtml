@@ -8,20 +8,20 @@
 <h2 class="mb-4">Agregar Usuario</h2>
 
 <!--MSG-->
-@if(ViewBag.status != null) {
-    if(ViewBag.status) {
+@if (ViewBag.status != null) {
+    if (ViewBag.status) {
         <div class="alert alert-success" role="alert">
             @ViewBag.msg
         </div>
     }
-    if(!ViewBag.status) {
+    if (!ViewBag.status) {
         <div class="alert alert-danger" role="alert">
             @ViewBag.msg
         </div>
     }
 }
 
-@using(Html.BeginForm()) {
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
     <hr />
@@ -104,16 +104,15 @@
         if (selectType) {
             const calcByType = () => {
                 switch (selectType.value) {
-                    case 'A':
-                    case 'E':
-                        h.style.display = 'none';
-                        w.style.display = 'none';
-                        hIn.value = 10;
-                        wIn.value = 10;
-                        break;
                     case 'C':
                         h.style.display = '';
                         w.style.display = '';
+                        break;
+                    default:
+                        h.style.display = 'none';
+                        w.style.display = 'none';
+                        hIn.value = 0;
+                        wIn.value = 0;
                         break;
                 }
             };
