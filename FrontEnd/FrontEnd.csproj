@@ -311,6 +311,7 @@
     <Content Include="Views\Assistance\AdminAssistance.cshtml" />
     <Content Include="Views\Assistance\UserAssistance.cshtml" />
     <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\Publication\Index.cshtml" />
     <Content Include="Views\Publication\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
