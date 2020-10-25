@@ -37,50 +37,78 @@ namespace FrontEnd.Controllers {
         }
 
         public ActionResult CreateAssistance() {
-            UserViewModel usu = (UserViewModel)Session["user"];
-            int caseAction = -1;
-            /*
-            -1: to view (well) 
-            -2: already with assistance
-            -2: Error
-            */
-            if (usu != null) {
-                string actualDt = DateTime.Now.ToString().Split(' ')[0];
-                using (var u = new UnitWork<Assistance>()) {
-                    int idAsis = u.genericDAL.Find(a => a.idUser == usu.idUser).Max(a => a.idAssistance);
-                    Assistance assistance = u.genericDAL.Get(idAsis);
-                    if (assistance != null) {
-                        string calcDt = assistance.datetime.ToString().Split(' ')[0];
-                        if (calcDt.Equals(actualDt)) {
-                            //Todo save on session
-                            caseAction = -2;
+            if (Request.IsAuthenticated) {
+                UserViewModel usu = (UserViewModel)Session["User"];
+                int caseAction = -1;
+                /*
+                -1: to view (well) 
+                -2: already with assistance
+                -3: Error
+                */
+                if (usu != null) {
+                    string actualDt = DateTime.Now.ToString().Split(' ')[0];
+                    using (var u = new UnitWork<Assistance>()) {
+                        int idAsis = -1;
+                        try {
+                            idAsis = u.genericDAL.Find(a => a.idUser == usu.idUser).Max(a => a.idAssistance);
+                        } catch (Exception e) {
+
+                        }
+                        if (idAsis != -1) {
+                            Assistance assistance = u.genericDAL.Get(idAsis);
+                            if (assistance != null) {
+                                string calcDt = assistance.datetime.ToString().Split(' ')[0];
+                                if (calcDt.Equals(actualDt)) {
+                                    usu.assistance = assistance;
+                                    caseAction = -2;
+                                } else {
+                                    Assistance asis = createNewAssistance(usu);
+                                    if (asis != null) {
+                                        usu.assistance = asis;
+                                        caseAction = -1;
+                                    } else {
+                                        caseAction = -3;
+                                    }
+                                }
+                            } else {
+                                Assistance asis = createNewAssistance(usu);
+                                if (asis != null) {
+                                    usu.assistance = asis;
+                                    caseAction = -1;
+                                } else {
+                                    caseAction = -3;
+                                }
+                            }
                         } else {
                             Assistance asis = createNewAssistance(usu);
                             if (asis != null) {
-                                //Todo save on session
+                                usu.assistance = asis;
                                 caseAction = -1;
                             } else {
                                 caseAction = -3;
                             }
                         }
-                    } else {
-                        Assistance asis = createNewAssistance(usu);
-                        if (asis != null) {
-                            //Todo save on session
-                            caseAction = -1;
-                        } else {
-                            caseAction = -3;
-                        }
                     }
+                    Session["User"] = usu;
+                } else {
+                    caseAction = -3;
+                }
+                if (caseAction == -2) {
+                    return RedirectToAction("TestDash","Home");
+                } else {
+                    if (caseAction == -1) {
+                        ViewBag.msg = "Se ha creado la asistencia con exito";
+                        ViewBag.user = usu;
+                        ViewBag.status = true;
+                    } else {
+                        ViewBag.msg = "No se pudo crear la asistencia";
+                        ViewBag.user = usu;
+                        ViewBag.status = false;
+                    }
+                    return View("AssistanceCtr");
                 }
             }
-            if (caseAction == -1) {
-                return View();
-            } else if (caseAction == -2) {
-                return RedirectToAction("TestDash");
-            } else {
-                return RedirectToAction("ErrorA");
-            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

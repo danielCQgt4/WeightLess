@@ -139,6 +139,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\AuthFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -313,6 +314,7 @@
     <Content Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\Publication\Index.cshtml" />
     <Content Include="Views\Publication\Create.cshtml" />
+    <Content Include="Views\Assistance\AssistanceCtr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "AssistanceCtr";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="container">
+    <h3>Bienvenido 
+    @if (ViewBag.user != null) {
+        <span>@ViewBag.user.name</span>
+    }
+    </h3>
+    <div class="mt-2">
+        @if (ViewBag.status != null) {
+            if (ViewBag.status) {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.msg
+                </div>
+            }
+            if (!ViewBag.status) {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.msg
+                </div>
+            }
+        }
+    </div>
+</div>

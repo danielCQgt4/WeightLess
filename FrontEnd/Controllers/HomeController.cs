@@ -13,20 +13,11 @@ namespace FrontEnd.Controllers {
     public class HomeController : Controller {
 
         public ActionResult Index() {
-            if (Request.IsAuthenticated) {
-
-                IUserDAL us = new UserDALImp();
-                User user = us.Get_User(Convert.ToInt32(HttpContext.User.Identity.Name));
-                if (user != null) {
-                    if (!user.active) {
-                        //ViewBag.Desactivado = true;
-                        return View();
-                    } else {
-                        Session["User"] = UserViewModel.Converter(user);
-                        return RedirectToAction("TestDash");
-                    }
+            UserViewModel u = (UserViewModel)Session["User"];
+            if (u != null) {
+                if (u.active) {
+                    return RedirectToAction("TestDash");
                 }
-
             }
             QRImpl QRimpl = new QRImpl();
             byte[] QRimage = QRimpl.Get_QR_Asistance();
@@ -46,18 +37,13 @@ namespace FrontEnd.Controllers {
                     IUserDAL us = new UserDALImp();
                     User user = us.Validate_LogIn(loginM.Correo, loginM.Clave);
 
-                    if (user == null)
-                    {
+                    if (user == null) {
                         ViewBag.WrongCredentials = true;
                         return View(loginM);
-                    }
-                    else if (!user.active)
-                    {
+                    } else if (!user.active) {
                         ViewBag.Inactive = true;
                         return View(loginM);
-                    }
-                    else
-                    {
+                    } else {
 
                         //Obtengo los roles
                         List<string> ListaRoles = new List<string>();
@@ -69,8 +55,7 @@ namespace FrontEnd.Controllers {
                         string hash = FormsAuthentication.Encrypt(ticket);
                         HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash);
 
-                        if (ticket.IsPersistent)
-                        {
+                        if (ticket.IsPersistent) {
                             cookie.Expires = ticket.Expiration;
                         }
                         Response.Cookies.Add(cookie);

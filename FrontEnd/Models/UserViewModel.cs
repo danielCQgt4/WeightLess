@@ -98,7 +98,7 @@ namespace FrontEnd.Models {
         }
 
         #region Coto
-
+        public Assistance assistance { get; set; }
         #endregion
 
     }
