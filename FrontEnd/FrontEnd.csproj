@@ -310,10 +310,11 @@
     <Content Include="Views\User\CtrUser.cshtml" />
     <Content Include="Views\Assistance\AdminAssistance.cshtml" />
     <Content Include="Views\Assistance\UserAssistance.cshtml" />
+    <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\Publication\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Publication\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

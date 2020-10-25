@@ -121,6 +121,11 @@ namespace FrontEnd.Controllers {
             return Index();
         }
 
+        public ActionResult EditProfile()
+        {
+            return Index();
+        }
+
     }
 
 }
