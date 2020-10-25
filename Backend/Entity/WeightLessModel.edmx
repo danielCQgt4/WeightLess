@@ -84,8 +84,8 @@
             <PropertyRef Name="idUserHistory" />
           </Key>
           <Property Name="idUserHistory" Type="int" Nullable="false" />
-          <Property Name="weight" Type="decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="heigth" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="weight" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="heigth" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="idUser" Type="int" Nullable="false" />
         </EntityType>
@@ -262,7 +262,6 @@
           <EntitySet Name="Publication" EntityType="weightlessModel.Publication" />
           <EntitySet Name="Publication_Activity" EntityType="weightlessModel.Publication_Activity" />
           <EntitySet Name="sysdiagrams" EntityType="weightlessModel.sysdiagrams" />
-          <EntitySet Name="UserDataHistory" EntityType="weightlessModel.UserDataHistory" />
           <AssociationSet Name="FK_Activity_Assitance_Activity" Association="weightlessModel.FK_Activity_Assitance_Activity">
             <End Role="Activity" EntitySet="Activity" />
             <End Role="Activity_Assitance" EntitySet="Activity_Assitance" />
@@ -287,6 +286,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="Publication" EntitySet="Publication" />
           </AssociationSet>
+          <EntitySet Name="UserDataHistory" EntityType="weightlessModel.UserDataHistory" />
           <AssociationSet Name="FK_UserDataHistory_User" Association="weightlessModel.FK_UserDataHistory_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserDataHistory" EntitySet="UserDataHistory" />
@@ -391,17 +391,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="UserDataHistory">
-          <Key>
-            <PropertyRef Name="idUserHistory" />
-          </Key>
-          <Property Name="idUserHistory" Type="Int32" Nullable="false" />
-          <Property Name="weight" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
-          <Property Name="heigth" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idUser" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="weightlessModel.FK_UserDataHistory_User" FromRole="UserDataHistory" ToRole="User" />
-        </EntityType>
         <Association Name="FK_Activity_Assitance_Activity">
           <End Type="weightlessModel.Activity" Role="Activity" Multiplicity="1" />
           <End Type="weightlessModel.Activity_Assitance" Role="Activity_Assitance" Multiplicity="*" />
@@ -474,6 +463,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="UserDataHistory">
+          <Key>
+            <PropertyRef Name="idUserHistory" />
+          </Key>
+          <Property Name="idUserHistory" Type="Int32" Nullable="false" />
+          <Property Name="weight" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="heigth" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="weightlessModel.FK_UserDataHistory_User" FromRole="UserDataHistory" ToRole="User" />
+        </EntityType>
         <Association Name="FK_UserDataHistory_User">
           <End Type="weightlessModel.User" Role="User" Multiplicity="1" />
           <End Type="weightlessModel.UserDataHistory" Role="UserDataHistory" Multiplicity="*" />
@@ -486,17 +497,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

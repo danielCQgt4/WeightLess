@@ -58,21 +58,28 @@ namespace Backend.DAL {
                     res = unit.Complete();
                 }
                 if (res) {
-                    return user;
+                    if (user.rol.Equals("C")) {
+                        UserDataHistory udh = new UserDataHistory() {
+                            date = DateTime.Now,
+                            heigth = user.height,
+                            weight = user.weight,
+                            idUser = user.idUser
+                        };
+                        using (var u = new UnitWork<UserDataHistory>()) {
+                            u.genericDAL.Add(udh);
+                            if (u.Complete()) {
+                                return user;
+                            } else {
+                                using (var u2 = new UnitWork<User>()) {
+                                    u2.genericDAL.Remove(user);
+                                    u2.Complete();
+                                }
+                            }
+                        }
+                    } else {
+                        return user;
+                    }
                 }
-                //using (var unit = new UnitWork<User>()) {
-                //    using (var tran = unit.context.Database.BeginTransaction()) {
-                //        unit.genericDAL.Add(user);
-                //        res = unit.Complete();
-                //        if (!res) {
-                //            tran.Rollback();
-                //        }
-                //        tran.Commit();
-                //        if (res) {
-                //            return user;
-                //        }
-                //    }
-                //}
             } catch (Exception e) {
             }
             return null;
