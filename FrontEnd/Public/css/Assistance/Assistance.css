@@ -1,0 +1,36 @@
+﻿.header-card-assistance {
+    background-color: #E64A19;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .header-card-assistance:hover {
+        background-color: #f65A29;
+        color: #fff;
+        cursor: pointer;
+    }
+
+.header-card-assistance-btn {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+}
+
+    .header-card-assistance-btn:hover {
+        color: #fff;
+        cursor: pointer;
+    }
+
+.header-card-activity {
+    padding: 0em;
+    background-color: #3f3f3f;
+    margin: 0;
+}
+
+    .header-card-activity:hover {
+        background-color: #5f5f5f;
+    }
+
+/*.header-card-activity-btn {
+    color:
+}*/
