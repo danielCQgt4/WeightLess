@@ -121,9 +121,28 @@ namespace FrontEnd.Controllers {
             return Index();
         }
 
-        public ActionResult EditProfile()
+        public ActionResult EditProfile(int id)
         {
-            return Index();
+            User user;
+            using (UnitWork<User> unidad = new UnitWork<User>())
+            {
+                user = unidad.genericDAL.Get(id);
+            }
+            return View(UserViewModel.Converter(user));
+        }
+
+        [HttpPost]
+
+        public ActionResult EditProfile(UserViewModel userVM)
+        {
+            using (UnitWork<User> unidad = new UnitWork<User>())
+            {
+                unidad.genericDAL.Update(UserViewModel.Converter(userVM));
+                unidad.Complete();
+            }
+
+            return RedirectToAction("Index");
+
         }
 
     }
