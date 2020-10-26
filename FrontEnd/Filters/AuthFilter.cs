@@ -25,11 +25,36 @@ namespace FrontEnd.Filters {
                         //ViewBag.Desactivado = true;
                         filterContext.RequestContext.HttpContext.RedirectLocal("/Homa/Index");
                     } else {
-                        filterContext.RequestContext.HttpContext.Session["User"] = UserViewModel.Converter(user);
+                        UserViewModel userV = UserViewModel.Converter(user);
+                        Assistance a = loadAssistance(user.idUser);
+                        if (a != null) {
+                            userV.assistance = a;
+                        }
+                        filterContext.RequestContext.HttpContext.Session["User"] = userV;
                     }
                 }
 
             }
+        }
+
+        private Assistance loadAssistance(int idUser) {
+            string actualDt = DateTime.Now.ToString().Split(' ')[0];
+            Assistance assistance = null;
+            using (var u = new UnitWork<Assistance>()) {
+                int idAsis = -1;
+                try {
+                    idAsis = u.genericDAL.Find(a => a.idUser == idUser).Max(a => a.idAssistance);
+                    if (idAsis != -1) {
+                        string calcDt = assistance.datetime.ToString().Split(' ')[0];
+                        if (calcDt.Equals(actualDt)) {
+                            assistance = u.genericDAL.Get(idAsis);
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+            return assistance;
         }
     }
 }
