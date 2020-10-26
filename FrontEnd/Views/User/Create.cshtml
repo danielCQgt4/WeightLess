@@ -58,8 +58,15 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.rol)
-            <select id="select-type" name="rol" class="form-control">
-                <option disabled selected>Elegir...</option>
+            @{ 
+                ViewBag.rol = "A";
+                if (Model != null) {
+                    if (Model.rol != null) {
+                        ViewBag.rol = Model.rol;
+                    }
+                }
+            }
+            <select id="select-type" name="rol" class="form-control" data-value="@ViewBag.rol">
                 <option value="A">Administrador</option>
                 <option value="E">Entrenador</option>
                 <option value="C">Cliente</option>
@@ -120,6 +127,10 @@
             selectType.addEventListener('change', calcByType);
 
             calcByType();
+
+            document.addEventListener('load', () => {
+                selectType.value = selectType.dataset.value;
+            });
         }
     })();
 </script>
