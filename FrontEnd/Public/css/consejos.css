@@ -1,0 +1,16 @@
+﻿.header-publication {
+    background-color: #E64A19 !important;
+    /*border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0 !important;*/
+}
+
+.btn-toggler-publication {
+    color: white;
+}
+.btn-toggler-publication:hover {
+    color: white;
+}
+
+/* Body */
+.cont-publication-body {
+    border: 2px solid #E64A19;
+}

@@ -105,24 +105,35 @@ namespace FrontEnd.Controllers {
 
         [AuthorizeRole(Role.E)]
         public ActionResult Create() {
+            PublicationViewModel publication = new PublicationViewModel();
             IEnumerable<Activity> activities;
             using (var unidad = new UnitWork<Activity>()) {
                 activities = unidad.genericDAL.GetAll().ToList();
                 ViewBag.activities = activities;
             }
-            return View();
+            return View(publication);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Role.E)]
         public ActionResult Create(PublicationViewModel publicationVM) {
             try {
                 if (ModelState.IsValid) {
                     Publication publication = PublicationViewModel.Converter(publicationVM);
                     using (var unit = new UnitWork<Publication>()) {
+                        publication.datetime = DateTime.Now;
+                        publication.idUser = Convert.ToInt32(HttpContext.User.Identity.Name);
+                        publication.likes = 0;
+                        publication.disLikes = 0;
                         unit.genericDAL.Add(publication);
-                        TempData["publicationCreated"] = unit.Complete();
-                        return RedirectToAction("TrainerPublications");
+                        if (unit.Complete()) {
+                            TempData["publicationCreated"] = false; //TODO poner mensaje en la vista
+                            return RedirectToAction("TrainerPublications");
+                        } else {
+                            ViewBag.errorCreate = true; //TODO poner mensaje en la vista
+                            return View(publicationVM);
+                        }
                     }
                 } else {
                     return View(publicationVM);

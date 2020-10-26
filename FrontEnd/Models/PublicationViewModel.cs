@@ -9,6 +9,18 @@ using System.Web;
 namespace FrontEnd.Models {
     public class PublicationViewModel {
 
+        public PublicationViewModel() {
+            types = new List<object>();
+            this.types.Add(new {
+                desc = "Nutrición",
+                value = "N"
+            });
+            this.types.Add(new {
+                desc = "Actividad",
+                value = "A"
+            });
+        }
+
         [Key]
         public int idPublication { get; set; }
 
@@ -35,6 +47,14 @@ namespace FrontEnd.Models {
 
         public int idUser { get; set; }
         public User User { get; set; }
+
+
+        public List<object> types { get; set; }
+
+        public struct typeModel{
+            string desc;
+            string value;
+        }
 
 
         public static PublicationViewModel Converter(Publication publication) {

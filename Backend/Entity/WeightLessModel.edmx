@@ -36,11 +36,11 @@
           <Key>
             <PropertyRef Name="idPublication" />
           </Key>
-          <Property Name="idPublication" Type="int" Nullable="false" />
+          <Property Name="idPublication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="datetime" Type="datetime" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="550" Nullable="false" />
-          <Property Name="type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="idUser" Type="int" Nullable="false" />
           <Property Name="likes" Type="int" Nullable="false" />
           <Property Name="disLikes" Type="int" Nullable="false" />
@@ -363,7 +363,7 @@
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
-          <Property Name="type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="idUser" Type="Int32" Nullable="false" />
           <Property Name="likes" Type="Int32" Nullable="false" />
           <Property Name="disLikes" Type="Int32" Nullable="false" />
