@@ -229,12 +229,6 @@ body {
         color: #E64A19;
     }
 
-/* Asistencia */
-.bg-info {
-    background-color: #E64A19 !important;
-    color: #fff;
-}
-
 
 /* Index QR asistance*/
 .cont-qr-asistance {

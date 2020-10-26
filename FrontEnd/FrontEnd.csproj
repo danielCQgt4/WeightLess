@@ -162,7 +162,11 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+<<<<<<< HEAD
+    <Content Include="Public\css\consejos.css" />
+=======
     <Content Include="Public\css\Assistance\Assistance.css" />
+>>>>>>> 375bf67abe3af9dc08b0587716d4584b2c667316
     <Content Include="Public\css\css.css" />
     <Content Include="Public\css\simple-sidebar.css" />
     <Content Include="Public\images\bicy.jpeg" />
