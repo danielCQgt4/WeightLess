@@ -16,8 +16,17 @@ namespace FrontEnd.Controllers {
             return View();
         }
 
+        [AuthorizeRole(Role.C)]
         public ActionResult UserAssistance() {
-            return View();
+            UserViewModel user = (UserViewModel)Session["User"];
+            List<AssistanceViewModel> assistances = new List<AssistanceViewModel>();
+            using (var u = new UnitWork<Assistance>()) {
+                List<Assistance> asis = u.genericDAL.Find(o => o.idUser == user.idUser).ToList();
+                if (asis != null) {
+                    assistances = AssistanceViewModel.Converter(asis);
+                }
+            }
+            return View(assistances);
         }
 
         private Assistance createNewAssistance(UserViewModel usu) {
@@ -36,6 +45,7 @@ namespace FrontEnd.Controllers {
             return null;
         }
 
+        [AuthorizeRole(Role.C)]
         public ActionResult CreateAssistance() {
             if (Request.IsAuthenticated) {
                 UserViewModel usu = (UserViewModel)Session["User"];
@@ -94,7 +104,7 @@ namespace FrontEnd.Controllers {
                     caseAction = -3;
                 }
                 if (caseAction == -2) {
-                    return RedirectToAction("TestDash","Home");
+                    return RedirectToAction("TestDash", "Home");
                 } else {
                     if (caseAction == -1) {
                         ViewBag.msg = "Se ha creado la asistencia con exito";

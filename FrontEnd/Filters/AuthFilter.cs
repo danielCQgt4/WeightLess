@@ -45,6 +45,7 @@ namespace FrontEnd.Filters {
                 try {
                     idAsis = u.genericDAL.Find(a => a.idUser == idUser).Max(a => a.idAssistance);
                     if (idAsis != -1) {
+                        assistance = u.genericDAL.Get(idAsis);
                         string calcDt = assistance.datetime.ToString().Split(' ')[0];
                         if (calcDt.Equals(actualDt)) {
                             assistance = u.genericDAL.Get(idAsis);
