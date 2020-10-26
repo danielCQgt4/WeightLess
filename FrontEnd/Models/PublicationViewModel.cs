@@ -12,7 +12,6 @@ namespace FrontEnd.Models {
         [Key]
         public int idPublication { get; set; }
 
-        [Required]
         [DisplayName("Fecha")]
         public DateTime datetime { get; set; }
 

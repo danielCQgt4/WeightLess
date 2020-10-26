@@ -315,6 +315,7 @@
     <Content Include="Views\Publication\Index.cshtml" />
     <Content Include="Views\Publication\Create.cshtml" />
     <Content Include="Views\Assistance\AssistanceCtr.cshtml" />
+    <Content Include="Views\Publication\TrainerPublications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

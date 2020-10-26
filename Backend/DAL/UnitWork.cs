@@ -10,16 +10,12 @@ namespace Backend.DAL {
     public class UnitWork<E> : IDisposable where E : class {
 
         public readonly DBContext context;
-        //public IDALGenerico<Queja> quejaDAL;
-        //public IDALGenerico<TablaGeneral> tablaDAL;
         public IDALGeneric<E> genericDAL;
 
 
         public UnitWork(DBContext _context) {
             context = _context;
             genericDAL = new DALGenericImpl<E>(context);
-            //    quejaDAL = new DALGenericoImpl<Queja>(context);
-            //    tablaDAL = new DALGenericoImpl<TablaGeneral>(context);
         }
 
         public UnitWork() {

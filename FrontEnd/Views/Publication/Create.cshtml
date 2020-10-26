@@ -10,37 +10,42 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <div class="form-row">
-            <div class="form-group col-md-10 col-lg-8">
-                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "" })
+            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-10 col-lg-8">
-                @Html.LabelFor(model => model.type)
-                <select name="type" class="form-control">
-                    <option selected>Elegir...</option>
-                    <option value="N">Nutrición</option>
-                    <option value="A">Actividad</option>
-                </select>
-                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-10 col-lg-8">
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2 d-block" })
-                <textarea class="form-control" name="description" id="inputEmail4" cols="50.5" rows="4"></textarea>
-                @*@Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", cols = 50.5, rows = 4 } })*@
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <input type="submit" value="Agregar" class="btn btn-info mb-3" />
-        <input type="submit" value="Finalizar" class="btn btn-info mb-3" />
-
     </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "d-block" })
+            <textarea class="form-control" name="description" id="description" cols="50" rows="4"></textarea>
+            @*@Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", cols = 50.5, rows = 4 } })*@
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.type)
+            <select name="type" class="form-control">
+                <option selected>Elegir...</option>
+                <option value="N">Nutrición</option>
+                <option value="A">Actividad</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <input type="submit" value="Agregar" class="btn btn-info mb-3" />
+    @*<input type="submit" value="Finalizar" class="btn btn-info mb-3" />*@
+
+</div>
 
 
 
