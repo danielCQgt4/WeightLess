@@ -36,28 +36,42 @@
         </div>
     </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-10 col-lg-8">
-            @Html.LabelFor(model => model.publicationActivities)
-            @Html.DropDownListFor(model => model.type, new SelectList(Model.publicationActivities, "idActivity", "name"), "Elegir...", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+    <div id="formActivity">
+        <div class="form-row">
+            <div class="form-group col-md-10 col-lg-8">
+                <label for="publicationActivities">Actividad</label>
+                @Html.DropDownListFor(model => model.publicationActivities, new SelectList(ViewBag.activities, "idActivity", "name"), "Elegir...", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-10 col-lg-8">
+                @*@Html.LabelFor(model => model.description, htmlAttributes: new { @class = "d-block" })*@
+                <label for="actDesc">Descripción de la actividad</label>
+                <textarea class="form-control" id="actDesc" cols="50" rows="4"></textarea>
+                @*@Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="w-100 mb-4">
+            <button id="admDivCheck" type="submit" class="btn btn-success">Agregar actividad</button>
         </div>
     </div>
+    
+    
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <input type="submit" value="Agregar" class="btn btn-info mb-3" />
+    <input type="submit" value="Finalizar" class="btn btn-info mb-3" />
 
     @*<div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="inputState">Tipo</label>
-            <select id="getFname" onchange="admSelectCheck(this);" class="form-control">
-                <option selected>Elegir...</option>
-                <option>Nutrución</option>
-                <option id="admOption">Actividad</option>
-            </select>
-        </div>
-    </div>*@
+            <div class="form-group col-md-4">
+                <label for="inputState">Tipo</label>
+                <select id="getFname" onchange="admSelectCheck(this);" class="form-control">
+                    <option selected>Elegir...</option>
+                    <option>Nutrución</option>
+                    <option id="admOption">Actividad</option>
+                </select>
+            </div>
+        </div>*@
 
     @*<button id="admDivCheck" style="display:none;" type="submit" class="btn btn-info">Finalizar</button>*@
 
@@ -65,7 +79,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </div>
 
 <script>

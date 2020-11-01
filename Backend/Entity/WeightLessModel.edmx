@@ -252,10 +252,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="weightlessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="Activity" EntityType="weightlessModel.Activity" />
           <EntitySet Name="Activity_Assitance" EntityType="weightlessModel.Activity_Assitance" />
           <EntitySet Name="Assistance" EntityType="weightlessModel.Assistance" />
@@ -509,8 +505,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="weightlessModelStoreContainer" CdmEntityContainer="DBContext">
-          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login">
-          </FunctionImportMapping>
           <EntitySetMapping Name="Activity">
             <EntityTypeMapping TypeName="weightlessModel.Activity">
               <MappingFragment StoreEntitySet="Activity">

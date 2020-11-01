@@ -1,16 +1,40 @@
 ﻿.header-publication {
     background-color: #E64A19 !important;
+    display: flex;
+    align-items: center;
     /*border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0 !important;*/
 }
 
 .btn-toggler-publication {
     color: white;
 }
-.btn-toggler-publication:hover {
-    color: white;
-}
+
+    .btn-toggler-publication:hover {
+        color: white;
+    }
 
 /* Body */
 .cont-publication-body {
     border: 2px solid #E64A19;
+}
+
+.btn-delete-publication {
+    background-color: white;
+    border: none;
+    margin-left: auto;
+    padding: 0.5em 0.7em;
+}
+
+    .btn-delete-publication:hover {
+        transform: scale(1.04);
+    }
+
+    .btn-delete-publication:active {
+        transform: scale(0.97);
+    }
+
+.delete-icon {
+    font-size: 22px;
+    color: #E64A19;
+    cursor: pointer;
 }
