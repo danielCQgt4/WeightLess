@@ -4,20 +4,24 @@
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 <link href="~/frontend/Public/css/Activity/Activity.css" rel="stylesheet" />
-<div id="content" class="container">
+<div id="content">
     <h2 class="mb-4">Actividades</h2>
-    <div class="row">
+    <div class="container-activities">
 
         @foreach (var item in Model) {
 
-            <div class="card col-md-4">
-                <div class="imgMachines mb-2">
-                    <img src="@item.link" class="card-img-top " alt="..." />
-                    <img src="~/frontend/Public/images/qr.png" class="card-img-top hoverQR" alt="..." />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">@item.name</h5>
-                    <p class="card-text">MET'S: @item.met</p>
+            <div class="container-activitiy">
+                <div class="card-activity">
+
+                    <div class="imgMachines mb-2">
+                        <img src="@item.link" class="card-img-top" />
+                        <img src="~/frontend/Public/images/qr.png" class="card-img-top hoverQR" />
+                    </div>
+                    <div class="activity-data">
+                        <h6 class="card-title">@item.name</h6>
+                        <p class="card-text">MET'S: @item.met</p>
+                    </div>
+
                 </div>
             </div>
 
