@@ -596,6 +596,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
