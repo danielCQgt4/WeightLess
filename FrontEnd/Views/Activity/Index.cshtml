@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Backend.Entity.Activity>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<link href="~/frontend/Public/css/Activity/Activity.css" rel="stylesheet" />
+<div id="content" class="container">
+    <h2 class="mb-4">Actividades</h2>
+    <div class="row">
+
+        @foreach (var item in Model) {
+
+            <div class="card col-md-4">
+                <div class="imgMachines mb-2">
+                    <img src="@item.link" class="card-img-top " alt="..." />
+                    <img src="~/frontend/Public/images/qr.png" class="card-img-top hoverQR" alt="..." />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.name</h5>
+                    <p class="card-text">MET'S: @item.met</p>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
