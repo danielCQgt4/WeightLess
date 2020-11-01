@@ -61,18 +61,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>WeightLessModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
-      <DependentUpon>WeightLessModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IMPL\DALGenericImpl.cs" />
-    <Compile Include="DAL\IDALGeneric.cs" />
-    <Compile Include="DAL\IUserDAL.cs" />
-    <Compile Include="DAL\UnitWork.cs" />
-    <Compile Include="IMPL\QRImpl.cs" />
-    <Compile Include="IMPL\UserDALImp.cs" />
     <Compile Include="Entity\Activity.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
@@ -88,6 +76,12 @@
     <Compile Include="Entity\Publication_Activity.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
@@ -97,6 +91,12 @@
     <Compile Include="Entity\UserDataHistory.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IMPL\DALGenericImpl.cs" />
+    <Compile Include="DAL\IDALGeneric.cs" />
+    <Compile Include="DAL\IUserDAL.cs" />
+    <Compile Include="DAL\UnitWork.cs" />
+    <Compile Include="IMPL\QRImpl.cs" />
+    <Compile Include="IMPL\UserDALImp.cs" />
     <Compile Include="Entity\validate_login_Result.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>

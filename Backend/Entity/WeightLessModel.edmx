@@ -10,7 +10,7 @@
             <PropertyRef Name="idActivity" />
           </Key>
           <Property Name="idActivity" Type="int" Nullable="false" />
-          <Property Name="name" Type="varbinary" MaxLength="75" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="met" Type="decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="link" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -252,17 +252,14 @@
     <edmx:ConceptualModels>
       <Schema Namespace="weightlessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="User" EntityType="weightlessModel.User" />
           <EntitySet Name="Activity" EntityType="weightlessModel.Activity" />
           <EntitySet Name="Activity_Assitance" EntityType="weightlessModel.Activity_Assitance" />
           <EntitySet Name="Assistance" EntityType="weightlessModel.Assistance" />
           <EntitySet Name="Publication" EntityType="weightlessModel.Publication" />
           <EntitySet Name="Publication_Activity" EntityType="weightlessModel.Publication_Activity" />
           <EntitySet Name="sysdiagrams" EntityType="weightlessModel.sysdiagrams" />
+          <EntitySet Name="User" EntityType="weightlessModel.User" />
+          <EntitySet Name="UserDataHistory" EntityType="weightlessModel.UserDataHistory" />
           <AssociationSet Name="FK_Activity_Assitance_Activity" Association="weightlessModel.FK_Activity_Assitance_Activity">
             <End Role="Activity" EntitySet="Activity" />
             <End Role="Activity_Assitance" EntitySet="Activity_Assitance" />
@@ -287,11 +284,14 @@
             <End Role="User" EntitySet="User" />
             <End Role="Publication" EntitySet="Publication" />
           </AssociationSet>
-          <EntitySet Name="UserDataHistory" EntityType="weightlessModel.UserDataHistory" />
           <AssociationSet Name="FK_UserDataHistory_User" Association="weightlessModel.FK_UserDataHistory_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserDataHistory" EntitySet="UserDataHistory" />
           </AssociationSet>
+          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="validate_login_Result">
           <Property Type="Int32" Name="idUser" Nullable="false" />
@@ -305,34 +305,27 @@
           <Property Type="Decimal" Name="weight" Nullable="false" Precision="5" Scale="2" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="idUser" />
-          </Key>
-          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dni" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="lastName" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
-          <Property Name="rol" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="height" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="weight" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Assistance" Relationship="weightlessModel.FK_Assistance_User" FromRole="User" ToRole="Assistance" />
-          <NavigationProperty Name="Publication" Relationship="weightlessModel.FK_Publication_User" FromRole="User" ToRole="Publication" />
-          <NavigationProperty Name="UserDataHistory" Relationship="weightlessModel.FK_UserDataHistory_User" FromRole="User" ToRole="UserDataHistory" />
-          </EntityType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="idActivity" />
           </Key>
           <Property Name="idActivity" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="Binary" Nullable="false" MaxLength="75" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
           <Property Name="met" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Activity_Assitance" Relationship="weightlessModel.FK_Activity_Assitance_Activity" FromRole="Activity" ToRole="Activity_Assitance" />
           <NavigationProperty Name="Publication_Activity" Relationship="weightlessModel.FK_Publication_Activity_Activity" FromRole="Activity" ToRole="Publication_Activity" />
-          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Activity_Assitance">
           <Key>
@@ -361,7 +354,7 @@
           <Key>
             <PropertyRef Name="idPublication" />
           </Key>
-          <Property Name="idPublication" Type="Int32" Nullable="false" />
+          <Property Name="idPublication" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
@@ -392,6 +385,35 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dni" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="height" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="weight" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Assistance" Relationship="weightlessModel.FK_Assistance_User" FromRole="User" ToRole="Assistance" />
+          <NavigationProperty Name="Publication" Relationship="weightlessModel.FK_Publication_User" FromRole="User" ToRole="Publication" />
+          <NavigationProperty Name="UserDataHistory" Relationship="weightlessModel.FK_UserDataHistory_User" FromRole="User" ToRole="UserDataHistory" />
+        </EntityType>
+        <EntityType Name="UserDataHistory">
+          <Key>
+            <PropertyRef Name="idUserHistory" />
+          </Key>
+          <Property Name="idUserHistory" Type="Int32" Nullable="false" />
+          <Property Name="weight" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="heigth" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="weightlessModel.FK_UserDataHistory_User" FromRole="UserDataHistory" ToRole="User" />
         </EntityType>
         <Association Name="FK_Activity_Assitance_Activity">
           <End Type="weightlessModel.Activity" Role="Activity" Multiplicity="1" />
@@ -465,28 +487,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
-        <EntityType Name="UserDataHistory">
-          <Key>
-            <PropertyRef Name="idUserHistory" />
-          </Key>
-          <Property Name="idUserHistory" Type="Int32" Nullable="false" />
-          <Property Name="weight" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="heigth" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idUser" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="weightlessModel.FK_UserDataHistory_User" FromRole="UserDataHistory" ToRole="User" />
-        </EntityType>
         <Association Name="FK_UserDataHistory_User">
           <End Type="weightlessModel.User" Role="User" Multiplicity="1" />
           <End Type="weightlessModel.UserDataHistory" Role="UserDataHistory" Multiplicity="*" />
@@ -505,24 +505,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="weightlessModelStoreContainer" CdmEntityContainer="DBContext">
-          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login">
-          </FunctionImportMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="weightlessModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="height" ColumnName="height" />
-                <ScalarProperty Name="rol" ColumnName="rol" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="dni" ColumnName="dni" />
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Activity">
             <EntityTypeMapping TypeName="weightlessModel.Activity">
               <MappingFragment StoreEntitySet="Activity">
@@ -587,6 +569,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="weightlessModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserDataHistory">
             <EntityTypeMapping TypeName="weightlessModel.UserDataHistory">
               <MappingFragment StoreEntitySet="UserDataHistory">
@@ -598,6 +596,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -10,110 +10,78 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <div class="form-row">
-            <div class="form-group col-md-10 col-lg-8">
-                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "" })
+            @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-10 col-lg-8">
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "d-block" })
-                <textarea class="form-control" name="description" id="description" cols="50" rows="4">@Model.description</textarea>
-                @*@Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @cols = 50, @rows = 4 } })*@
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-10 col-lg-8">
-                @Html.LabelFor(model => model.type)
-                @Html.DropDownListFor(model => model.type, new SelectList(Model.types, "value", "desc"), "Elegir...", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <input type="submit" value="Agregar" class="btn btn-info mb-3" />
-        @*<input type="submit" value="Finalizar" class="btn btn-info mb-3" />*@
-
     </div>
 
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "d-block" })
+            <textarea class="form-control" name="description" id="description" cols="50" rows="4">@Model.description</textarea>
+            @*@Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @cols = 50, @rows = 4 } })*@
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.type)
+            @Html.DropDownListFor(model => model.type, new SelectList(Model.types, "value", "desc"), "Elegir...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
+    <div class="form-row">
+        <div class="form-group col-md-10 col-lg-8">
+            @Html.LabelFor(model => model.publicationActivities)
+            @Html.DropDownListFor(model => model.type, new SelectList(Model.publicationActivities, "idActivity", "name"), "Elegir...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    @*<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.datetime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    <input type="submit" value="Agregar" class="btn btn-info mb-3" />
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    @*<div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputState">Tipo</label>
+            <select id="getFname" onchange="admSelectCheck(this);" class="form-control">
+                <option selected>Elegir...</option>
+                <option>Nutrución</option>
+                <option id="admOption">Actividad</option>
+            </select>
+        </div>
+    </div>*@
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    @*<button id="admDivCheck" style="display:none;" type="submit" class="btn btn-info">Finalizar</button>*@
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.type, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.likes, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.likes, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.likes, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.disLikes, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.disLikes, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.disLikes, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.idUser, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.idUser, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.idUser, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>*@
+</div>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    function admSelectCheck(nameSelect) {
+      console.log(nameSelect);
+      if (nameSelect) {
+        admOptionValue = document.getElementById("admOption").value;
+        if (admOptionValue == nameSelect.value) {
+          document.getElementById("admDivCheck").style.display = "block";
+        }
+        else {
+          document.getElementById("admDivCheck").style.display = "none";
+        }
+      }
+      else {
+        document.getElementById("admDivCheck").style.display = "none";
+      }
+    }
+</script>
