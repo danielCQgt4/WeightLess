@@ -14,54 +14,53 @@
 </p>
 
 @*<div class="card mb-3">
-    <h5 class="card-header bg-info">Consejo</h5>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-        <footer class="blockquote-footer">Creado por: Entrenador 1</footer>
-    </div>
-</div>*@
+        <h5 class="card-header bg-info">Consejo</h5>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer class="blockquote-footer">Creado por: Entrenador 1</footer>
+        </div>
+    </div>*@
 
 
 @foreach (var publication in Model) {
-<div class="accordion" id="accordionExample">
-    <div class="card">
-        <div class="card-header header-publication" id="headingTwo">
-            <button class="btn btn-link btn-block text-left p-0 collapsed btn-toggler-publication" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <span style="font-weight: 500;">@publication.title</span>
-                <span style="font-weight: 100;">@publication.datetime</span>
-            </button>
-        </div>
-        <div id="collapseTwo" class="collapse cont-publication-body" aria-labelledby="headingTwo">
-            <div class="card-body">
+    <div class="accordion mb-3">
+        <div class="card">
+            <div class="card-header header-publication" id="headingTwo">
+                <button class="btn btn-link btn-block text-left p-0 collapsed btn-toggler-publication" type="button">
+                    <span style="font-weight: 500;">@publication.title -</span>
+                    <span style="font-weight: 100;">@publication.datetime</span>
+                </button>
+            </div>
+            <div id="pb_@publication.idPublication" class="cont-publication-body">
+                <div class="card-body">
 
-                @*<h5 class="card-title">Special title treatment</h5>*@
-                <p>@publication.description</p>
-                <footer class="blockquote-footer">Creado por: @user.name @user.lastName</footer>
+                    @*<h5 class="card-title">Special title treatment</h5>*@
+                    <p>@publication.description</p>
+                    <footer class="blockquote-footer">Creado por: @user.name @user.lastName</footer>
 
-                @if (publication.type == "A") {
-                    <h5 class="mt-4">Actividades</h5>
-                    <hr>
+                    @*@if (publication.type == "A") {*@
+                        <h5 class="mt-4">Actividades</h5>
+                        <hr>
 
-                    <div class="card">
-                        <div class="card-header" id="heading4">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse4">
-                                    Bicicleta
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapse4" class="collapse" aria-labelledby="heading4">
-                            <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <div class="card">
+                            <div class="card-header" id="heading4">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse4">
+                                        Bicicleta
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse4" class="collapse" aria-labelledby="heading4">
+                                <div class="card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                        @*}*@
 
-
+                </div>
             </div>
         </div>
     </div>
-</div>
 }

@@ -292,6 +292,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserDataHistory" EntitySet="UserDataHistory" />
           </AssociationSet>
+          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="validate_login_Result">
           <Property Type="Int32" Name="idUser" Nullable="false" />
@@ -598,6 +602,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
