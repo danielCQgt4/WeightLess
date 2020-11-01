@@ -135,6 +135,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AssistanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
@@ -162,6 +163,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Public\css\Activity\Activity.css" />
     <Content Include="Public\css\consejos.css" />
     <Content Include="Public\css\Assistance\Assistance.css" />
     <Content Include="Public\css\css.css" />
@@ -318,6 +320,7 @@
     <Content Include="Views\Publication\Create.cshtml" />
     <Content Include="Views\Assistance\AssistanceCtr.cshtml" />
     <Content Include="Views\Publication\TrainerPublications.cshtml" />
+    <Content Include="Views\Activity\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

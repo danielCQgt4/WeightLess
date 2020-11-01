@@ -22,7 +22,7 @@ namespace Backend.Entity
         }
     
         public int idActivity { get; set; }
-        public byte[] name { get; set; }
+        public string name { get; set; }
         public decimal met { get; set; }
         public string link { get; set; }
     
