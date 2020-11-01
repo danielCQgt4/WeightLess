@@ -1,5 +1,6 @@
 ﻿using Backend.DAL;
 using Backend.Entity;
+using Backend.IMPL;
 using FrontEnd.Models;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,20 @@ namespace FrontEnd.Controllers {
 
         [AuthorizeRole(Role.C)]
         public ActionResult Index() {
-            List<Activity> activities;
+            List<Activity> actvs;
+            List<ActivityViewModel> activities = new List<ActivityViewModel>();
             using (var u = new UnitWork<Activity>()) {
-                activities = u.genericDAL.GetAll().ToList();
+                actvs = u.genericDAL.GetAll().ToList();
+                if (actvs != null) {
+                    activities = ActivityViewModel.Converter(actvs);
+                }
+            }
+            foreach (var actv in activities) {
+                QRImpl QRimpl = new QRImpl();
+                byte[] QRimage = QRimpl.genQR(actv.idActivity + "");
+                if (QRimage != null) {
+                    actv.qrCode = QRimage;
+                }
             }
             return View(activities);
         }

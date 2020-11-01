@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Backend.Entity.Activity>
+﻿@model IEnumerable<FrontEnd.Models.ActivityViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
@@ -15,7 +15,7 @@
 
                     <div class="imgMachines mb-2">
                         <img src="@item.link" class="card-img-top" />
-                        <img src="~/frontend/Public/images/qr.png" class="card-img-top hoverQR" />
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.qrCode))" class="card-img-top hoverQR" />
                     </div>
                     <div class="activity-data">
                         <h6 class="card-title">@item.name</h6>
