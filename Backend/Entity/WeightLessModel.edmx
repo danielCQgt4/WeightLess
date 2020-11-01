@@ -12,6 +12,7 @@
           <Property Name="idActivity" Type="int" Nullable="false" />
           <Property Name="name" Type="varbinary" MaxLength="75" Nullable="false" />
           <Property Name="met" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="link" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Activity_Assitance">
           <Key>
@@ -331,6 +332,7 @@
           <Property Name="met" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
           <NavigationProperty Name="Activity_Assitance" Relationship="weightlessModel.FK_Activity_Assitance_Activity" FromRole="Activity" ToRole="Activity_Assitance" />
           <NavigationProperty Name="Publication_Activity" Relationship="weightlessModel.FK_Publication_Activity_Activity" FromRole="Activity" ToRole="Publication_Activity" />
+          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Activity_Assitance">
           <Key>
@@ -524,6 +526,7 @@
           <EntitySetMapping Name="Activity">
             <EntityTypeMapping TypeName="weightlessModel.Activity">
               <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="link" ColumnName="link" />
                 <ScalarProperty Name="met" ColumnName="met" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="idActivity" ColumnName="idActivity" />
