@@ -190,36 +190,6 @@ body {
 }
 
 
-/* Machines */
-.containerMachines {
-    background-image: url(assets/images/machines.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.imgMachines .hoverQR {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.imgMachines:hover .hoverQR {
-    display: block;
-}
-
-.card-img, .card-img-bottom, .card-img-top {
-    margin: auto;
-}
-
-
-.imgQR {
-    width: 100px;
-    height: 100px;
-}
-
-
 /* Users */
 .linkUsers {
     color: #E64A19;

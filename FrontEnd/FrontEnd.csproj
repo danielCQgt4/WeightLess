@@ -135,6 +135,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AssistanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\AssistanceViewModel.cs" />
     <Compile Include="Models\AuthorizeRoleAttribute.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
@@ -162,10 +164,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Public\css\Activity\Activity.css" />
     <Content Include="Public\css\consejos.css" />
     <Content Include="Public\css\Assistance\Assistance.css" />
     <Content Include="Public\css\css.css" />
     <Content Include="Public\css\simple-sidebar.css" />
+    <Content Include="Public\images\wash_clothe.jpg" />
     <Content Include="Public\images\bicy.jpeg" />
     <Content Include="Public\images\bicycle.jpg" />
     <Content Include="Public\images\elliptical.jpg" />
@@ -318,6 +322,7 @@
     <Content Include="Views\Publication\Create.cshtml" />
     <Content Include="Views\Assistance\AssistanceCtr.cshtml" />
     <Content Include="Views\Publication\TrainerPublications.cshtml" />
+    <Content Include="Views\Activity\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
