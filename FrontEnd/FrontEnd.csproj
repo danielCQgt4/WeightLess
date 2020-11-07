@@ -181,6 +181,7 @@
     <Content Include="Public\images\qr.png" />
     <Content Include="Public\images\stairs.jpg" />
     <Content Include="Public\images\user.jpg" />
+    <Content Include="Public\js\controlAlerts.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

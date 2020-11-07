@@ -107,6 +107,22 @@
     </div>
 </div>
 
+
+@* Diags *@
+
+@if (ViewBag.wrongCredentials != null) {
+    <script>
+        showDiagError('Usuario o contraseña incorrectos');
+    </script>
+}
+
+@if (ViewBag.inactive != null) {
+    <script>
+        showDiagError('Tu cuenta ha sido desactivada');
+    </script>
+}
+
+
 <script>
     function myFunction() {
         var formDisp = document.getElementById("login").style.display;
