@@ -43,6 +43,8 @@ namespace FrontEnd.Models {
         public int likes { get; set; }
         public int disLikes { get; set; }
 
+        public string[] activities { get; set; }//idActivity:desc
+
 
         [DisplayName("Actividad")]
         public IEnumerable<Activity> publicationActivities { get; set; }
