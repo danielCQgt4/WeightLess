@@ -128,9 +128,14 @@ namespace FrontEnd.Controllers {
                         publication.disLikes = 0;
                         unit.genericDAL.Add(publication);
                         if (unit.Complete()) {
-                            TempData["publicationCreated"] = false; //TODO poner mensaje en la vista
+                            TempData["publicationCreated"] = true; //TODO poner mensaje en la vista
                             return RedirectToAction("TrainerPublications");
                         } else {
+                            IEnumerable<Activity> activities;
+                            using (var unidad = new UnitWork<Activity>()) {
+                                activities = unidad.genericDAL.GetAll().ToList();
+                                ViewBag.activities = activities;
+                            }
                             ViewBag.errorCreate = true; //TODO poner mensaje en la vista
                             return View(publicationVM);
                         }
@@ -142,5 +147,50 @@ namespace FrontEnd.Controllers {
                 return new HttpNotFoundResult(e.Message);
             }
         }
+
+        public ActionResult Delete(int id) { //TODO test 
+            Publication publication;
+            IEnumerable<Publication_Activity> publicationsActivity;
+            bool res = false;
+            using (DBContext context = new DBContext()) {
+                using (var tran = context.Database.BeginTransaction()) {
+                    using (var unitPA = new UnitWork<Publication_Activity>(context)) {
+                        using (var unitP = new UnitWork<Publication>()) {
+                            publication = unitP.genericDAL.Get(id);
+                        }
+
+                        if (publication.type == "A") {
+                            publicationsActivity = unitPA.genericDAL.Find(pa => pa.idPublication == id);
+                            unitPA.genericDAL.RemoveRange(publicationsActivity);
+                            res = unitPA.Complete();
+                        }
+
+                        if (res || publication.type == "N") {
+                            using (var unitP = new UnitWork<Publication>(context)) {
+                                unitP.genericDAL.Remove(publication);
+                                res = unitP.Complete();
+
+                                if (res) {
+                                    TempData["successDelete"] = "El consejo ha sido eliminado";
+                                } else {
+                                    TempData["errorDelete"] = "No se ha podido eliminar el consejo";
+                                    tran.Rollback();
+                                }
+                                tran.Commit();
+                            }
+                        } else {
+                            TempData["errorDelete"] = "No se ha podido eliminar el consejo";
+                            tran.Rollback();
+                            tran.Commit();
+                        }
+                    }
+
+                }
+            }
+
+            return RedirectToAction("TrainerPublications");
+        }
+
+
     }
 }

@@ -32,16 +32,15 @@ namespace FrontEnd.Controllers {
             try {
                 if (ModelState.IsValid) {
 
-
                     //Obtengo el usuario
                     IUserDAL us = new UserDALImp();
                     User user = us.Validate_LogIn(loginM.Correo, loginM.Clave);
 
                     if (user == null) {
-                        ViewBag.WrongCredentials = true;
+                        ViewBag.wrongCredentials = true;
                         return View(loginM);
                     } else if (!user.active) {
-                        ViewBag.Inactive = true;
+                        ViewBag.inactive = true;
                         return View(loginM);
                     } else {
 

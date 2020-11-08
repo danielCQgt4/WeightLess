@@ -13,15 +13,6 @@
     <a href="@Url.Action("Create","Publication")" class="btn btn-success">Crear publicación</a>
 </p>
 
-@*<div class="card mb-3">
-        <h5 class="card-header bg-info">Consejo</h5>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer">Creado por: Entrenador 1</footer>
-        </div>
-    </div>*@
-
 
 @foreach (var publication in Model) {
     <div class="accordion mb-3">
@@ -38,7 +29,6 @@
             <div id="pb_@publication.idPublication" class="cont-publication-body">
                 <div class="card-body">
 
-                    @*<h5 class="card-title">Special title treatment</h5>*@
                     <p>@publication.description</p>
                     <footer class="blockquote-footer">Creado por: @user.name @user.lastName</footer>
 
@@ -67,3 +57,58 @@
         </div>
     </div>
 }
+
+
+@if (TempData["successDelete"] != null) {
+    <script>
+        showDiagSuccess('@TempData["successDelete"]');
+    </script>
+}
+
+@if (TempData["errorDelete"] != null) {
+    <script>
+        showDiagError('@TempData["errorDelete"]');
+    </script>
+}
+
+
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+                      <script type="text/javascript">
+            function showDiagConfirm(idPublication) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'El consejo será eliminado!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Continuar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Delete","Publication")',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: 'json',
+                            data: JSON.stringify({ id: idPublication }),
+                            success: function () {
+                                Swal.fire( //On Success
+                                    'Eliminado!',
+                                    'El consejo se ha eliminado con éxito',
+                                    'success'
+                                )
+                            },
+                            error: function (ex) {
+                                showDiagError('Error al eliminar el consejo');
+                            }
+                            });
+
+                            }
+                       })
+                }
+                      </script>
+    }*@
