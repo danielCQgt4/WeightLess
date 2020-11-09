@@ -121,14 +121,12 @@ namespace FrontEnd.Controllers {
             return Index();
         }
 
-        public ActionResult EditProfile()
+        public ActionResult EditProfile(int id)
         {
             User user;
-            UserViewModel u = (UserViewModel)Session["User"];
-
             using (UnitWork<User> unidad = new UnitWork<User>())
             {
-                user = unidad.genericDAL.Get(u.idUser);
+                user = unidad.genericDAL.Get(id);
             }
             return View(UserViewModel.Converter(user));
         }
