@@ -49,6 +49,8 @@ namespace FrontEnd.Filters {
                         string calcDt = assistance.datetime.ToString().Split(' ')[0];
                         if (calcDt.Equals(actualDt)) {
                             assistance = u.genericDAL.Get(idAsis);
+                        } else {
+                            assistance = null;
                         }
                     }
                 } catch (Exception e) {

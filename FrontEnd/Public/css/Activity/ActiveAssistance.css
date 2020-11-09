@@ -1,0 +1,22 @@
+﻿.activity-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+#time {
+    font-size: 2.5em;
+}
+
+.time-actions {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+}
+
+    .time-actions button {
+        flex-basis: 7.5%;
+        margin: 0 1.5em;
+    }

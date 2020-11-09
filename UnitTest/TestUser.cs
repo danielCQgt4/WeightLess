@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest {
     [TestClass]
-    public class UserTest {
+    public class TestUser {
 
         [TestMethod]
         public void CreateAdmin() {

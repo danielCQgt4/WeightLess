@@ -32,7 +32,7 @@ namespace FrontEnd.Controllers {
         private Assistance createNewAssistance(UserViewModel usu) {
             Assistance asis = new Assistance() {
                 datetime = DateTime.Now,
-                idUser = usu.idUser,
+                idUser = usu.idUser
             };
             bool res;
             using (var uas = new UnitWork<Assistance>()) {

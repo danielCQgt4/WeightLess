@@ -144,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActivitieAssistanceViewModel.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\AssistanceViewModel.cs" />
     <Compile Include="Models\AuthorizeRoleAttribute.cs" />
@@ -164,6 +165,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Public\css\Activity\ActiveAssistance.css" />
     <Content Include="Public\css\Activity\Activity.css" />
     <Content Include="Public\css\consejos.css" />
     <Content Include="Public\css\Assistance\Assistance.css" />
@@ -181,6 +183,7 @@
     <Content Include="Public\images\qr.png" />
     <Content Include="Public\images\stairs.jpg" />
     <Content Include="Public\images\user.jpg" />
+    <Content Include="Public\js\Activity\ActiveActivity.js" />
     <Content Include="Public\js\controlAlerts.js" />
     <Content Include="Public\js\Publications\publications.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -324,6 +327,7 @@
     <Content Include="Views\Assistance\AssistanceCtr.cshtml" />
     <Content Include="Views\Publication\TrainerPublications.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\Activity\ActiveActivity.cshtml" />
     <Content Include="Views\User\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
