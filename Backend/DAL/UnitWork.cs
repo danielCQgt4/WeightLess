@@ -11,14 +11,17 @@ namespace Backend.DAL {
 
         public readonly DBContext context;
         public IDALGeneric<E> genericDAL;
+        public bool autoClose;
 
 
         public UnitWork(DBContext _context) {
+            autoClose = false;
             context = _context;
             genericDAL = new DALGenericImpl<E>(context);
         }
 
         public UnitWork() {
+            autoClose = true;
             context = new DBContext();
             genericDAL = new DALGenericImpl<E>(context);
         }
@@ -27,7 +30,7 @@ namespace Backend.DAL {
             try {
                 context.SaveChanges();
                 return true;
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return false;
             }
@@ -35,6 +38,12 @@ namespace Backend.DAL {
         }
 
         public void Dispose() {
+            if (autoClose) {
+                context.Dispose();
+            }
+        }
+
+        public void Close() {
             context.Dispose();
         }
 

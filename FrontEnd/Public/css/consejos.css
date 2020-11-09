@@ -38,3 +38,21 @@
     color: #E64A19;
     cursor: pointer;
 }
+
+/*Publication activities*/
+
+.card-header-pubActivity {
+    background-color: #3f3f3f;
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+    .card-header-pubActivity:hover {
+        background-color: #5f5f5f;
+    }
+
+.toggler-pubActivity {
+    color: white;
+    text-decoration: none !important;
+}
+.toggler-pubActivity:hover {
+    color: white !important;
+}

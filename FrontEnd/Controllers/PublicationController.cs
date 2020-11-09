@@ -47,12 +47,15 @@ namespace FrontEnd.Controllers {
                 item.User = usuarios.Find(u => u.idUser == item.idUser);
 
                 if (item.type == "A") {
-                    List<Activity> auxActivities = new List<Activity>();
+                    List<ActivityViewModel> auxActivities = new List<ActivityViewModel>();
                     auxPublicationActivities = publicationActivities.Where(pa => pa.idPublication == item.idPublication).ToList();
                     foreach (var act in auxPublicationActivities) {
                         var activity = activities.Find(a => a.idActivity == act.idActivity);
                         if (activity != null) {
-                            auxActivities.Add(activity);
+                            ActivityViewModel acVM = new ActivityViewModel();
+                            acVM = ActivityViewModel.Converter(activity);
+                            acVM.description = act.description;
+                            auxActivities.Add(acVM);
                         }
                     }
                     item.publicationActivities = auxActivities;
@@ -88,16 +91,23 @@ namespace FrontEnd.Controllers {
             List<Publication_Activity> auxPublicationActivities;
             foreach (var item in publicationsVM) {
                 if (item.type == "A") {
-                    List<Activity> auxActivities = new List<Activity>();
+                    List<ActivityViewModel> auxActivities = new List<ActivityViewModel>();
                     auxPublicationActivities = publicationActivities.Where(pa => pa.idPublication == item.idPublication).ToList();
                     foreach (var act in auxPublicationActivities) {
                         var activity = activities.Find(a => a.idActivity == act.idActivity);
                         if (activity != null) {
-                            auxActivities.Add(activity);
+                            ActivityViewModel acVM = new ActivityViewModel();
+                            acVM = ActivityViewModel.Converter(activity);
+                            acVM.description = act.description;
+                            auxActivities.Add(acVM);
                         }
                     }
                     item.publicationActivities = auxActivities;
                 }
+            }
+
+            if (publicationsVM.Count == 0) {
+                ViewBag.empty = true;
             }
 
             return View(publicationsVM);
@@ -120,26 +130,94 @@ namespace FrontEnd.Controllers {
         public ActionResult Create(PublicationViewModel publicationVM) {
             try {
                 if (ModelState.IsValid) {
+
                     Publication publication = PublicationViewModel.Converter(publicationVM);
-                    using (var unit = new UnitWork<Publication>()) {
-                        publication.datetime = DateTime.Now;
-                        publication.idUser = Convert.ToInt32(HttpContext.User.Identity.Name);
-                        publication.likes = 0;
-                        publication.disLikes = 0;
-                        unit.genericDAL.Add(publication);
-                        if (unit.Complete()) {
-                            TempData["publicationCreated"] = true; //TODO poner mensaje en la vista
-                            return RedirectToAction("TrainerPublications");
-                        } else {
-                            IEnumerable<Activity> activities;
-                            using (var unidad = new UnitWork<Activity>()) {
-                                activities = unidad.genericDAL.GetAll().ToList();
-                                ViewBag.activities = activities;
+                    publication.datetime = DateTime.Now;
+                    publication.idUser = Convert.ToInt32(HttpContext.User.Identity.Name);
+                    publication.likes = 0;
+                    publication.disLikes = 0;
+
+                    bool result = true;
+
+                    if (publicationVM.type == "N") {
+                        using (var unitP = new UnitWork<Publication>()) {
+                            unitP.genericDAL.Add(publication);
+                            if (unitP.Complete()) {
+                                TempData["pCreated"] = "El consejo ha sido creado"; //TODO poner mensaje en la vista
+                            } else {
+                                TempData["errorCreate"] = "No se ha podido crear el consejo"; //TODO poner mensaje en la vista
+                                result = false;
                             }
-                            ViewBag.errorCreate = true; //TODO poner mensaje en la vista
-                            return View(publicationVM);
+                        }
+                    } else {
+                        if (publicationVM.activities == null) {
+                            TempData["errorCreate"] = "El tipo de consejo requiere de almenos una actividad";
+                            result = false;
+                        } else {
+
+                            using (var unitP = new UnitWork<Publication>()) {
+                                unitP.genericDAL.Add(publication);
+                                if (!unitP.Complete()) {
+                                    TempData["errorCreate"] = "No se ha podido crear el consejo"; //TODO poner mensaje en la vista
+                                    result = false;
+                                }
+                            }
+
+                            if (result) {
+                                List<Publication_Activity> tempActivities = new List<Publication_Activity>();
+                                //var cont = 1;
+                                foreach (var item in publicationVM.activities) {
+                                    string[] auxAct = item.Split(':');
+                                    if (auxAct[0] == "" || auxAct[1] == "") {
+                                        //TempData["errorCreate"] = "Debe completar la actividad #" + cont;
+                                        using (var unitP = new UnitWork<Publication>()) {
+                                            unitP.genericDAL.Remove(publication);
+                                            unitP.Complete();
+                                        }
+                                        TempData["errorCreate"] = "Alguna actividad no está completa";
+                                        result = false;
+                                        break;
+                                    } else {
+                                        Publication_Activity auxPA = new Publication_Activity();
+                                        auxPA.idPublication = publication.idPublication;
+                                        auxPA.idActivity = Convert.ToInt32(auxAct[0]);
+                                        auxPA.description = auxAct[1];
+                                        tempActivities.Add(auxPA);
+                                    }
+                                    //cont++;
+                                }
+
+                                if (result) {
+                                    using (var unitPA = new UnitWork<Publication_Activity>()) {
+                                        unitPA.genericDAL.AddRange(tempActivities);
+                                        if (unitPA.Complete()) {
+                                            TempData["pCreated"] = "El consejo ha sido creado"; //TODO poner mensaje en la vista
+                                        } else {
+                                            using (var unitP = new UnitWork<Publication>()) {
+                                                unitP.genericDAL.Remove(publication);
+                                                unitP.Complete();
+                                            }
+                                            TempData["errorCreate"] = "No se ha podido crear el consejo"; //TODO poner mensaje en la vista
+                                            result = false;
+                                        }
+
+                                    }
+                                }
+                            }
                         }
                     }
+
+                    if (result) {
+                        return RedirectToAction("TrainerPublications");
+                    } else {
+                        IEnumerable<Activity> activities;
+                        using (var unidad = new UnitWork<Activity>()) {
+                            activities = unidad.genericDAL.GetAll().ToList();
+                            ViewBag.activities = activities;
+                        }
+                        return View(publicationVM);
+                    }
+
                 } else {
                     return View(publicationVM);
                 }
@@ -148,7 +226,9 @@ namespace FrontEnd.Controllers {
             }
         }
 
-        public ActionResult Delete(int id) { //TODO test 
+        [HttpPost]
+        [AuthorizeRole(Role.E)]
+        public ActionResult Delete(int id) {
             Publication publication;
             IEnumerable<Publication_Activity> publicationsActivity;
             bool res = false;
@@ -187,8 +267,8 @@ namespace FrontEnd.Controllers {
 
                 }
             }
-
-            return RedirectToAction("TrainerPublications");
+            return Json(new {});
+            //return RedirectToAction("TrainerPublications");
         }
 
 
