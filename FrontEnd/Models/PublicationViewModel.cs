@@ -47,7 +47,7 @@ namespace FrontEnd.Models {
 
 
         [DisplayName("Actividad")]
-        public IEnumerable<Activity> publicationActivities { get; set; }
+        public IEnumerable<ActivityViewModel> publicationActivities { get; set; }
 
         public int idUser { get; set; }
         public User User { get; set; }

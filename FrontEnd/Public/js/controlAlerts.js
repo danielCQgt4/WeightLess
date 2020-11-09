@@ -2,7 +2,7 @@
     Swal.fire({
         icon: 'success',
         title: 'Éxito',
-        text: msg
+        html: msg
     })
 }
 
@@ -10,7 +10,7 @@ function showDiagError(msg) {
     Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: msg
+        html: msg
     })
 }
 

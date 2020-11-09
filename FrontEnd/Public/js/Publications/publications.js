@@ -1,4 +1,5 @@
 ﻿(() => {
+
     const getE = a => {
         if (a.startsWith('.') || a.startsWith('#')) {
             return document.querySelector(a);
@@ -21,20 +22,48 @@
 
     window.addEventListener('load', () => {
 
+        //var cantA = 1;
 
         const selectActivitiesBase = getE('#select-activities-base');
         const selectType = getE('#select-type');
         const contTitleActivities = getE('#cont-title-activities');
         const btnAddActivitie = getE('#admDivCheck');
         const contFormActivitie = getE('#cont-form-activities');
+        const tempActivities = getE('tempActivity');
+        //console.log(tempActivities);
         const activities = [];
 
-        const newFormActivitie = () => {
+        const newFormActivitie = (o) => {
             const divForm = ndom('div');
             const hidden = ndom('input');
             hidden.type = 'hidden';
             hidden.name = 'activities';
             divForm.appendChild(hidden);
+
+            let vals = {
+                desc: '',
+                value: ''
+            };
+            if (o) {
+                let sp = o.split(':');
+                if (sp) {
+                    const divActivitie = ndom('div');
+                    divActivitie.className = 'alert alert-danger mt-1';
+                    if (sp[0] == '' || sp[1] == '') {
+                        divForm.appendChild(divActivitie);
+                    }
+                    if (sp[0] != '') {
+                        vals.value = sp[0];
+                    } else {
+                        divActivitie.textContent = 'Debes escoger una actividad';
+                    }
+                    if (sp[1] != '') {
+                        vals.desc = sp[1];
+                    } else {
+                        divActivitie.textContent = 'Debes ingresar una descripción';
+                    }
+                }
+            }
 
             const divActivitie = ndom('div');
             divActivitie.className = 'form-row';
@@ -42,7 +71,7 @@
             divActivitieInside.className = 'form-group col-md-10 col-lg-8';
             divActivitie.appendChild(divActivitieInside);
             const labelActivitie = ndom('label');
-            labelActivitie.textContent = 'Actividad';
+            labelActivitie.textContent = 'Actividad'; //+ cantA
             divActivitieInside.appendChild(labelActivitie);
             const selectActivities = ndom('select');
             selectActivities.addEventListener('change', () => {
@@ -57,6 +86,7 @@
             }
             divActivitieInside.appendChild(selectActivities);
             divForm.appendChild(divActivitie);
+            selectActivities.value = vals.value;
 
             const divDescription = ndom('div');
             divDescription.className = 'form-row';
@@ -70,6 +100,7 @@
             txtDescription.addEventListener('keyup', () => {
                 hidden.value = selectActivities.value + ':' + txtDescription.value;
             });
+            txtDescription.value = vals.desc;
             txtDescription.className = 'form-control';
             txtDescription.placeholder = 'Ingresa una descripcion para la actividad';
             txtDescription.cols = 50;
@@ -86,6 +117,9 @@
             divForm.appendChild(divBtn);
             const hr = ndom('hr');
             divForm.appendChild(hr);
+            hidden.value = selectActivities.value + ':' + txtDescription.value;
+            //cantA++;
+
             return { divForm, btnDel };
         }
 
@@ -100,7 +134,19 @@
                         });
                     }
                 }
-                console.log(activities);
+                //console.log(activities);
+                if (tempActivities && tempActivities.length) {
+                    for (let o of tempActivities) {
+                        console.log(o.value);
+                        const act = newFormActivitie(o.value);
+                        els.push(act);
+                        contFormActivitie.appendChild(act.divForm);
+                        act.btnDel.addEventListener('click', () => {
+                            contFormActivitie.removeChild(act.divForm);
+                            els = els.filter(o => o != act);
+                        });
+                    }
+                }
             }
         };
 
@@ -108,7 +154,7 @@
         if (btnAddActivitie) {
             btnAddActivitie.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log(activities.length, els.length);
+                //console.log(activities.length, els.length);
                 if ((activities.length - 1) <= els.length) {
                     showDiagError('Ya no hay mas actividades');//TODO swift alert
                     return;
@@ -140,6 +186,7 @@
             selectType.addEventListener('change', calculate);
             calculate();
         }
+
 
         calcAvitivities();
     });

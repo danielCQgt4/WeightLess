@@ -7,6 +7,7 @@ using System.Web;
 namespace FrontEnd.Models {
     public class AssistanceViewModel {
 
+
         public int idAssistance { get; set; }
         public DateTime datetime { get; set; }
         public int idUser { get; set; }

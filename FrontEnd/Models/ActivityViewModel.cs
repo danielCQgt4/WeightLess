@@ -14,6 +14,8 @@ namespace FrontEnd.Models {
         public string link { get; set; }
         public byte[] qrCode { get; set; }
 
+        public string description { get; set; } //For Publications
+
         public static ActivityViewModel Converter(Activity activity) {
             return new ActivityViewModel() {
                 idActivity = activity.idActivity,
