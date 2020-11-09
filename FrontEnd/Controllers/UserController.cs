@@ -121,15 +121,21 @@ namespace FrontEnd.Controllers {
             return Index();
         }
 
-        public ActionResult EditProfile(int id)
+        public ActionResult EditProfile()
         {
             User user;
+            UserViewModel u = (UserViewModel)Session["User"];
+
             using (UnitWork<User> unidad = new UnitWork<User>())
             {
-                user = unidad.genericDAL.Get(id);
+                user = unidad.genericDAL.Get(u.idUser);
             }
             return View(UserViewModel.Converter(user));
+
+
         }
+
+
 
         [HttpPost]
 
@@ -144,6 +150,8 @@ namespace FrontEnd.Controllers {
             return RedirectToAction("Index");
 
         }
+
+        
 
     }
 
