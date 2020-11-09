@@ -52,8 +52,12 @@
             <div class="p-4 pt-5">
                 <a href="#">
                     <img style="cursor:pointer;" class="imgUser mb-4" src="~/Public/images/user.jpg">
-                    @if (u != null) {
-                        <label class="my-2 text-center w-100" style="cursor:pointer;color:white !important;">@u.name</label>
+                    @if (u != null)
+                    {
+                        <!--<label class="my-2 text-center w-100" style="cursor:pointer;color:white !important;">@u.name</label>-->
+                        <a class="my-2 text-center w-100" style="cursor:pointer;color:white !important;"
+                           href="@Url.Action("EditProfile", "User", new { id = @u.idUser})">@u.name</a>
+
                     }
                 </a>
                 <ul class="list-unstyled components mb-5">
