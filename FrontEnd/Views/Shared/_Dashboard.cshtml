@@ -44,8 +44,8 @@
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="custom-menu">
-                <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                    <i class="fa fa-bars"></i>
+                <button type="button" id="sidebarCollapse" class="btn btn-primary d-flex align-items-center justify-content-center" style="padding:0px;">
+                    <span style="font-size: 1.2em;" class="iconify" data-icon="codicon:three-bars" data-inline="false"></span> 
                     <span class="sr-only">Toggle Menu</span>
                 </button>
             </div>
@@ -64,6 +64,8 @@
                     @if (esEntrenador) {
                         <li><a href="~/Publication/TrainerPublications">Consejos</a></li>
                         <li><a href="Machines.html">Actividades</a></li>
+                        <li><a href="~/User/EditProfile">Editar perfil</a></li>
+                        
                     }
                     @if (esCliente) {
                         <li><a href="~/Assistance/UserAssistance">Mi Asistencia</a></li>
