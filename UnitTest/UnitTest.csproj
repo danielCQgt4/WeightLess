@@ -57,7 +57,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserTest.cs" />
+    <Compile Include="TestAssistance.cs" />
+    <Compile Include="TestUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

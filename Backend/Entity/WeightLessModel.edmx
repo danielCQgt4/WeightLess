@@ -16,20 +16,22 @@
         </EntityType>
         <EntityType Name="Activity_Assitance">
           <Key>
-            <PropertyRef Name="idActivity" />
-            <PropertyRef Name="idAssistance" />
+            <PropertyRef Name="idActivityAssistance" />
           </Key>
+          <Property Name="idActivityAssistance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idActivity" Type="int" Nullable="false" />
           <Property Name="idAssistance" Type="int" Nullable="false" />
           <Property Name="start" Type="datetime" Nullable="false" />
           <Property Name="end" Type="datetime" />
           <Property Name="kcal" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="timeOcurred" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Assistance">
           <Key>
             <PropertyRef Name="idAssistance" />
           </Key>
-          <Property Name="idAssistance" Type="int" Nullable="false" />
+          <Property Name="idAssistance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="datetime" Type="datetime" Nullable="false" />
           <Property Name="idUser" Type="int" Nullable="false" />
         </EntityType>
@@ -252,6 +254,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="weightlessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="Activity" EntityType="weightlessModel.Activity" />
           <EntitySet Name="Activity_Assitance" EntityType="weightlessModel.Activity_Assitance" />
           <EntitySet Name="Assistance" EntityType="weightlessModel.Assistance" />
@@ -288,10 +294,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserDataHistory" EntitySet="UserDataHistory" />
           </AssociationSet>
-          <FunctionImport Name="validate_login" EntitySet="User" ReturnType="Collection(weightlessModel.User)">
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="validate_login_Result">
           <Property Type="Int32" Name="idUser" Nullable="false" />
@@ -329,14 +331,16 @@
         </EntityType>
         <EntityType Name="Activity_Assitance">
           <Key>
-            <PropertyRef Name="idActivity" />
-            <PropertyRef Name="idAssistance" />
+            <PropertyRef Name="idActivityAssistance" />
           </Key>
+          <Property Name="idActivityAssistance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idActivity" Type="Int32" Nullable="false" />
           <Property Name="idAssistance" Type="Int32" Nullable="false" />
           <Property Name="start" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="end" Type="DateTime" Precision="3" />
           <Property Name="kcal" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="timeOcurred" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="weightlessModel.FK_Activity_Assitance_Activity" FromRole="Activity_Assitance" ToRole="Activity" />
           <NavigationProperty Name="Assistance" Relationship="weightlessModel.FK_Activity_Assitance_Assistance" FromRole="Activity_Assitance" ToRole="Assistance" />
         </EntityType>
@@ -344,7 +348,7 @@
           <Key>
             <PropertyRef Name="idAssistance" />
           </Key>
-          <Property Name="idAssistance" Type="Int32" Nullable="false" />
+          <Property Name="idAssistance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="idUser" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Activity_Assitance" Relationship="weightlessModel.FK_Activity_Assitance_Assistance" FromRole="Assistance" ToRole="Activity_Assitance" />
@@ -505,6 +509,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="weightlessModelStoreContainer" CdmEntityContainer="DBContext">
+          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login" />
           <EntitySetMapping Name="Activity">
             <EntityTypeMapping TypeName="weightlessModel.Activity">
               <MappingFragment StoreEntitySet="Activity">
@@ -518,11 +523,14 @@
           <EntitySetMapping Name="Activity_Assitance">
             <EntityTypeMapping TypeName="weightlessModel.Activity_Assitance">
               <MappingFragment StoreEntitySet="Activity_Assitance">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="timeOcurred" ColumnName="timeOcurred" />
                 <ScalarProperty Name="kcal" ColumnName="kcal" />
                 <ScalarProperty Name="end" ColumnName="end" />
                 <ScalarProperty Name="start" ColumnName="start" />
                 <ScalarProperty Name="idAssistance" ColumnName="idAssistance" />
                 <ScalarProperty Name="idActivity" ColumnName="idActivity" />
+                <ScalarProperty Name="idActivityAssistance" ColumnName="idActivityAssistance" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -596,7 +604,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="validate_login" FunctionName="weightlessModel.Store.validate_login" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
