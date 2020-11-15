@@ -158,9 +158,24 @@ namespace FrontEnd.Controllers {
         [AuthorizeRole(Role.C)]
         [HttpPost]
         public ActionResult StopSessionActivity(ActivitieAssistanceViewModel json) {
+            UserViewModel user = Session["User"] as UserViewModel;
             bool res = false;
             using (var u = new UnitWork<Activity_Assitance>()) {
                 Activity_Assitance aa = u.genericDAL.Get(json.idActivityAssistance);
+                using (var un = new UnitWork<Activity>()) {
+                    string[] parts = aa.timeOcurred.Split(':');
+                    User usu;
+                    using (var unUsu = new UnitWork<User>()) {
+                        usu = unUsu.genericDAL.Get(user.idUser);
+                    }
+                    Activity act = un.genericDAL.Get(aa.idActivity);
+                    if (act != null) {
+                        //h = Convert.ToInt32(parts[0]) * 60;
+                        //m = Convert.ToInt32(parts[1]) + h;
+                        aa.kcal = act.met * 0.0175m * usu.weight;
+                    }
+                }
+                aa.status = false;
                 aa.end = DateTime.Now;
                 u.genericDAL.Update(aa);
                 res = u.Complete();
