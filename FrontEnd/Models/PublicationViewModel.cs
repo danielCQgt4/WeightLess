@@ -45,7 +45,6 @@ namespace FrontEnd.Models {
 
         public string[] activities { get; set; }//idActivity:desc
 
-
         [DisplayName("Actividad")]
         public IEnumerable<ActivityViewModel> publicationActivities { get; set; }
 
@@ -55,11 +54,10 @@ namespace FrontEnd.Models {
 
         public List<object> types { get; set; }
 
-        public struct typeModel{
+        public struct typeModel {
             string desc;
             string value;
         }
-
 
         public static PublicationViewModel Converter(Publication publication) {
             return new PublicationViewModel() {

@@ -27,19 +27,11 @@
     <div class="form-row">
         <div class="form-group col-md-10 col-lg-6 mt-3">
             @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "d-block" })
-            @*<textarea placeholder="Ingresa una descripción para el consejo" class="form-control" name="description" id="description" cols="50" rows="4">@Model.description</textarea>*@
-            @Html.TextAreaFor(model => model.description, new { @class = "form-control", @placeholder = "Ingresa una descripción para el consejo", @Cols = 50, @Rows = 4 })
+            @Html.TextAreaFor(model => model.description, new { @class = "form-control", @placeholder = "Ingresa una descripción para el consejo", @Cols = 50, @Rows = 4, maxlength = 550 })
             @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    @*<div class="form-row">
-                <div class="form-group col-md-10 col-lg-8">
-                    @Html.LabelFor(model => model.type)
-                    @Html.DropDownListFor(model => model.type, new SelectList(Model.types, "value", "desc"), "Elegir...", new { @class = "form-control", @id = "select-type" })
-                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
-                </div>
-        </div>*@
 
     <div class="mt-3" id="cont-title-activities" style="display: none;"><h4>Actividades</h4><hr /></div>
 
@@ -89,19 +81,6 @@
 
 
 
-    @*<div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputState">Tipo</label>
-                <select id="getFname" onchange="admSelectCheck(this);" class="form-control">
-                    <option selected>Elegir...</option>
-                    <option>Nutrución</option>
-                    <option id="admOption">Actividad</option>
-                </select>
-            </div>
-        </div>*@
-
-    @*<button id="admDivCheck" style="display:none;" type="submit" class="btn btn-info">Finalizar</button>*@
-
 </div>
 }
 
@@ -117,21 +96,3 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-
-@*<script>
-        function admSelectCheck(nameSelect) {
-          console.log(nameSelect);
-          if (nameSelect) {
-            admOptionValue = document.getElementById("admOption").value;
-            if (admOptionValue == nameSelect.value) {
-              document.getElementById("admDivCheck").style.display = "block";
-            }
-            else {
-              document.getElementById("admDivCheck").style.display = "none";
-            }
-          }
-          else {
-            document.getElementById("admDivCheck").style.display = "none";
-          }
-        }
-    </script>*@
