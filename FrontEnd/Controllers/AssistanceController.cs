@@ -16,14 +16,40 @@ namespace FrontEnd.Controllers {
             return View();
         }
 
+        public string getRandom() {
+            var ran = new Random();
+            string res = "";
+            int cr = ran.Next(5, 500);
+            for (int i = 0; i < cr; i++) {
+                int c = ran.Next(97, 122);
+                res += (char)c;
+            }
+            return res;
+        }
+
         [AuthorizeRole(Role.C)]
         public ActionResult UserAssistance() {
             UserViewModel user = (UserViewModel)Session["User"];
             List<AssistanceViewModel> assistances = new List<AssistanceViewModel>();
+            List<Activity> activities;
+            using (var u = new UnitWork<Activity>()) {
+                activities = u.genericDAL.GetAll().ToList();
+            }
             using (var u = new UnitWork<Assistance>()) {
                 List<Assistance> asis = u.genericDAL.Find(o => o.idUser == user.idUser).ToList();
                 if (asis != null) {
                     assistances = AssistanceViewModel.Converter(asis);
+                    foreach (var a in assistances) {
+                        using (var un = new UnitWork<Activity_Assitance>()) {
+                            a.activitieAssistanceViewModel = ActivitieAssistanceViewModel.Converter(un.genericDAL.Find(o => o.idAssistance == a.idAssistance).ToList());
+                        }
+                        if (a.activitieAssistanceViewModel != null) {
+                            foreach (var aav in a.activitieAssistanceViewModel) {
+                                aav.activity = ActivityViewModel.Converter(activities.Find(o => o.idActivity == aav.idActivity));
+                            }
+                        }
+                        a.calculateMetaInformation();
+                    }
                 }
             }
             return View(assistances);
