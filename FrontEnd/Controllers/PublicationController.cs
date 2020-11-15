@@ -16,8 +16,8 @@ namespace FrontEnd.Controllers {
         // GET: Publication
         [AuthorizeRole(Role.C)]
         public ActionResult Index() {
-            List<Publication> publications;
 
+            List<Publication> publications;
             using (var unidad = new UnitWork<Publication>()) {
                 publications = unidad.genericDAL.GetAll().ToList();
             }
@@ -28,7 +28,7 @@ namespace FrontEnd.Controllers {
 
             List<User> usuarios;
             using (var unidad = new UnitWork<User>()) {
-                usuarios = unidad.genericDAL.Find(u => u.rol == "A").ToList();
+                usuarios = unidad.genericDAL.Find(u => u.rol == "E").ToList();
             }
 
             List<Publication_Activity> publicationActivities;
@@ -42,7 +42,6 @@ namespace FrontEnd.Controllers {
             }
 
             List<Publication_Activity> auxPublicationActivities;
-
             foreach (var item in publicationsVM) {
                 item.User = usuarios.Find(u => u.idUser == item.idUser);
 
@@ -61,6 +60,12 @@ namespace FrontEnd.Controllers {
                     item.publicationActivities = auxActivities;
                 }
             }
+
+            if (publicationsVM.Count == 0) {
+                ViewBag.empty = true;
+            }
+
+            publicationsVM.Reverse();
 
             return View(publicationsVM);
         }
@@ -110,6 +115,8 @@ namespace FrontEnd.Controllers {
                 ViewBag.empty = true;
             }
 
+            publicationsVM.Reverse();
+
             return View(publicationsVM);
         }
 
@@ -143,9 +150,9 @@ namespace FrontEnd.Controllers {
                         using (var unitP = new UnitWork<Publication>()) {
                             unitP.genericDAL.Add(publication);
                             if (unitP.Complete()) {
-                                TempData["pCreated"] = "El consejo ha sido creado"; //TODO poner mensaje en la vista
+                                TempData["pCreated"] = "El consejo ha sido creado";
                             } else {
-                                TempData["errorCreate"] = "No se ha podido crear el consejo"; //TODO poner mensaje en la vista
+                                TempData["errorCreate"] = "No se ha podido crear el consejo";
                                 result = false;
                             }
                         }
@@ -158,18 +165,16 @@ namespace FrontEnd.Controllers {
                             using (var unitP = new UnitWork<Publication>()) {
                                 unitP.genericDAL.Add(publication);
                                 if (!unitP.Complete()) {
-                                    TempData["errorCreate"] = "No se ha podido crear el consejo"; //TODO poner mensaje en la vista
+                                    TempData["errorCreate"] = "No se ha podido crear el consejo";
                                     result = false;
                                 }
                             }
 
                             if (result) {
                                 List<Publication_Activity> tempActivities = new List<Publication_Activity>();
-                                //var cont = 1;
                                 foreach (var item in publicationVM.activities) {
                                     string[] auxAct = item.Split(':');
                                     if (auxAct[0] == "" || auxAct[1] == "") {
-                                        //TempData["errorCreate"] = "Debe completar la actividad #" + cont;
                                         using (var unitP = new UnitWork<Publication>()) {
                                             unitP.genericDAL.Remove(publication);
                                             unitP.Complete();
@@ -184,20 +189,19 @@ namespace FrontEnd.Controllers {
                                         auxPA.description = auxAct[1];
                                         tempActivities.Add(auxPA);
                                     }
-                                    //cont++;
                                 }
 
                                 if (result) {
                                     using (var unitPA = new UnitWork<Publication_Activity>()) {
                                         unitPA.genericDAL.AddRange(tempActivities);
                                         if (unitPA.Complete()) {
-                                            TempData["pCreated"] = "El consejo ha sido creado"; //TODO poner mensaje en la vista
+                                            TempData["pCreated"] = "El consejo ha sido creado";
                                         } else {
                                             using (var unitP = new UnitWork<Publication>()) {
                                                 unitP.genericDAL.Remove(publication);
                                                 unitP.Complete();
                                             }
-                                            TempData["errorCreate"] = "No se ha podido crear el consejo"; //TODO poner mensaje en la vista
+                                            TempData["errorCreate"] = "No se ha podido crear el consejo";
                                             result = false;
                                         }
 
@@ -267,8 +271,7 @@ namespace FrontEnd.Controllers {
 
                 }
             }
-            return Json(new {});
-            //return RedirectToAction("TrainerPublications");
+            return Json(new { });
         }
 
 

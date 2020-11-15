@@ -97,6 +97,7 @@
             labelDescription.textContent = 'Descripción de la actividad';
             divDescriptionInside.appendChild(labelDescription);
             const txtDescription = ndom('textarea');
+            txtDescription.maxLength = 250;
             txtDescription.addEventListener('keyup', () => {
                 hidden.value = selectActivities.value + ':' + txtDescription.value;
             });
