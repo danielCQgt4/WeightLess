@@ -13,13 +13,13 @@
                 <div class="card">
                     <div class="card-header header-card-assistance" id="headingTwo">
                         <h2 class="mb-0">
-                            <button class="btn btn-block text-left collapsed header-card-assistance-btn" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <button class="btn btn-block text-left collapsed header-card-assistance-btn" type="button" data-toggle="collapse" data-target="#fs_@asis.idAssistance" aria-expanded="false" aria-controls="collapseTwo">
                                 Asistencia del @asis.datetime.ToString()
                             </button>
                         </h2>
                     </div>
 
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+                    <div id="fs_@asis.idAssistance" class="collapse" aria-labelledby="headingTwo">
                         <div class="card-body">
                             <div>
                                 <div>
@@ -28,7 +28,7 @@
                                             Calorias Quemadas:
                                         </b>
                                     </span>
-                                    <span>XX.XX</span>
+                                    <span>@asis.totalKcal</span>
                                 </div>
                                 <div>
                                     <span>
@@ -36,44 +36,80 @@
                                             Tiempo Total:
                                         </b>
                                     </span>
-                                    <span>40 min</span>
+                                    <span>@asis.totalTime</span>
                                 </div>
                             </div>
                             <div></div>
 
                             <h3 class="mt-3">Actividades</h3>
                             <hr>
-
-                            <div class="card">
-                                <div class="card-header header-card-activity" id="headingThree">
-                                    <div>
-                                        <button class="btn btn-block text-left collapsed header-card-assistance-btn" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Bicicleta
-                                        </button>
+                            @if (asis.activitieAssistanceViewModel == null || asis.activitieAssistanceViewModel.Count() == 0) {
+                                <div class="text-center">No se realizaron actividades</div>
+                            }
+                            @foreach (var aav in asis.activitieAssistanceViewModel) {
+                                <div class="card">
+                                    <div class="card-header header-card-activity" id="headingThree">
+                                        <div>
+                                            <button class="btn btn-block text-left collapsed header-card-assistance-btn" type="button" data-toggle="collapse" data-target="#snd_@aav.idActivityAssistance" aria-expanded="false" aria-controls="collapseThree">
+                                                @aav.activity.name
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="snd_@aav.idActivityAssistance" class="collapse" aria-labelledby="headingThree">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <img src="@aav.activity.link" alt="@aav.activity.name" width="136px" />
+                                                </div>
+                                                <div class="col">
+                                                    <div>
+                                                        <div>
+                                                            <span>
+                                                                <b>
+                                                                    Calorias Quemadas:
+                                                                </b>
+                                                            </span>
+                                                            <span>@aav.kcal</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>
+                                                                <b>
+                                                                    Tiempo Total:
+                                                                </b>
+                                                            </span>
+                                                            <span>@aav.timeOcurred</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>
+                                                                <b>
+                                                                    Inicio - Fin:
+                                                                </b>
+                                                            </span>
+                                                            <span>@aav.start.ToString().Substring(aav.start.ToString().IndexOf(' ')) - @aav.end.ToString().Substring(aav.end.ToString().IndexOf(' '))</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
-                                    <div class="card-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    </div>
-                                </div>
-                            </div>
+                            }
 
 
                             @*<div class="card">
-                                <div class="card-header" id="heading4">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse4">
-                                            Bicicleta
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse4" class="collapse" aria-labelledby="heading4">
-                                    <div class="card-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <div class="card-header" id="heading4">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse4">
+                                                Bicicleta
+                                            </button>
+                                        </h2>
                                     </div>
-                                </div>
-                            </div>*@
+                                    <div id="collapse4" class="collapse" aria-labelledby="heading4">
+                                        <div class="card-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>*@
 
                         </div>
                     </div>
