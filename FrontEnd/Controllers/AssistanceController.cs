@@ -1,6 +1,8 @@
 ﻿using Backend.DAL;
 using Backend.Entity;
+using Backend.IMPL;
 using FrontEnd.Models;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,5 +148,48 @@ namespace FrontEnd.Controllers {
             }
             return RedirectToAction("Index", "Home");
         }
+
+
+        [AuthorizeRole(Role.A)]
+        public ActionResult ReportAssistance() {
+            return View();
+        }
+
+        [HttpPost]
+        [AuthorizeRole(Role.A)]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReportAssistance(DateTime date) {
+            var reportViewer = new ReportViewer {
+                ProcessingMode = ProcessingMode.Local,
+                ShowExportControls = true,
+                ShowParameterPrompts = true,
+                ShowPageNavigationControls = true,
+                ShowRefreshButton = true,
+                ShowPrintButton = true,
+                SizeToReportContent = true,
+                AsyncRendering = false,
+            };
+
+            string rutaReporte = "~/Reports/AssistanceReport.rdlc";
+            string rutaServidor = Server.MapPath(rutaReporte);
+            reportViewer.LocalReport.ReportPath = rutaServidor;
+            var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
+            reportViewer.LocalReport.DataSources.Clear();
+
+            List<sp_Report_Assistance_Result> datosReporte;
+            IAssistanceDAL empDAL = new AssistanceDALImp();
+            datosReporte = empDAL.sp_Report_Assistance(date);
+
+            ReportDataSource fuenteDatos = new ReportDataSource();
+            fuenteDatos.Name = infoFuenteDatos[0];
+            fuenteDatos.Value = datosReporte;
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("AssistanceDataSet", datosReporte));
+
+            reportViewer.LocalReport.Refresh();
+            ViewBag.ReportViewer = reportViewer;
+            return View();
+        }
+
     }
+
 }
