@@ -47,52 +47,55 @@
                                 <div class="text-center">No se realizaron actividades</div>
                             }
                             @foreach (var aav in asis.activitieAssistanceViewModel) {
-                                <div class="card">
-                                    <div class="card-header header-card-activity" id="headingThree">
-                                        <div>
-                                            <button class="btn btn-block text-left collapsed header-card-assistance-btn" type="button" data-toggle="collapse" data-target="#snd_@aav.idActivityAssistance" aria-expanded="false" aria-controls="collapseThree">
-                                                @aav.activity.name
-                                            </button>
+                                if (aav.end != null) {
+
+                                    <div class="card">
+                                        <div class="card-header header-card-activity" id="headingThree">
+                                            <div>
+                                                <button class="btn btn-block text-left collapsed header-card-assistance-btn" type="button" data-toggle="collapse" data-target="#snd_@aav.idActivityAssistance" aria-expanded="false" aria-controls="collapseThree">
+                                                    @aav.activity.name
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div id="snd_@aav.idActivityAssistance" class="collapse" aria-labelledby="headingThree">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <img src="@aav.activity.link" alt="@aav.activity.name" width="136px" />
-                                                </div>
-                                                <div class="col">
-                                                    <div>
+                                        <div id="snd_@aav.idActivityAssistance" class="collapse" aria-labelledby="headingThree">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <img src="@aav.activity.link" alt="@aav.activity.name" width="136px" />
+                                                    </div>
+                                                    <div class="col">
                                                         <div>
-                                                            <span>
-                                                                <b>
-                                                                    Calorias Quemadas:
-                                                                </b>
-                                                            </span>
-                                                            <span>@aav.kcal</span>
-                                                        </div>
-                                                        <div>
-                                                            <span>
-                                                                <b>
-                                                                    Tiempo Total:
-                                                                </b>
-                                                            </span>
-                                                            <span>@aav.timeOcurred</span>
-                                                        </div>
-                                                        <div>
-                                                            <span>
-                                                                <b>
-                                                                    Inicio - Fin:
-                                                                </b>
-                                                            </span>
-                                                            <span>@aav.start.ToString().Substring(aav.start.ToString().IndexOf(' ')) - @aav.end.ToString().Substring(aav.end.ToString().IndexOf(' '))</span>
+                                                            <div>
+                                                                <span>
+                                                                    <b>
+                                                                        Calorias Quemadas:
+                                                                    </b>
+                                                                </span>
+                                                                <span>@aav.kcal</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>
+                                                                    <b>
+                                                                        Tiempo Total:
+                                                                    </b>
+                                                                </span>
+                                                                <span>@aav.timeOcurred</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>
+                                                                    <b>
+                                                                        Inicio - Fin:
+                                                                    </b>
+                                                                </span>
+                                                                <span>@aav.start.ToString().Substring(aav.start.ToString().IndexOf(' ')) - @aav.end.ToString().Substring(aav.end.ToString().IndexOf(' '))</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             }
 
 

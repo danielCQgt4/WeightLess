@@ -1,5 +1,6 @@
 ﻿using Backend.DAL;
 using Backend.Entity;
+using FrontEnd.Controllers;
 using FrontEnd.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace FrontEnd.Filters {
                 if (user != null) {
                     if (!user.active) {
                         //ViewBag.Desactivado = true;
-                        filterContext.RequestContext.HttpContext.RedirectLocal("/Homa/Index");
+                        filterContext.RequestContext.HttpContext.RedirectLocal("/Home/Index");
                     } else {
                         UserViewModel userV = UserViewModel.Converter(user);
                         Assistance a = loadAssistance(user.idUser);
@@ -31,6 +32,11 @@ namespace FrontEnd.Filters {
                             userV.assistance = a;
                         }
                         filterContext.RequestContext.HttpContext.Session["User"] = userV;
+                    }
+                } else {
+                    if (!filterContext.RequestContext.HttpContext.Request.Url.AbsolutePath.Equals("/Home/Index")) {
+                        filterContext.Result = new RedirectToRouteResult("/Home/Index", null);
+                        //filterContext.RequestContext.HttpContext.Response.Redirect("/Home/Index");
                     }
                 }
 
