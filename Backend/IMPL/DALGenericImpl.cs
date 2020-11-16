@@ -22,8 +22,7 @@ namespace Backend.DAL {
             try {
                 Context.Set<E>().Add(entity);
                 return true;
-            } catch(Exception) {
-
+            } catch (Exception e) {
                 return false;
             }
         }
@@ -31,7 +30,7 @@ namespace Backend.DAL {
         public void AddRange(IEnumerable<E> entities) {
             try {
                 Context.Set<E>().AddRange(entities);
-            } catch(Exception) {
+            } catch (Exception) {
 
                 throw;
             }
@@ -40,7 +39,7 @@ namespace Backend.DAL {
         public IEnumerable<E> Find(Expression<Func<E, bool>> predicate) {
             try {
                 return Context.Set<E>().Where(predicate);
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return null;
             }
@@ -49,7 +48,7 @@ namespace Backend.DAL {
         public E Get(int id) {
             try {
                 return Context.Set<E>().Find(id);
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return null;
             }
@@ -58,7 +57,7 @@ namespace Backend.DAL {
         public IEnumerable<E> GetAll() {
             try {
                 return Context.Set<E>().ToList();
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return null;
             }
@@ -69,7 +68,7 @@ namespace Backend.DAL {
                 Context.Set<E>().Attach(entity);
                 Context.Set<E>().Remove(entity);
                 return true;
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return false;
             }
@@ -78,7 +77,7 @@ namespace Backend.DAL {
         public void RemoveRange(IEnumerable<E> entities) {
             try {
                 Context.Set<E>().RemoveRange(entities);
-            } catch(Exception) {
+            } catch (Exception) {
 
                 throw;
             }
@@ -87,7 +86,7 @@ namespace Backend.DAL {
         public E SingleOrDefault(Expression<Func<E, bool>> predicate) {
             try {
                 return Context.Set<E>().SingleOrDefault(predicate);
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return null;
             }
@@ -97,7 +96,7 @@ namespace Backend.DAL {
             try {
                 Context.Entry(entity).State = EntityState.Modified;
                 return true;
-            } catch(Exception) {
+            } catch (Exception) {
 
                 return false;
             }

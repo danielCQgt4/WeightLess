@@ -81,6 +81,7 @@ namespace Backend.DAL {
                     }
                 }
             } catch (Exception e) {
+                Console.Write(e);
             }
             return null;
         }
