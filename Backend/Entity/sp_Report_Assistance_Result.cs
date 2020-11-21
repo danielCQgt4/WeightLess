@@ -11,12 +11,12 @@ namespace Backend.Entity
 {
     using System;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class sp_Report_Assistance_Result
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public string dni { get; set; }
+        public string name { get; set; }
+        public string lastName { get; set; }
+        public System.DateTime datetime { get; set; }
+        public Nullable<int> cantActivities { get; set; }
     }
 }

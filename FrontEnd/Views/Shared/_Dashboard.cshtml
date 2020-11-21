@@ -59,7 +59,7 @@
                 <ul class="list-unstyled components mb-5">
                     @if (esAdmin) {
                         <li><a href="~/User">Usuarios</a></li>
-                        <li><a href="AssistanceAdmin.html">Admin Asistencia</a></li>
+                        <li><a href="@Url.Action("ReportAssistance","Assistance")">Reporte de asistencia</a></li>
                     }
                     @if (esEntrenador) {
                         <li><a href="~/Publication/TrainerPublications">Consejos</a></li>

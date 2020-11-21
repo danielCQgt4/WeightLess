@@ -206,6 +206,9 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Report_Assistance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="validate_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="varchar" Mode="In" />
@@ -294,6 +297,9 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserDataHistory" EntitySet="UserDataHistory" />
           </AssociationSet>
+          <FunctionImport Name="sp_Report_Assistance" ReturnType="Collection(weightlessModel.sp_Report_Assistance_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="validate_login_Result">
           <Property Type="Int32" Name="idUser" Nullable="false" />
@@ -503,6 +509,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_Report_Assistance_Result">
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="75" />
+          <Property Type="DateTime" Name="datetime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="cantActivities" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -604,6 +617,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Report_Assistance" FunctionName="weightlessModel.Store.sp_Report_Assistance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="weightlessModel.sp_Report_Assistance_Result">
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="cantActivities" ColumnName="cantActivities" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

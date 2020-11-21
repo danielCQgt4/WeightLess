@@ -61,6 +61,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\IAssistanceDAL.cs" />
     <Compile Include="Entity\Activity.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
@@ -82,6 +83,9 @@
     <Compile Include="Entity\sp_helpdiagrams_Result.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sp_Report_Assistance_Result.cs">
+      <DependentUpon>WeightLessModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
@@ -91,6 +95,7 @@
     <Compile Include="Entity\UserDataHistory.cs">
       <DependentUpon>WeightLessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IMPL\AssistanceDALImp.cs" />
     <Compile Include="IMPL\DALGenericImpl.cs" />
     <Compile Include="DAL\IDALGeneric.cs" />
     <Compile Include="DAL\IUserDAL.cs" />
