@@ -190,6 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ActivityWs.cs" />
     <Compile Include="Hubs\TestWs.cs" />
     <Compile Include="Models\ActivitieAssistanceViewModel.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Models\PublicationViewModel.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WsUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Security.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
