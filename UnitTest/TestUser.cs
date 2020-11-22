@@ -7,11 +7,13 @@ using Backend.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest {
+
     [TestClass]
     public class TestUser {
 
         [TestMethod]
-        public void CreateAdmin() {
+        public void CreateAdmin()
+        {
 
             User user = new User() {
                 active = true,
@@ -19,8 +21,8 @@ namespace UnitTest {
                 dni = "12345678",
                 email = "correo@correo.com",
                 height = 0,
-                lastName = "master",
-                name = "master",
+                lastName = "prueba",
+                name = "prueba",
                 password = "1234",
                 rol = "A",
                 weight = 0
@@ -95,5 +97,49 @@ namespace UnitTest {
         //    }
         //}
 
+        [TestMethod]
+        public void Get()
+        {
+            IEnumerable<User> user;
+            using (var unitUser = new UnitWork<User>())
+            {
+                user = unitUser.genericDAL.GetAll();
+                Assert.AreEqual(true, (user != null));
+            }
+        }
+        [TestMethod]
+        public void TestDelete()
+        {
+            User user;
+            using (var unitU = new UnitWork<User>())
+            {
+                user = unitU.genericDAL.Get(93);
+            }
+            using (var unitU = new UnitWork<User>())
+            {
+                unitU.genericDAL.Remove(user);
+                Assert.AreEqual(true, unitU.Complete());
+            }
+        }
+
+        [TestMethod]
+        public void TestEdit()
+        {
+            User user;
+            using (var unitU = new UnitWork<User>())
+            {
+                user = unitU.genericDAL.Get(94);
+               
+            }
+            using (var unitU = new UnitWork<User>())
+            {
+                user.name = "Prueba modificada";
+                unitU.genericDAL.Update(user);
+                Assert.AreEqual(true, unitU.Complete());
+            }
+        }
+
+
     }
-}
+  }
+

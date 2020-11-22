@@ -11,5 +11,6 @@ namespace Backend.DAL {
         User Get_User(int id);
         User Create(User user);
         string ValidationUserCreation(User user);
+
     }
 }

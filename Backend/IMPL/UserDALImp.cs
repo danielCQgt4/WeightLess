@@ -107,5 +107,43 @@ namespace Backend.DAL {
             }
             return res;
         }
+
+        public bool Delete(int idUser)
+        {
+            try
+            {
+                User user = this.Get_User(idUser);
+                using (context = new DBContext())
+                {
+                    context.User.Attach(user);
+                    context.User.Remove(user);
+                    context.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool Update(User user)
+        {
+            try
+            {
+                using (context = new DBContext())
+                {
+                    context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
     }
 }

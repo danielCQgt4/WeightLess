@@ -131,12 +131,7 @@ namespace FrontEnd.Controllers {
                 user = unidad.genericDAL.Get(u.idUser);
             }
             return View(UserViewModel.Converter(user));
-
-
         }
-
-
-
         [HttpPost]
 
         public ActionResult EditProfile(UserViewModel userVM)
@@ -148,11 +143,6 @@ namespace FrontEnd.Controllers {
             }
 
             return RedirectToAction("Index");
-
         }
-
-        
-
     }
-
 }
