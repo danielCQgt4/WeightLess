@@ -28,3 +28,27 @@
         }
     </div>
 </div>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+<script src="/signalr/hubs"></script>
+<script>
+
+    console.log($);
+    (function ($) {
+
+        "use strict";
+        var ws = $.connection.testWs;
+
+        ws.client.listen = (e) => {
+            console.log('Get', e);
+        };
+
+        $.connection.hub.start().done(() => {
+            console.log('Ready');
+            setInterval(() => {
+                ws.server.send('Hello');
+            }, 1000);
+        });
+
+    })(jQuery);
+</script>
