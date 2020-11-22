@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Backend.IMPL {
+
     public class AssistanceDALImp : IAssistanceDAL {
 
         private DBContext context;
@@ -25,4 +26,6 @@ namespace Backend.IMPL {
         }
 
     }
+
+
 }
