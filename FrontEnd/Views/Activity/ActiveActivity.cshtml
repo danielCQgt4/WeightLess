@@ -24,7 +24,7 @@
 
     @if (Model != null) {
         <div>
-            <input type="hidden"  value="@Model.idActivityAssistance" id="asjdlfkajsdflk"/>
+            <input type="hidden" value="@Model.idActivityAssistance" id="asjdlfkajsdflk" />
             <div>
                 <h4>Informacion de la actividad</h4>
                 <hr />
@@ -53,4 +53,7 @@
         </div>
     }
 </div>
-<script src="~/frontend/Public/js/Activity/ActiveActivity.js"></script>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+<script src="/signalr/hubs"></script>
+<script src="~/Public/js/Activity/ActiveActivity.js"></script>

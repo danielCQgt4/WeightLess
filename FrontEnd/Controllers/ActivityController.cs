@@ -16,33 +16,18 @@ namespace FrontEnd.Controllers {
         [AuthorizeRole(Role.C)]
         public ActionResult Index() {
             UserViewModel user = Session["User"] as UserViewModel;
+            IActivityDAL dalAct = new ActivityImpl();
             if (user.assistance != null) {
-                ActivitieAssistanceViewModel aa = null;
-                using (var u = new UnitWork<Activity_Assitance>()) {
-                    List<Activity_Assitance> acts = u.genericDAL.Find(o => o.end == null && o.kcal == -5 && o.idAssistance == user.assistance.idAssistance).ToList();
-                    if (acts != null && acts.Count() > 0) {
-                        aa = ActivitieAssistanceViewModel.Converter(acts.First());
-                    }
-                }
+                ActivitieAssistanceViewModel aa = ActivitieAssistanceViewModel.Converter(dalAct.GetCurrentActivity(user.assistance.idAssistance));
                 if (aa != null) {
                     return RedirectToAction("ActiveActivity", new { id = aa.idActivity });
                 }
             }
-            List<Activity> actvs;
-            List<ActivityViewModel> activities = new List<ActivityViewModel>();
-            using (var u = new UnitWork<Activity>()) {
-                actvs = u.genericDAL.GetAll().ToList();
-                if (actvs != null) {
-                    activities = ActivityViewModel.Converter(actvs);
-                }
-            }
+            List<Activity> actvs = dalAct.GetActivities();
+            List<ActivityViewModel> activities = ActivityViewModel.Converter(actvs);
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + "/";
             foreach (var actv in activities) {
-                QRImpl QRimpl = new QRImpl();
-                byte[] QRimage = QRimpl.genQR(baseUrl + "Activity/ActiveActivity/" + actv.idActivity);
-                if (QRimage != null) {
-                    actv.qrCode = QRimage;
-                }
+                actv.qrCode = dalAct.PlaceQRInActivity(baseUrl, actv.idActivity);
             }
             return View(activities);
         }
@@ -51,14 +36,8 @@ namespace FrontEnd.Controllers {
         public ActionResult ActiveActivity(Nullable<int> id) {
             UserViewModel user = Session["User"] as UserViewModel;
             if (user.assistance != null) {
-                //Check if user, has an active activitie
-                ActivitieAssistanceViewModel aa = null;
-                using (var u = new UnitWork<Activity_Assitance>()) {
-                    List<Activity_Assitance> acts = u.genericDAL.Find(o => o.end == null && o.kcal == -5 && o.idAssistance == user.assistance.idAssistance).ToList();
-                    if (acts != null && acts.Count() > 0) {
-                        aa = ActivitieAssistanceViewModel.Converter(acts.First());
-                    }
-                }
+                IActivityDAL dalAct = new ActivityImpl();
+                ActivitieAssistanceViewModel aa = ActivitieAssistanceViewModel.Converter(dalAct.GetCurrentActivity(user.assistance.idAssistance));
                 if (aa != null) {
                     ActivityViewModel activity;
                     using (var u = new UnitWork<Activity>()) {
@@ -83,29 +62,13 @@ namespace FrontEnd.Controllers {
                         activity = ActivityViewModel.Converter(u.genericDAL.Get(id.GetValueOrDefault(-1)));
                     }
                     if (activity != null) {
-                        aa = new ActivitieAssistanceViewModel() {
-                            end = null,
-                            idActivity = activity.idActivity,
-                            kcal = -5,
-                            start = DateTime.Now,
-                            status = false,
-                            timeOcurred = "00:00:00",
-                            idAssistance = user.assistance.idAssistance
-                        };
-                        bool res = false;
-                        using (var u = new UnitWork<Activity_Assitance>()) {
-                            Activity_Assitance ab = ActivitieAssistanceViewModel.Converter(aa);
-                            u.genericDAL.Add(ab);
-                            res = u.Complete();
-                            if (res) {
-                                aa = ActivitieAssistanceViewModel.Converter(ab);
-                                aa.activity = activity;
-                            }
-                        }
-                        ViewBag.status = res;
+                        aa = ActivitieAssistanceViewModel.Converter(dalAct.StartActivity(ActivitieAssistanceViewModel.Converter(new ActivitieAssistanceViewModel(user, activity.idActivity))));
+                        ViewBag.status = aa != null;
                         ViewBag.msg = "Actividad nueva generada";
-                        if (!res) {
+                        if (aa == null) {
                             ViewBag.msg = "No se podo generar la sesion de esta actividad";
+                        } else {
+                            aa.activity = activity;
                         }
                     } else {
                         ViewBag.status = false;
@@ -124,62 +87,69 @@ namespace FrontEnd.Controllers {
         [AuthorizeRole(Role.C)]
         [HttpPost]
         public ActionResult ChangeTime(ActivitieAssistanceViewModel json) {
-            int timeB = Convert.ToInt32(json.timeOcurred.Replace(":", ""));
-            bool res = false;
-            bool upd = false;
-            bool finished = false;
-            string timeOcurred = "00:00:00";
-            using (var u = new UnitWork<Activity_Assitance>()) {
-                Activity_Assitance aa = u.genericDAL.Get(json.idActivityAssistance);
-                if (aa != null) {
-                    finished = aa.end == null;
-                    if (finished) {
-                        if (aa != null) {
-                            int timeA = Convert.ToInt32(aa.timeOcurred.Replace(":", ""));
-                            if (timeA < timeB) {
-                                aa.timeOcurred = json.timeOcurred;
-                                u.genericDAL.Update(aa);
-                                res = u.Complete();
-                                if (res) {
-                                    timeOcurred = aa.timeOcurred;
-                                }
-                                upd = true;
-                            } else {
-                                timeOcurred = aa.timeOcurred;
-                            }
-                        }
-                    }
-                }
-            }
+            //DEPRECATE
 
-            return Json(new { res, timeOcurred, upd, finished });
+            IActivityDAL dalAct = new ActivityImpl();
+            object res = dalAct.UpdateTime(json.timeOcurred, json.idActivityAssistance);
+            //int timeB = Convert.ToInt32(json.timeOcurred.Replace(":", ""));
+            //bool res = false;
+            //bool upd = false;
+            //bool finished = false;
+            //string timeOcurred = "00:00:00";
+            //using (var u = new UnitWork<Activity_Assitance>()) {
+            //    Activity_Assitance aa = u.genericDAL.Get(json.idActivityAssistance);
+            //    if (aa != null) {
+            //        finished = aa.end == null;
+            //        if (finished) {
+            //            if (aa != null) {
+            //                int timeA = Convert.ToInt32(aa.timeOcurred.Replace(":", ""));
+            //                if (timeA < timeB) {
+            //                    aa.timeOcurred = json.timeOcurred;
+            //                    u.genericDAL.Update(aa);
+            //                    res = u.Complete();
+            //                    if (res) {
+            //                        timeOcurred = aa.timeOcurred;
+            //                    }
+            //                    upd = true;
+            //                } else {
+            //                    timeOcurred = aa.timeOcurred;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            return Json(res);
         }
 
         [AuthorizeRole(Role.C)]
         [HttpPost]
         public ActionResult StopSessionActivity(ActivitieAssistanceViewModel json) {
+            //DEPRECATE
             UserViewModel user = Session["User"] as UserViewModel;
-            bool res = false;
-            using (var u = new UnitWork<Activity_Assitance>()) {
-                Activity_Assitance aa = u.genericDAL.Get(json.idActivityAssistance);
-                using (var un = new UnitWork<Activity>()) {
-                    string[] parts = aa.timeOcurred.Split(':');
-                    User usu;
-                    using (var unUsu = new UnitWork<User>()) {
-                        usu = unUsu.genericDAL.Get(user.idUser);
-                    }
-                    Activity act = un.genericDAL.Get(aa.idActivity);
-                    if (act != null) {
-                        //h = Convert.ToInt32(parts[0]) * 60;
-                        //m = Convert.ToInt32(parts[1]) + h;
-                        aa.kcal = act.met * 0.0175m * usu.weight;
-                    }
-                }
-                aa.status = false;
-                aa.end = DateTime.Now;
-                u.genericDAL.Update(aa);
-                res = u.Complete();
-            }
+            IActivityDAL dalAct = new ActivityImpl();
+            bool res = dalAct.StopTime(json.idActivityAssistance, user.idUser);
+            //bool res = false;
+            //using (var u = new UnitWork<Activity_Assitance>()) {
+            //    Activity_Assitance aa = u.genericDAL.Get(json.idActivityAssistance);
+            //    using (var un = new UnitWork<Activity>()) {
+            //        string[] parts = aa.timeOcurred.Split(':');
+            //        User usu;
+            //        using (var unUsu = new UnitWork<User>()) {
+            //            usu = unUsu.genericDAL.Get(user.idUser);
+            //        }
+            //        Activity act = un.genericDAL.Get(aa.idActivity);
+            //        if (act != null) {
+            //            //h = Convert.ToInt32(parts[0]) * 60;
+            //            //m = Convert.ToInt32(parts[1]) + h;
+            //            aa.kcal = act.met * 0.0175m * usu.weight;
+            //        }
+            //    }
+            //    aa.status = false;
+            //    aa.end = DateTime.Now;
+            //    u.genericDAL.Update(aa);
+            //    res = u.Complete();
+            //}
             return Json(new { res });
         }
     }
