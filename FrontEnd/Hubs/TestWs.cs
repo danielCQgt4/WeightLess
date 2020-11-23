@@ -17,7 +17,6 @@ namespace FrontEnd.Hubs {
         }
 
         public override Task OnConnected() {
-            Context.User.Identity.
             return base.OnConnected();
         }
     }

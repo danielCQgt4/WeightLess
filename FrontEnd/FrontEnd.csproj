@@ -240,6 +240,7 @@
     <Content Include="Public\images\stairs.jpg" />
     <Content Include="Public\images\user.jpg" />
     <Content Include="Public\js\Activity\ActiveActivity.js" />
+    <Content Include="Public\js\Activity\Index.js" />
     <Content Include="Public\js\controlAlerts.js" />
     <Content Include="Public\js\Publications\publications.js" />
     <Content Include="ReportViewerWebForm.aspx" />
