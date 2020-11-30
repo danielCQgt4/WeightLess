@@ -1,6 +1,7 @@
 ﻿using Backend.DAL;
 using Backend.Entity;
 using Backend.IMPL;
+using Backend.Models;
 using FrontEnd.Models;
 using Microsoft.Reporting.WebForms;
 using System;
@@ -84,49 +85,10 @@ namespace FrontEnd.Controllers {
                 -3: Error
                 */
                 if (usu != null) {
-                    string actualDt = DateTime.Now.ToString().Split(' ')[0];
-                    using (var u = new UnitWork<Assistance>()) {
-                        int idAsis = -1;
-                        try {
-                            idAsis = u.genericDAL.Find(a => a.idUser == usu.idUser).Max(a => a.idAssistance);
-                        } catch (Exception e) {
-
-                        }
-                        if (idAsis != -1) {
-                            Assistance assistance = u.genericDAL.Get(idAsis);
-                            if (assistance != null) {
-                                string calcDt = assistance.datetime.ToString().Split(' ')[0];
-                                if (calcDt.Equals(actualDt)) {
-                                    usu.assistance = assistance;
-                                    caseAction = -2;
-                                } else {
-                                    Assistance asis = createNewAssistance(usu);
-                                    if (asis != null) {
-                                        usu.assistance = asis;
-                                        caseAction = -1;
-                                    } else {
-                                        caseAction = -3;
-                                    }
-                                }
-                            } else {
-                                Assistance asis = createNewAssistance(usu);
-                                if (asis != null) {
-                                    usu.assistance = asis;
-                                    caseAction = -1;
-                                } else {
-                                    caseAction = -3;
-                                }
-                            }
-                        } else {
-                            Assistance asis = createNewAssistance(usu);
-                            if (asis != null) {
-                                usu.assistance = asis;
-                                caseAction = -1;
-                            } else {
-                                caseAction = -3;
-                            }
-                        }
-                    }
+                    IAssistanceDAL asis = new AssistanceDALImp();
+                    AssistanceControl ac = asis.CalcAssistante(UserViewModel.Converter(usu));
+                    usu.assistance = ac.Assistance;
+                    caseAction = ac.CaseAction;
                     Session["User"] = usu;
                 } else {
                     caseAction = -3;

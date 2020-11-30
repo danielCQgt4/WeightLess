@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FrontEnd.Models.AssistanceViewModel>
+﻿@model List<FrontEnd.Models.AssistanceViewModel>
 @{
     ViewBag.Title = "UserAssistance";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
@@ -8,7 +8,9 @@
 <div class="p-4">
     <h2 class="mb-4">Mi Asistencia</h2>
     <div class="">
+        @{ViewBag.counter = 0; }
         @foreach (var asis in Model) {
+            ViewBag.counter++;
             <div class="accordion" id="accordionExample">
                 <div class="card">
                     <div class="card-header header-card-assistance" id="headingTwo">
@@ -120,7 +122,9 @@
                 </div>
             </div>
         }
-
+        @if (ViewBag.counter == 0) {
+            <div class="alert alert-secondary mt-1">No se encontraron actividades recientes</div>
+        }
     </div>
 </div>
 
