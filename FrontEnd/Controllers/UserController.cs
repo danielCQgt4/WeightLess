@@ -115,29 +115,38 @@ namespace FrontEnd.Controllers {
                 using (var u = new UnitWork<User>()) {
                     us.active = !us.active;
                     u.genericDAL.Update(us);
-                    ViewBag.done = u.Complete();
+                    ViewBag.status = u.Complete();
+                    if (ViewBag.status) {
+                        if (!active) {
+                            ViewBag.msg = "El usuario ha sido activado";
+                        } else {
+                            ViewBag.msg = "El usuario ha sido desactivado";
+                        }
+                    } else {
+                        if (!active) {
+                            ViewBag.msg = "El usuario no puso ser activado";
+                        } else {
+                            ViewBag.msg = "El usuario no pudo ser desactivado";
+                        }
+                    }
                 }
             }
             return Index();
         }
 
-        public ActionResult EditProfile()
-        {
+        public ActionResult EditProfile() {
             User user;
             UserViewModel u = (UserViewModel)Session["User"];
 
-            using (UnitWork<User> unidad = new UnitWork<User>())
-            {
+            using (UnitWork<User> unidad = new UnitWork<User>()) {
                 user = unidad.genericDAL.Get(u.idUser);
             }
             return View(UserViewModel.Converter(user));
         }
         [HttpPost]
 
-        public ActionResult EditProfile(UserViewModel userVM)
-        {
-            using (UnitWork<User> unidad = new UnitWork<User>())
-            {
+        public ActionResult EditProfile(UserViewModel userVM) {
+            using (UnitWork<User> unidad = new UnitWork<User>()) {
                 unidad.genericDAL.Update(UserViewModel.Converter(userVM));
                 unidad.Complete();
             }
