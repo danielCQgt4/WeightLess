@@ -20,7 +20,7 @@ namespace UnitTest {
                 type = "N",
                 likes = 0,
                 disLikes = 0,
-                idUser = 64
+                idUser = 96
             };
             using (var unitP = new UnitWork<Publication>()) {
                 unitP.genericDAL.Add(publication);

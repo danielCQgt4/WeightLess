@@ -1,14 +1,19 @@
-﻿@model IEnumerable<FrontEnd.Models.PublicationViewModel>
+﻿@model List<FrontEnd.Models.PublicationViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
     int i = 1;
     FrontEnd.Models.PublicationViewModel firstPublication = null;
-    int lengthModel = Model.Count();
+
+    int lengthModel = 0;
+    foreach (var pvm in Model) {
+        lengthModel++;
+    }
     if (lengthModel > 0) {
-        if (Model.First() != null) {
-            firstPublication = Model.First();
+        foreach (var pvm in Model) {
+            firstPublication = pvm;
+            break;
         }
     }
 }
