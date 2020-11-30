@@ -75,32 +75,66 @@ namespace FrontEnd.Hubs {
         }
 
         private void CalcTime() {
-            int hr = 0, mm = 0, ss = 0;
+            //int hr = 0, mm = 0, ss = 0;
+            //WsUserModel usu = GetCurUser();
+            //IActivityDAL dalAct = new ActivityImpl();
+            //usu.actualTime = FixTime(hr) + ":" + FixTime(mm) + ":" + FixTime(ss);
+            //for (int h = 0; h < 3; h++) {
+            //    for (int m = 0; m < 60; m++) {
+            //        for (int s = 0; s < 60; s++) {
+            //            string[] t = dalAct.GetCurTime(usu.idActivityAssistance).Split(':');
+            //            hr = Convert.ToInt32(t[0]);
+            //            mm = Convert.ToInt32(t[1]);
+            //            ss = Convert.ToInt32(t[2]);
+            //            ss++;
+            //            if (ss >= 60) {
+            //                ss = 0;
+            //                mm++;
+            //                if (mm == 60) {
+            //                    mm = 0;
+            //                    hr++;
+            //                }
+            //            }
+            //            usu.actualTime = FixTime(hr) + ":" + FixTime(mm) + ":" + FixTime(ss);
+            //            object res = dalAct.UpdateTime(usu.actualTime, usu.idActivityAssistance);
+            //            if (res != null) {
+            //                Clients.AllExcept(GetExcepts(usu)).UpdateTime(res);
+            //            }
+            //            if (hr >= 3) {
+            //                usu.actualTime = FixTime(hr) + ":" + FixTime(mm) + ":" + FixTime(ss);
+            //                res = dalAct.UpdateTime(usu.actualTime, usu.idActivityAssistance);
+            //                if (res != null) {
+            //                    Clients.AllExcept(GetExcepts(usu)).UpdateTime(res);
+            //                }
+            //                bool res2 = dalAct.StopTime(usu.idActivityAssistance, usu.user.idUser);
+            //                if (res2) {
+            //                    Clients.AllExcept(GetExcepts(usu)).StopCurActivitie(res);
+            //                }
+            //                try {
+            //                    Thread.CurrentThread.Abort();
+            //                } catch (Exception e) {
+
+            //                }
+            //            }
+            //            Thread.Sleep(1000);
+            //        }
+            //    }
+            //}
             WsUserModel usu = GetCurUser();
             IActivityDAL dalAct = new ActivityImpl();
-            usu.actualTime = FixTime(hr) + ":" + FixTime(mm) + ":" + FixTime(ss);
-            for (int h = 0; h < 3; h++) {
-                for (int m = 0; m < 60; m++) {
-                    for (int s = 0; s < 60; s++) {
-                        string[] t = dalAct.GetCurTime(usu.idActivityAssistance).Split(':');
-                        hr = Convert.ToInt32(t[0]);
-                        mm = Convert.ToInt32(t[1]);
-                        ss = Convert.ToInt32(t[2]);
-                        ss++;
-                        if (ss >= 60) {
-                            ss = 0;
-                            mm++;
-                            if (mm == 60) {
-                                mm = 0;
-                                hr++;
-                            }
-                        }
-                        usu.actualTime = FixTime(hr) + ":" + FixTime(mm) + ":" + FixTime(ss);
+            string[] t = dalAct.GetCurTime(usu.idActivityAssistance).Split(':');
+            int hr = Convert.ToInt32(t[0]);
+            int mm = Convert.ToInt32(t[1]);
+            int ss = Convert.ToInt32(t[2]);
+            for (int h = hr; h < 3; h++) {
+                for (int m = mm; m < 60; m++) {
+                    for (int s = ss; s < 60; s++) {
+                        usu.actualTime = FixTime(h) + ":" + FixTime(m) + ":" + FixTime(s);
                         object res = dalAct.UpdateTime(usu.actualTime, usu.idActivityAssistance);
                         if (res != null) {
                             Clients.AllExcept(GetExcepts(usu)).UpdateTime(res);
                         }
-                        if (hr >= 3) {
+                        if (h >= 3) {
                             usu.actualTime = FixTime(hr) + ":" + FixTime(mm) + ":" + FixTime(ss);
                             res = dalAct.UpdateTime(usu.actualTime, usu.idActivityAssistance);
                             if (res != null) {
