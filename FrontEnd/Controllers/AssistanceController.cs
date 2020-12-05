@@ -94,7 +94,7 @@ namespace FrontEnd.Controllers {
                     caseAction = -3;
                 }
                 if (caseAction == -2) {
-                    return RedirectToAction("TestDash", "Home");
+                    return RedirectToAction("UserHome", "Home");
                 } else {
                     if (caseAction == -1) {
                         ViewBag.msg = "Se ha creado la asistencia con exito";

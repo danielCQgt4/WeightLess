@@ -16,7 +16,7 @@ namespace FrontEnd.Controllers {
             UserViewModel u = (UserViewModel)Session["User"];
             if (u != null) {
                 if (u.active) {
-                    return RedirectToAction("TestDash");
+                    return RedirectToAction("UserHome");
                 }
             }
             QRImpl QRimpl = new QRImpl();
@@ -61,7 +61,7 @@ namespace FrontEnd.Controllers {
 
                         Session["User"] = UserViewModel.Converter(user);
 
-                        return RedirectToAction("TestDash");
+                        return RedirectToAction("UserHome");
                     }
                 } else {
                     return View(loginM);
@@ -72,7 +72,7 @@ namespace FrontEnd.Controllers {
         }
 
         [AuthorizeRole(Role.C, Role.A, Role.E)]
-        public ActionResult TestDash() {
+        public ActionResult UserHome() {
             return View();
         }
 

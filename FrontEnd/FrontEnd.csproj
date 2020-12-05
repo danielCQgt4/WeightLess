@@ -379,7 +379,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
-    <Content Include="Views\Home\TestDash.cshtml" />
+    <Content Include="Views\Home\UserHome.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
