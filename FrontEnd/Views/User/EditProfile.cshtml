@@ -10,42 +10,23 @@
 
 
 <!--MSG-->
-
-@if (ViewBag.status != null)
-{
-
-    if (ViewBag.status)
-    {
-
-
-        <div class="alert alert-success" role="alert">
-
-            @ViewBag.msg
-
-        </div>
-
+@if (ViewBag.status != null) {
+    if (ViewBag.status) {
+        <script>
+                showDiagSuccess('@ViewBag.msg');
+        </script>
     }
-
-    if (!ViewBag.status)
-    {
-
-        <div class="alert alert-danger" role="alert">
-
-            @ViewBag.msg
-
-        </div>
-
+    if (!ViewBag.status) {
+        <script>
+                showDiagError('@ViewBag.msg');
+        </script>
     }
-
 }
 
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-
-
-
+    @Html.HiddenFor(model => model.idUser)
     <hr />
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -54,106 +35,89 @@
 
 
         <div class="form-group col-md-4">
-
             @Html.LabelFor(model => model.dni)
-
 
             @Html.EditorFor(model => model.dni, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cédula" } })
 
             @Html.ValidationMessageFor(model => model.dni, "", new { @class = "text-danger" })
-        
         </div>
 
 
         <div class="form-group col-md-4">
-
             @Html.LabelFor(model => model.name)
 
             @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
 
             @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-        
         </div>
 
-        <div class="form-group col-md-4" id="weight-lbl">
-
-            @Html.LabelFor(model => model.weight)
-
-            @Html.EditorFor(model => model.weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Peso" } })
-
-            @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger" })
-        
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.lastName)
+            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Apellidos" } })
+            @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group col-md-4" id="height-lbl">
+        @if (Model.rol.Equals("C")) {
+            <div class="form-group col-md-4" id="weight-lbl">
+                @Html.LabelFor(model => model.weight)
 
-            @Html.LabelFor(model => model.height)
+                @Html.EditorFor(model => model.weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Peso" } })
 
-            @Html.EditorFor(model => model.height, new { htmlAttributes = new { @class = "form-control", @placeholder = "Altura" } })
-            
-            @Html.ValidationMessageFor(model => model.height, "", new { @class = "text-danger" })
-        
+                @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-4" id="height-lbl">
+
+                @Html.LabelFor(model => model.height)
+
+                @Html.EditorFor(model => model.height, new { htmlAttributes = new { @class = "form-control", @placeholder = "Altura" } })
+
+                @Html.ValidationMessageFor(model => model.height, "", new { @class = "text-danger" })
+
+            </div>
+        } else {
+            @Html.HiddenFor(model => model.weight)
+            @Html.HiddenFor(model => model.height)
+        }
+        @Html.HiddenFor(model => model.rol)
+        @Html.HiddenFor(model => model.active)
+        @Html.HiddenFor(model => model.password)
+        @Html.HiddenFor(model => model.email)
+
+        <div class="form-group col-lg-12 pl-0">
+            <div>
+                <input type="submit" value="Cambiar información" class="btn btn-info" />
+            </div>
         </div>
 
     </div>
 
+}
 
+@using (Html.BeginForm("EditPassword", "User")) {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.idUser)
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    <div class="form-row mt-5">
 
-    <div class="form-group col-lg-12">
-
-        <div>
-
-            <input type="submit" value="Cambiar información" class="btn btn-info" />
-
-        </div>
-
-    </div>
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <div class="form-row">
-
-        <div class="form-group col-md-12">
-
-
-
-            <h3>Cambiar contraseña</h3>
-
-            <label class="form-group">Contraseña</label>
-
-            <input id="Text1" type="text" class="form-control" />
-
-
-
+        <div class="form-group col-md-6">
+            <h5>Cambiar contraseña</h5>
+            <label class="form-group" for="Text1">Contraseña</label>
+            <input name="tempPass" id="Text1" type="password" placeholder="Contraseña" class="form-control" required maxlength="70" value="" />
         </div>
 
     </div>
 
     <div class="form-row">
-
-        <div class="form-group col-md-12">
-
-            <label class="form-group">Confirmar contraseña</label>
-
-            <input id="Text1" type="text" class="form-control" />
-
-
-
+        <div class="form-group col-md-6">
+            <label class="form-group" for="Text2">Confirmar contraseña</label>
+            <input name="confirm" id="Text2" type="password" placeholder="Contraseña" class="form-control" required maxlength="70" value="" />
         </div>
-
     </div>
 
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-4 pl-0">
 
         <div>
 
@@ -165,38 +129,13 @@
 
     <br />
 
-    <br />
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <div class="form-group col-lg-offset-9">
+    <div class="form-group col-lg-offset-9 pl-0">
 
         <div>
-
-            <input type="submit" value="Ir atrás" class="btn btn-info" />
-
+            <a href="~/Home/UserHome" class="btn btn-secondary mr-2">Regresar</a>
         </div>
 
     </div>
-
-
-
-
-
-
-
-
-
 
 }
 

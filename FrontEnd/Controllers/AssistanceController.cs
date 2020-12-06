@@ -55,6 +55,7 @@ namespace FrontEnd.Controllers {
                     }
                 }
             }
+            assistances.Reverse();
             return View(assistances);
         }
 

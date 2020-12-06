@@ -3,15 +3,26 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.rol = "A";
+    if (Model != null) {
+        if (Model.rol != null) {
+            ViewBag.rol = Model.rol;
+        }
+    }
 }
 
-<h2>Mi perfil</h2>
+@if (ViewBag.msg != null) {
+    <script>
+        showDiagError('@ViewBag.msg');
+    </script>
+}
+
+<h2>Editar Usuario</h2>
 
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(model => model.idUser)
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-row">
@@ -37,36 +48,70 @@
             @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Correo" } })
             @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.password)
-            @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "Contraseña" })
-            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-        </div>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.weight)
-            @Html.EditorFor(model => model.weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Peso" } })
-            @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger" })
+    if (Model.rol != null && Model.rol.Equals("C")) {
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.weight)
+                @Html.EditorFor(model => model.weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Peso" } })
+                @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.height)
+                @Html.EditorFor(model => model.height, new { htmlAttributes = new { @class = "form-control", @placeholder = "Altura" } })
+                @Html.ValidationMessageFor(model => model.height, "", new { @class = "text-danger" })
+            </div>
+
         </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.height)
-            @Html.EditorFor(model => model.height, new { htmlAttributes = new { @class = "form-control", @placeholder = "Altura" } })
-            @Html.ValidationMessageFor(model => model.height, "", new { @class = "text-danger" })
-        </div>
-        @Html.HiddenFor(model => model.rol)
-    </div>
+    } else {
+        @Html.HiddenFor(model => model.height)
+        @Html.HiddenFor(model => model.weight)
+    }
+    @Html.HiddenFor(model => model.rol)
+    @Html.HiddenFor(model => model.active)
+    @Html.HiddenFor(model => model.password)
 
 
     <div class="d-flex">
         <div>
-            <input type="submit" value="Guardar perfil" class="btn btn-info" />
+            <input type="submit" value="Guardar" class="btn btn-info" />
         </div>
     </div>
 
 }
 
+<div class="mt-5">
+    <h5>Cambiar Contraseña</h5>
+    <hr />
+</div>
+
+@using (Html.BeginForm("EditPassword", "User")) {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.idUser)
+    <input type="hidden" value="admin" name="type" />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-row w-100 align-items-center">
+        <div class="form-group col-md-6 m-0 pl-0">
+            <label for="tempPass">Contraseña</label>
+            <input class="form-control" type="password" name="tempPass" id="tempPass" placeholder="Contraseña" required maxlength="70" value="" />
+        </div>
+        <div class="form-group col-md-6 m-0 pl-0">
+            <label for="Text2">Confirmar contraseña</label>
+            <input name="confirm" id="Text2" type="password" placeholder="Contraseña" class="form-control" required maxlength="70" value="" />
+        </div>
+    </div>
+    <div class="d-inline-block mt-3">
+        <input type="submit" value="Guardar" class="btn btn-info" />
+    </div>
+}
+
+<div class="d-flex mt-5">
+    <div>
+        <a href="~/User" class="btn btn-secondary mr-2">Regresar</a>
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

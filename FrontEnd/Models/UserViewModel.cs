@@ -29,7 +29,7 @@ namespace FrontEnd.Models {
         [DisplayName("Apellido")]
         public string lastName { get; set; }
 
-        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Correo inválido.")]
+        //[RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Correo inválido.")]
         [Required]
         [StringLength(100)]
         [DisplayName("Correo")]
@@ -48,13 +48,12 @@ namespace FrontEnd.Models {
         [Required]
         [DisplayName("Altura")]
         [Range(0, 210)]
-        public decimal height { get; set; }
+        public int height { get; set; }
 
         [Required]
         [DisplayName("Peso")]
-        [Range(0, 300)]
-        [RegularExpression(@"^(\d\d\d\.)?\d\d$", ErrorMessage = "Peso inválido.")]
-        public decimal weight { get; set; }
+        [Range(1, 300)]
+        public int weight { get; set; }
 
         [DisplayName("Estado")]
         public bool active { get; set; }
@@ -68,8 +67,8 @@ namespace FrontEnd.Models {
                 email = user.email,
                 password = user.password,
                 rol = user.rol,
-                height = user.height,
-                weight = user.weight,
+                height = (int)user.height,
+                weight = (int)user.weight,
                 active = user.active
             };
         }
