@@ -89,16 +89,20 @@ namespace Backend.DAL {
         public string ValidationUserCreation(User user) {
             string res = "";
             try {
+                string key = ConfigurationManager.AppSettings["SecretKey"];
+                user.email = Security.Security.EncryptString(key, user.email);
                 using (var u = new UnitWork<User>()) {
                     List<User> users = u.genericDAL.Find(o => o.email == user.email || o.dni == user.dni).ToList();
                     foreach (var i in users) {
-                        if (i.email.Equals(user.email)) {
-                            res = "Este correo ya esta en uso por uno de los usuarios";
-                            break;
-                        }
-                        if (i.dni.Equals(user.dni)) {
-                            res = "Este cédula ya esta en uso";
-                            break;
+                        if (user.idUser != i.idUser) {
+                            if (i.email.Equals(user.email)) {
+                                res = "Este correo ya esta en uso por uno de los usuarios";
+                                break;
+                            }
+                            if (i.dni.Equals(user.dni)) {
+                                res = "Esta cédula ya esta en uso";
+                                break;
+                            }
                         }
                     }
                 }

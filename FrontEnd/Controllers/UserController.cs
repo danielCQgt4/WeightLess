@@ -14,6 +14,7 @@ namespace FrontEnd.Controllers {
     public class UserController : Controller {
 
         // GET: User
+        [AuthorizeRole(Role.A)]
         public ActionResult Index() {
             if (TempData["msg"] != null) {
                 ViewBag.msg = TempData["msg"].ToString();
@@ -36,11 +37,13 @@ namespace FrontEnd.Controllers {
             return View("index", us);
         }
 
+        [AuthorizeRole(Role.A)]
         public ActionResult Create() {
             return View();
         }
 
         [HttpPost]
+        [AuthorizeRole(Role.A)]
         public ActionResult Create(UserViewModel userVM) {
             if (ModelState.IsValid) {
                 User user = UserViewModel.Converter(userVM);
@@ -67,32 +70,102 @@ namespace FrontEnd.Controllers {
             return View(userVM);
         }
 
+        [AuthorizeRole(Role.A)]
         public ActionResult Edit(int id) {
+            if (TempData["msg"] != null) {
+                ViewBag.msg = TempData["msg"].ToString();
+                TempData.Remove("msg");
+            }
             User us;
             UserDALImp imp = new UserDALImp();
             us = imp.Get_User(id);
-            us.password = "";
+            us.password = "temp";
+            if (!us.rol.Equals("C")) {
+                us.height = 10;
+                us.weight = 10;
+            }
             return View(UserViewModel.Converter(us));
         }
 
         [HttpPost]
+        [AuthorizeRole(Role.A)]
         public ActionResult Edit(UserViewModel userVM) {
+            bool result = false;
+            User aux;
+            using (var unit = new UnitWork<User>()) {
+                aux = unit.genericDAL.Get(userVM.idUser);
+            }
+            if (aux != null) {
+                userVM.password = aux.password;
+                if (!userVM.rol.Equals("C")) {
+                    userVM.height = 10;
+                    userVM.weight = 10;
+                }
+            }
             if (ModelState.IsValid) {
-                User user = UserViewModel.Converter(userVM);
-                try {
-                    using (var unit = new UnitWork<User>()) {
-                        unit.genericDAL.Update(user);
-                        ViewBag.create = unit.Complete();
+                UserDALImp imp = new UserDALImp();
+                string msg = imp.ValidationUserCreation(UserViewModel.Converter(userVM));
+                if (msg.Equals("")) {
+                    string key = ConfigurationManager.AppSettings["SecretKey"];
+                    userVM.email = Security.Security.EncryptString(key, userVM.email);
+                    User user = UserViewModel.Converter(userVM);
+                    try {
+                        using (var unit = new UnitWork<User>()) {
+                            unit.genericDAL.Update(user);
+                            result = unit.Complete();
+                        }
+                    } catch (Exception e) {
+                        result = false;
                     }
-                } catch (Exception e) {
-                    ViewBag.create = false;
+                } else {
+                    ViewBag.msg = msg;
+                    ViewBag.status = false;
                 }
             } else {
-                ViewBag.create = false;
+                result = false;
             }
-            return View(userVM);//Temp
+
+            TempData["status"] = result;
+            TempData["msg"] = (!result) ? "El usuario no se pudo crear" : "El usuario ha sido editado";
+            if (result) {
+                return RedirectToAction("Index");
+            }
+            return View(userVM);
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditPassword(int idUser, string tempPass, string confirm, string type) {
+            bool result = false;
+            if (idUser < 1 || tempPass.Equals("") || confirm.Equals("")) {
+                TempData["msg"] = "Los campos de contraseña son obligatorios";
+            } else if (!tempPass.Equals(confirm)) {
+                TempData["msg"] = "Las contraseñas no coinciden";
+            } else {
+                User aux;
+                using (var unit = new UnitWork<User>()) {
+                    aux = unit.genericDAL.Get(idUser);
+                    if (aux != null) {
+                        string key = ConfigurationManager.AppSettings["SecretKey"];
+                        aux.password = Security.Security.EncryptString(key, tempPass);
+                        unit.genericDAL.Update(aux);
+                        result = unit.Complete();
+                    }
+                }
+                TempData["msg"] = (!result) ? "La contraseña no se pudo editar" : "Contraseña editada";
+            }
+            TempData["status"] = result;
+            if (type != null && type.Equals("admin")) {
+                if (result) {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Edit", new { id = idUser });
+            } else {
+                return RedirectToAction("EditProfile");
+            }
+        }
+
+        [AuthorizeRole(Role.A)]
         public ActionResult Details(int id) {
             User us;
             UserDALImp imp = new UserDALImp();
@@ -100,10 +173,12 @@ namespace FrontEnd.Controllers {
             return View(UserViewModel.Converter(us));
         }
 
+        [AuthorizeRole(Role.A)]
         public ActionResult Delete(int id) {
             return View();
         }
 
+        [AuthorizeRole(Role.A)]
         public ActionResult CtrUser(int idUser, bool active) {
             ViewBag.type = !active;
             ViewBag.done = false;
@@ -134,24 +209,77 @@ namespace FrontEnd.Controllers {
             return Index();
         }
 
+        [Authorize]
         public ActionResult EditProfile() {
-            User user;
             UserViewModel u = (UserViewModel)Session["User"];
-
-            using (UnitWork<User> unidad = new UnitWork<User>()) {
-                user = unidad.genericDAL.Get(u.idUser);
+            u.password = "temp";
+            if (TempData["msg"] != null) {
+                ViewBag.msg = TempData["msg"].ToString();
+                ViewBag.status = Boolean.Parse(TempData["status"].ToString());
+                TempData.Remove("msg");
+                TempData.Remove("status");
             }
-            return View(UserViewModel.Converter(user));
+            return View(u);
         }
-        [HttpPost]
 
+        [HttpPost]
+        [Authorize]
         public ActionResult EditProfile(UserViewModel userVM) {
-            using (UnitWork<User> unidad = new UnitWork<User>()) {
-                unidad.genericDAL.Update(UserViewModel.Converter(userVM));
-                unidad.Complete();
+            string key = ConfigurationManager.AppSettings["SecretKey"];
+            bool result = false;
+            User aux;
+            using (var unit = new UnitWork<User>()) {
+                aux = unit.genericDAL.Get(userVM.idUser);
+            }
+            if (aux != null) {
+                userVM.password = aux.password;
+                if (!userVM.rol.Equals("C")) {
+                    userVM.height = 10;
+                    userVM.weight = 10;
+                }
+            }
+            if (ModelState.IsValid) {
+                UserDALImp imp = new UserDALImp();
+                string msg = imp.ValidationUserCreation(UserViewModel.Converter(userVM));
+                if (msg.Equals("")) {
+                    userVM.email = Security.Security.EncryptString(key, userVM.email);
+                    User user = UserViewModel.Converter(userVM);
+                    try {
+                        using (var unit = new UnitWork<User>()) {
+                            unit.genericDAL.Update(user);
+                            result = unit.Complete();
+                        }
+                        if (result && userVM.rol.Equals("C") && (aux.height != userVM.height || aux.weight != userVM.weight)) {
+                            UserDataHistory udh = new UserDataHistory() {
+                                date = DateTime.Now,
+                                heigth = user.height,
+                                weight = user.weight,
+                                idUser = user.idUser
+                            };
+                            using (var u = new UnitWork<UserDataHistory>()) {
+                                u.genericDAL.Add(udh);
+                                u.Complete();
+                            }
+                        }
+                        ViewBag.msg = ( !result ) ? "No se pudo actualizar el perfil" : "El perfil se ha modificado";
+                    } catch (Exception e) {
+                        result = false;
+                    }
+                } else {
+                    ViewBag.msg = msg;
+                    ViewBag.status = false;
+                }
+            } else {
+                result = false;
             }
 
-            return RedirectToAction("Index");
+            ViewBag.status = result;
+            if (result) {
+                userVM.password = null;
+                userVM.email = Security.Security.DecryptString(key, userVM.email);
+                Session["User"] = userVM;
+            }
+            return EditProfile();
         }
     }
 }

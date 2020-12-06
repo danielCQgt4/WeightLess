@@ -50,12 +50,14 @@
                 </button>
             </div>
             <div class="p-4 pt-5">
-                <a href="#">
-                    <img style="cursor:pointer;" class="imgUser mb-4" src="~/Public/images/user.jpg">
-                    @if (u != null) {
-                        <label class="my-2 text-center w-100" style="cursor:pointer;color:white !important;">@u.name</label>
-                    }
-                </a>
+                <div class="d-flex w-100">
+                    <a href="~/User/EditProfile" class="d-inline-block mx-auto" style="cursor:pointer">
+                        <img style="cursor:pointer;" class="imgUser mb-4" src="~/Public/images/user.jpg">
+                        @if (u != null) {
+                            <label class="my-2 text-center w-100" style="cursor:pointer;color:white !important;">@u.name</label>
+                        }
+                    </a>
+                </div>
                 <ul class="list-unstyled components mb-5">
                     @if (esAdmin) {
                         <li><a href="~/User">Usuarios</a></li>
@@ -63,13 +65,9 @@
                     }
                     @if (esEntrenador) {
                         <li><a href="~/Publication/TrainerPublications">Consejos</a></li>
-                        @*<li><a href="Machines.html">Actividades</a></li>*@
-                        <li><a href="~/User/EditProfile">Editar perfil</a></li>
-
                     }
                     @if (esCliente) {
                         <li><a href="~/Assistance/UserAssistance">Mi Asistencia</a></li>
-                        @*<li><a href="@Url.Action("CerrarSesion","Inicio")">Asistencia QR</a></li>*@
                         <li><a href="@Url.Action("Index","Publication")">Consejos</a></li>
                         <li><a href="@Url.Action("Index","Activity")">Actividades</a></li>
                     }

@@ -20,7 +20,8 @@ namespace FrontEnd.Controllers {
                 }
             }
             QRImpl QRimpl = new QRImpl();
-            byte[] QRimage = QRimpl.Get_QR_Asistance();
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + "/";
+            byte[] QRimage = QRimpl.Get_QR_Asistance(baseUrl + "/Assistance/CreateAssistance");
             if (QRimage != null) {
                 ViewBag.QRAsistance = QRimage;
             }
