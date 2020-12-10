@@ -31,6 +31,12 @@ namespace FrontEnd.Controllers {
         [HttpPost]
         public ActionResult Index(LogInViewModel loginM) {
             try {
+                QRImpl QRimpl = new QRImpl();
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + "/";
+                byte[] QRimage = QRimpl.Get_QR_Asistance(baseUrl + "/Assistance/CreateAssistance");
+                if (QRimage != null) {
+                    ViewBag.QRAsistance = QRimage;
+                }
                 if (ModelState.IsValid) {
 
                     //Obtengo el usuario
