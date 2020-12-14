@@ -110,7 +110,9 @@ namespace FrontEnd.Hubs {
                                 Thread.Sleep(1000);
                             }
                         }
+                        ss = 0;
                     }
+                    mm = 0;
                 }
                 if (usu.idActivityAssistance != -5) {
                     actualTime = "03:00:00";
