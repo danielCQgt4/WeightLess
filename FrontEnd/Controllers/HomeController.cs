@@ -64,6 +64,7 @@ namespace FrontEnd.Controllers {
                         if (ticket.IsPersistent) {
                             cookie.Expires = ticket.Expiration;
                         }
+
                         Response.Cookies.Add(cookie);
 
                         Session["User"] = UserViewModel.Converter(user);

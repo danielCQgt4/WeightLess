@@ -285,6 +285,7 @@ namespace FrontEnd.Controllers {
 
         [AuthorizeRole(Role.C)]
         public ActionResult ReportUserDataHistory() {
+
             var reportViewer = new ReportViewer {
                 ProcessingMode = ProcessingMode.Local,
                 ShowExportControls = true,
