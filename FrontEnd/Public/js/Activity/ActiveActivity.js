@@ -39,8 +39,8 @@
             if (r.timeOcurred) {
                 asignateTimeNum(r.timeOcurred);
                 if (btnStart.parentNode) {
-                    btnStart.parentNode.appendChild(btnStop);
                     btnStart.parentNode.appendChild(btnPause);
+                    btnStart.parentNode.appendChild(btnStop);
                     btnStart.parentNode.removeChild(btnStart);
                 }
                 if (!r.res) {
@@ -76,8 +76,8 @@
             asignateTimeNum(time.textContent);
         }
         btnStart.addEventListener('click', () => {
-            btnStart.parentNode.appendChild(btnStop);
             btnStart.parentNode.appendChild(btnPause);
+            btnStart.parentNode.appendChild(btnStop);
             btnStart.parentNode.removeChild(btnStart);
             ws.server.changeTime(asjdlfkajsdflk.value);
             btnPause.textContent = 'Pausar';

@@ -5,6 +5,19 @@
 }
 <link href="~/Public/css/Activity/Activity.css" rel="stylesheet" />
 <div id="content">
+    <!--MSG-->
+    @if (ViewBag.status != null) {
+        if (ViewBag.status) {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.msg
+            </div>
+        }
+        if (!ViewBag.status) {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.msg
+            </div>
+        }
+    }
     <h2 class="mb-4">Actividades</h2>
     <div class="container-activities">
 

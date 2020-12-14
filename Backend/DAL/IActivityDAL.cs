@@ -13,6 +13,8 @@ namespace Backend.DAL {
         byte[] PlaceQRInActivity(string url, int id);
 
         Activity_Assitance GetCurrentActivity(int idAissistance);
+        
+        Activity_Assitance GetActivity_Assistance(int id);
 
         Activity_Assitance StartActivity(Activity_Assitance aa);
 
