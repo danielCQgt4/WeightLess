@@ -17,7 +17,7 @@
     <AssemblyName>FrontEnd</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -398,6 +398,7 @@
       <DependentUpon>weightlessDataSource.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Assistance\ReportAssistance.cshtml" />
+    <Content Include="Views\User\ReportUserDataHistory.cshtml" />
     <None Include="weightlessDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>weightlessDataSource.Designer.cs</LastGenOutput>
@@ -429,6 +430,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\AssistanceReport.rdlc" />
+    <EmbeddedResource Include="Reports\UserDataHistoryReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -449,7 +451,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49992</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost</IISUrl>
+          <IISUrl>http://localhost:49992/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

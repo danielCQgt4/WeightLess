@@ -50,7 +50,7 @@ namespace Backend.DAL {
         public User Create(User user) {
             try {
                 string key = ConfigurationManager.AppSettings["SecretKey"];
-                user.email = Security.Security.EncryptString(key, user.email);
+                //user.email = Security.Security.EncryptString(key, user.email);
                 user.password = Security.Security.EncryptString(key, user.password);
                 bool res;
                 using (var unit = new UnitWork<User>()) {

@@ -1,11 +1,6 @@
 body {
     margin: 0px;
     padding: 0px;
-    /* background-image: url(assets/images/imgExercice.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-     */
 }
 /* NavBar */
 
@@ -152,12 +147,13 @@ body {
     padding: 20px;
     margin: 10px;
     animation: animatezoom .25s linear;
-    top: 58px;
+    top: 68px;
+    z-index:1100;
 }
 
 @media screen and (max-width: 992px) {
     .containerLogin {
-        top: 212px;
+        top: 230px;
         left: 0;
     }
 }
@@ -286,4 +282,13 @@ body {
     100% {
         transform: scale(1)
     }
+}
+
+/*USER HOME*/
+.cont-msg-user-home {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

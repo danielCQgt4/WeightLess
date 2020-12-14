@@ -1,6 +1,7 @@
 ﻿using Backend.DAL;
 using Backend.Entity;
 using FrontEnd.Models;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -281,5 +282,43 @@ namespace FrontEnd.Controllers {
             }
             return EditProfile();
         }
+
+        [AuthorizeRole(Role.C)]
+        public ActionResult ReportUserDataHistory() {
+
+            var reportViewer = new ReportViewer {
+                ProcessingMode = ProcessingMode.Local,
+                ShowExportControls = true,
+                ShowParameterPrompts = true,
+                ShowPageNavigationControls = true,
+                ShowRefreshButton = true,
+                ShowPrintButton = true,
+                SizeToReportContent = true,
+                AsyncRendering = false,
+            };
+
+            string rutaReporte = "~/Reports/UserDataHistoryReport.rdlc";
+            string rutaServidor = Server.MapPath(rutaReporte);
+            reportViewer.LocalReport.ReportPath = rutaServidor;
+            var infoFuenteDatos = reportViewer.LocalReport.GetDataSourceNames();
+            reportViewer.LocalReport.DataSources.Clear();
+
+            UserViewModel u = (UserViewModel)Session["User"];
+            List<UserDataHistory> datosReporte;
+            using (var udh = new UnitWork<UserDataHistory>()) {
+                datosReporte = udh.genericDAL.Find(o => o.idUser == u.idUser).ToList();
+            }
+
+            ReportDataSource fuenteDatos = new ReportDataSource();
+            fuenteDatos.Name = infoFuenteDatos[0];
+            fuenteDatos.Value = datosReporte;
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("UserDataHistoryDataSet", datosReporte));
+
+            reportViewer.LocalReport.Refresh();
+            ViewBag.ReportViewer = reportViewer;
+            return View();
+        }
+
+
     }
 }
