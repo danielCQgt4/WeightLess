@@ -96,11 +96,11 @@ namespace Backend.DAL {
                     foreach (var i in users) {
                         if (user.idUser != i.idUser) {
                             if (i.email.Equals(user.email)) {
-                                res = "Este correo ya esta en uso por uno de los usuarios";
+                                res = "Este correo ya está en uso por uno de los usuarios";
                                 break;
                             }
                             if (i.dni.Equals(user.dni)) {
-                                res = "Esta cédula ya esta en uso";
+                                res = "Esta cédula ya está en uso";
                                 break;
                             }
                         }
