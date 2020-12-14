@@ -27,9 +27,11 @@ namespace Backend.IMPL {
         public Activity_Assitance GetCurrentActivity(int idAissistance) {
             Activity_Assitance aa = null;
             using (var u = new UnitWork<Activity_Assitance>()) {
-                List<Activity_Assitance> acts = u.genericDAL.Find(o => o.end == null && o.kcal == -5 && o.idAssistance == idAissistance).ToList();
-                if (acts != null && acts.Count() > 0) {
-                    aa = acts.First();
+                if (u.genericDAL.Find(o => o.end == null && o.kcal == -5 && o.idAssistance == idAissistance) != null) {
+                    List<Activity_Assitance> acts = u.genericDAL.Find(o => o.end == null && o.kcal == -5 && o.idAssistance == idAissistance).ToList();
+                    if (acts != null && acts.Count() > 0) {
+                        aa = acts.Last();
+                    }
                 }
             }
             return aa;
@@ -42,6 +44,14 @@ namespace Backend.IMPL {
                 res = u.Complete();
             }
             return res ? aa : null;
+        }
+
+        public Activity_Assitance GetActivity_Assistance(int id) {
+            Activity_Assitance aa = null;
+            using (var u = new UnitWork<Activity_Assitance>()) {
+                aa = u.genericDAL.Get(id);
+            }
+            return aa;
         }
 
         public object UpdateTime(string timeOcurred, int idActivityAssistance) {

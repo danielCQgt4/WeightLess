@@ -399,6 +399,7 @@
     </Content>
     <Content Include="Views\Assistance\ReportAssistance.cshtml" />
     <Content Include="Views\User\ReportUserDataHistory.cshtml" />
+    <Content Include="Views\Activity\Working.cshtml" />
     <None Include="weightlessDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>weightlessDataSource.Designer.cs</LastGenOutput>
