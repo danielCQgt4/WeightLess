@@ -172,6 +172,7 @@ namespace FrontEnd.Controllers {
 
                             if (result) {
                                 List<Publication_Activity> tempActivities = new List<Publication_Activity>();
+                                List<int> repetPa = new List<int>();
                                 foreach (var item in publicationVM.activities) {
                                     string[] auxAct = item.Split(':');
                                     if (auxAct[0] == "" || auxAct[1] == "") {
@@ -183,11 +184,22 @@ namespace FrontEnd.Controllers {
                                         result = false;
                                         break;
                                     } else {
-                                        Publication_Activity auxPA = new Publication_Activity();
-                                        auxPA.idPublication = publication.idPublication;
-                                        auxPA.idActivity = Convert.ToInt32(auxAct[0]);
-                                        auxPA.description = auxAct[1];
-                                        tempActivities.Add(auxPA);
+                                        if (repetPa.Contains(Convert.ToInt32(auxAct[0]))) {
+                                            using (var unitP = new UnitWork<Publication>()) {
+                                                unitP.genericDAL.Remove(publication);
+                                                unitP.Complete();
+                                            }
+                                            TempData["errorCreate"] = "Alguna actividad está repetida";
+                                            result = false;
+                                            break;
+                                        } else {
+                                            Publication_Activity auxPA = new Publication_Activity();
+                                            auxPA.idPublication = publication.idPublication;
+                                            auxPA.idActivity = Convert.ToInt32(auxAct[0]);
+                                            auxPA.description = auxAct[1];
+                                            tempActivities.Add(auxPA);
+                                            repetPa.Add(Convert.ToInt32(auxAct[0]));
+                                        }
                                     }
                                 }
 
