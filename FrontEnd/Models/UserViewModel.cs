@@ -29,7 +29,7 @@ namespace FrontEnd.Models {
         [DisplayName("Apellido")]
         public string lastName { get; set; }
 
-        //[RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Correo inválido.")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = "Correo inválido.")]
         [Required]
         [StringLength(100)]
         [DisplayName("Correo")]
